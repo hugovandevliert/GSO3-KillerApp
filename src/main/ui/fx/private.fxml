@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="main.ui.controller.privateController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="750.0" prefWidth="1100.0">
 
+    <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
+        <children>
+            <JFXButton fx:id="btnAddFile" layoutX="900.0" layoutY="31.0" prefWidth="150.0" text="Add file">
+                <font>
+                    <Font name="Segoe UI Semilight" size="18.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </JFXButton>
+            <Label fx:id="lblHeaderName" layoutX="50.0" layoutY="30.0" text="name">
+                <font>
+                    <Font name="Segoe UI Semibold" size="28.0" />
+                </font>
+            </Label>
+        </children>
+    </Pane>
+    <Pane fx:id="paneContent" layoutY="100.0" prefHeight="650.0" prefWidth="1100.0" >
+
+    </Pane>
 </AnchorPane>
