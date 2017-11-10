@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane cacheShape="false" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.BaseController">
+   <children>
+      <Pane fx:id="paneMenu" prefHeight="750.0" prefWidth="150.0">
+         <children>
+            <FontAwesomeIconView glyphName="USER" layoutX="55.0" layoutY="315.0" size="50" >
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </FontAwesomeIconView>
+            <FontAwesomeIconView glyphName="USERS" layoutX="48.0" layoutY="465.0" size="50" >
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </FontAwesomeIconView>
+            <FontAwesomeIconView glyphName="BULLHORN" layoutX="50.0" layoutY="615.0" size="50" >
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </FontAwesomeIconView>
+            <FontAwesomeIconView glyphName="KEY" layoutX="50.0" layoutY="165.0" size="50" >
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </FontAwesomeIconView>
+         </children></Pane>
+
+      <Pane fx:id="paneHeader" layoutX="150.0" prefHeight="100.0" prefWidth="1100.0">
+         <children>
+            <JFXButton fx:id="btnHeaderButton" layoutX="900.0" layoutY="31.0" prefWidth="150.0" text="ButtonName">
+               <font>
+                  <Font name="Segoe UI Semilight" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label fx:id="lblHeaderName" layoutX="50.0" layoutY="30.0" text="PageName">
+               <font>
+                  <Font name="Segoe UI Semibold" size="28.0" />
+               </font>
+            </Label>
+         </children></Pane>
+
+      <Pane fx:id="paneContent" layoutX="150.0" layoutY="100.0" prefHeight="650.0" prefWidth="1100.0" />
+   </children>
+</AnchorPane>
