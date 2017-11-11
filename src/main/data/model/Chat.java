@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Chat {
-
     public enum ChatType {
         PRIVATE,
         GROUP,
@@ -25,6 +24,14 @@ public class Chat {
         this.name = name;
         this.chatType = chatType;
         messages = new ArrayList<>();
+    }
+
+    public Chat(final int id, final String name, final ChatType chatType, final ArrayList<Message> messages, final ArrayList<User> users) {
+        this.id = id;
+        this.name = name;
+        this.chatType = chatType;
+        this.messages = messages;
+        this.users = users;
     }
 
     public int getId() {
@@ -51,8 +58,8 @@ public class Chat {
         return 999;
     }
 
-    public void addMessage(String text) {
-        messages.add(new Message(text));
+    public void addMessage(Message message) {
+        messages.add(message);
     }
 
     public void addMessage(File file) {

@@ -5,8 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.data.model.Chat;
+import main.data.model.Message;
+import main.data.model.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PrivateController {
     @FXML protected Pane paneContent;
@@ -26,9 +29,18 @@ public class PrivateController {
             final ListedchatController listedchatController = fxmlLoader.getController();
 
             Chat chat = new Chat(i,"test " + i, Chat.ChatType.PRIVATE);
-            chat.addMessage("This is a very very very very very very very very very very very very very very very " +
+
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message");
+                    "very very very very very very very very very very very very very very very very very very very long message", baseController.applicationManager.getCurrentUser()));
+
+            chat.addMessage(new Message("A smaller test message", new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
+                    new ArrayList<>(), new ArrayList<>())));
+
+            chat.addMessage(new Message("And another one test message", baseController.applicationManager.getCurrentUser()));
+
+            chat.addMessage(new Message("And a laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarge test message", new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
+                    new ArrayList<>(), new ArrayList<>())));
 
             listedchatController.setListedchat(chat);
             listedchatController.setBaseController(baseController);

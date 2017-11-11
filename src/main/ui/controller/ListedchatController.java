@@ -31,6 +31,7 @@ public class ListedchatController {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chat.fxml"));
         final Pane newContentPane = fxmlLoader.load();
         final ChatController chatController = fxmlLoader.getController();
+        chatController.setBaseController(baseController);
         chatController.loadChat(chat);
 
         baseController.paneContent.getChildren().clear();

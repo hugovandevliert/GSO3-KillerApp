@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -37,7 +38,7 @@
         <children>
             <ScrollPane fx:id="scrollpaneListedMessages" hbarPolicy="NEVER" maxHeight="650.0" maxWidth="1100.0" prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
                 <content>
-                    <VBox fx:id="vboxListedMessages" alignment="TOP_CENTER" fillWidth="false" maxHeight="495.0" maxWidth="1100.0" prefHeight="495.0" prefWidth="1100.0" spacing="25.0" style="-fx-background-color: #FFFFFF;" />
+                    <VBox fx:id="vboxListedMessages" alignment="TOP_CENTER" fillWidth="false" maxHeight="495.0" maxWidth="1100.0" prefHeight="495.0" prefWidth="1100.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" />
                 </content>
             </ScrollPane>
          <TextArea fx:id="txtMessageText" layoutX="14.0" layoutY="511.0" prefHeight="100.0" prefWidth="835.0" promptText="Write a message...">
@@ -45,13 +46,16 @@
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>
          </TextArea>
-         <JFXButton fx:id="btnSendMessage" layoutX="900.0" layoutY="524.0" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Send" textFill="WHITE">
+         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" layoutX="900.0" layoutY="516.0" prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
+            <graphic>
+               <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="25" wrappingWidth="25.0" />
+            </graphic>
          </JFXButton>
         </children>
     </Pane>

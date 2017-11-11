@@ -6,15 +6,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.ApplicationManager;
+
 import java.io.IOException;
 import java.util.Objects;
 
 public class BaseController {
+    final protected ApplicationManager applicationManager = new ApplicationManager();
+
     @FXML protected Pane paneContent;
     private FontAwesomeIconView selectedIcon;
 
     public BaseController() {
         this.selectedIcon = new FontAwesomeIconView();
+
+        applicationManager.login("test", "test");
     }
 
     public void selectMenuIcon(MouseEvent mouseEvent) throws IOException {
@@ -29,9 +35,14 @@ public class BaseController {
 
         switch (selectedIcon.getId()) {
             case "iconAccount":
+                fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/account.fxml"));
+                newPane = fxmlLoader.load();
+                final AccountController accountController = fxmlLoader.getController();
+                accountController.loadAccount(applicationManager.getCurrentUser());
+
                 paneContent.getChildren().clear();
-                paneContent.getChildren().add(new FXMLLoader(getClass().getResource("/main/ui/fx/account.fxml")).load());
-                break;
+                paneContent.getChildren().add(newPane);
+            break;
             case "iconPrivate":
                 fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/private.fxml"));
                 newPane = fxmlLoader.load();

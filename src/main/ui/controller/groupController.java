@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.data.model.Chat;
+import main.data.model.Message;
 
 import java.io.IOException;
 
@@ -26,9 +27,9 @@ public class GroupController {
             final ListedchatController listedchatController = fxmlLoader.getController();
 
             Chat chat = new Chat(i,"group " + i, Chat.ChatType.GROUP);
-            chat.addMessage("This is a very very very very very very very very very very very very very very very " +
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very  very very very very very very very very very very very very very long message");
+                    "very very very very very very  very very very very very very very very very very very very very long message", baseController.applicationManager.getCurrentUser()));
 
             listedchatController.setListedchat(chat);
             listedchatController.setBaseController(baseController);
