@@ -3,14 +3,16 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.AccountController">
-    <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
+    <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
         <children>
-            <JFXButton fx:id="btnLogOut" layoutX="900.0" layoutY="31.0" prefWidth="150.0" text="Log out">
+            <JFXButton fx:id="btnLogOut" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D;" text="Log out" textFill="WHITE">
                 <font>
                     <Font name="Segoe UI Semilight" size="18.0" />
                 </font>
@@ -25,7 +27,35 @@
             </Label>
         </children>
     </Pane>
-   <Pane fx:id="paneContent" layoutY="100.0" prefHeight="650.0" prefWidth="1100.0" >
-
-   </Pane>
+   <Pane fx:id="paneContent" layoutY="100.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
+      <children>
+         <ImageView fx:id="imgviewProfilePicture" fitHeight="250.0" fitWidth="250.0" layoutX="425.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../util/img/profile-placeholder.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="lblUsername" alignment="CENTER" layoutX="425.0" layoutY="335.0" prefHeight="35.0" prefWidth="250.0" text="username" textAlignment="CENTER">
+            <font>
+               <Font name="Segoe UI Semilight" size="24.0" />
+            </font>
+         </Label>
+         <Label fx:id="lblName" alignment="CENTER" layoutX="425.0" layoutY="395.0" prefHeight="35.0" prefWidth="250.0" text="name" textAlignment="CENTER">
+            <font>
+               <Font name="Segoe UI Semilight" size="24.0" />
+            </font>
+         </Label>
+         <Label fx:id="lblFunction" alignment="CENTER" layoutX="425.0" layoutY="455.0" prefHeight="35.0" prefWidth="250.0" text="function" textAlignment="CENTER">
+            <font>
+               <Font name="Segoe UI Semilight" size="24.0" />
+            </font>
+         </Label>
+         <JFXButton fx:id="btnEditProfile" layoutX="475.0" layoutY="520.0" prefWidth="150.0" style="-fx-background-color: #1DB01D;" text="Edit profile" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI Semilight" size="18.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </JFXButton>
+      </children></Pane>
 </AnchorPane>

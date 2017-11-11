@@ -9,12 +9,12 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="main.ui.controller.groupController"
+            fx:controller="main.ui.controller.GroupController"
             prefHeight="750.0" prefWidth="1100.0">
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
         <children>
-            <JFXButton fx:id="btnCreateGroupChat" layoutX="900.0" layoutY="31.0" prefWidth="150.0" text="Create">
+            <JFXButton fx:id="btnCreateGroupChat" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Create">
                 <font>
                     <Font name="Segoe UI Semilight" size="18.0" />
                 </font>

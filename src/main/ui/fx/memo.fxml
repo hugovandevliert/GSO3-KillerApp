@@ -9,12 +9,12 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="main.ui.controller.memoController"
+            fx:controller="main.ui.controller.MemoController"
             prefHeight="750.0" prefWidth="1100.0">
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
         <children>
-            <JFXButton fx:id="btnHeaderButton" layoutX="900.0" layoutY="31.0" prefWidth="150.0" text="ButtonName">
+            <JFXButton fx:id="btnCreateMemo" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Create">
                 <font>
                     <Font name="Segoe UI Semilight" size="18.0" />
                 </font>
@@ -22,7 +22,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </JFXButton>
-            <Label fx:id="lblHeaderName" layoutX="50.0" layoutY="30.0" text="PageName">
+            <Label fx:id="lblMemos" layoutX="50.0" layoutY="30.0" text="Memo's">
                 <font>
                     <Font name="Segoe UI Semibold" size="28.0" />
                 </font>
