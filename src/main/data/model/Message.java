@@ -7,6 +7,7 @@ public class Message {
     private String text;
     private File file;
     private Time time;
+    private User sender;
 
     public Message(String text) {
         this.text = text;

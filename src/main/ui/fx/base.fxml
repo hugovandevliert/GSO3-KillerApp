@@ -33,7 +33,7 @@
             </FontAwesomeIconView>
          </children></Pane>
 
-      <Pane fx:id="paneContent" layoutX="150.0" layoutY="25.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" >
+      <Pane fx:id="paneContent" layoutX="150.0" layoutY="25.0" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" >
          <children>
             <Label layoutX="20.0" layoutY="110.0" text="View your profile">
                <font>

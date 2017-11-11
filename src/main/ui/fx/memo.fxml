@@ -29,7 +29,7 @@
             </Label>
         </children>
     </Pane>
-    <Pane fx:id="paneContent" layoutY="100.0" prefHeight="650.0" prefWidth="1100.0" >
+    <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0" >
 
     </Pane>
 </AnchorPane>

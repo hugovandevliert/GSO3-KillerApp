@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.AccountController">
+
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
         <children>
             <JFXButton fx:id="btnLogOut" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D;" text="Log out" textFill="WHITE">
@@ -27,7 +28,8 @@
             </Label>
         </children>
     </Pane>
-   <Pane fx:id="paneContent" layoutY="100.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
+
+   <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
       <children>
          <ImageView fx:id="imgviewProfilePicture" fitHeight="250.0" fitWidth="250.0" layoutX="425.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -57,5 +59,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </JFXButton>
-      </children></Pane>
+      </children>
+   </Pane>
+
 </AnchorPane>
