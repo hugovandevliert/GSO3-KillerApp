@@ -34,6 +34,9 @@ public class Message {
     }
 
     public String getText() {
+        if (file != null) {
+            text += "\n" + file.getName();
+        }
         return text;
     }
 

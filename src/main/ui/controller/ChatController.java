@@ -2,15 +2,12 @@ package main.ui.controller;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -48,7 +45,7 @@ public class ChatController {
         lblMessage.setMaxWidth(900);
         lblMessage.setWrapText(true);
 
-        if (message.getFile() == null) {
+        if (message.getFile() != null) {
             final FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.FILE_ALT);
             icon.setStyle("-fx-font-size: 50px;");
             lblMessage.setContentDisplay(ContentDisplay.LEFT);
@@ -71,6 +68,6 @@ public class ChatController {
     }
 
     private void openFile() {
-        
+
     }
 }

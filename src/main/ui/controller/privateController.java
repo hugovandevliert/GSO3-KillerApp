@@ -8,6 +8,7 @@ import main.data.model.Chat;
 import main.data.model.Message;
 import main.data.model.User;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,19 +29,21 @@ public class PrivateController {
             final Pane listedChatPane = fxmlLoader.load();
             final ListedchatController listedchatController = fxmlLoader.getController();
 
-            Chat chat = new Chat(i,"test " + i, Chat.ChatType.PRIVATE);
+            Chat chat = new Chat(i,"Timo", Chat.ChatType.PRIVATE);
 
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message", baseController.applicationManager.getCurrentUser()));
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    baseController.applicationManager.getCurrentUser()));
 
-            chat.addMessage(new Message("A smaller test message", new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
-                    new ArrayList<>(), new ArrayList<>())));
+            chat.addMessage(new Message("I have sent you a file!", new File("test.txt"), new User(0, "testUser2", "Simone",
+                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())));
 
             chat.addMessage(new Message("And another one test message", baseController.applicationManager.getCurrentUser()));
 
-            chat.addMessage(new Message("And a laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarge test message", new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
-                    new ArrayList<>(), new ArrayList<>())));
+            chat.addMessage(new Message("And a laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarge test message",
+                    new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
+                            new ArrayList<>(), new ArrayList<>())));
 
             listedchatController.setListedchat(chat);
             listedchatController.setBaseController(baseController);
