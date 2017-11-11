@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="unnamed">
+    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
+    <root id="archive" name="unnamed.jar">
+      <element id="module-output" name="GSO3-KillerApp" />
+      <element id="library" level="project" name="fontawesomefx-8.9" />
+      <element id="library" level="project" name="jfoenix" />
+    </root>
+  </artifact>
+</component>

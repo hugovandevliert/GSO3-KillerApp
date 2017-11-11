@@ -41,7 +41,7 @@
                     <VBox fx:id="vboxListedMessages" alignment="TOP_CENTER" fillWidth="false" maxHeight="495.0" maxWidth="1100.0" prefHeight="495.0" prefWidth="1100.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" />
                 </content>
             </ScrollPane>
-         <TextArea fx:id="txtMessageText" layoutX="14.0" layoutY="511.0" prefHeight="100.0" prefWidth="835.0" promptText="Write a message...">
+         <TextArea fx:id="txtMessageText" layoutX="14.0" layoutY="511.0" prefHeight="100.0" prefWidth="835.0" promptText="Write a message..." >
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>

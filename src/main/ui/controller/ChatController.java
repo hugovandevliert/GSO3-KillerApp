@@ -29,12 +29,12 @@ public class ChatController {
 
         if (!chat.getMessages().isEmpty()) {
             for (Message message : chat.getMessages()) {
-                addMessage(message);
+                loadMessage(message);
             }
         }
     }
 
-    private void addMessage(final Message message) {
+    private void loadMessage(final Message message) {
         final HBox hBox = new HBox();
         hBox.setMinWidth(1050);
 
@@ -47,7 +47,7 @@ public class ChatController {
 
         if (message.getFile() != null) {
             final FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.FILE_ALT);
-            icon.setStyle("-fx-font-size: 50px;");
+            icon.setStyle("-fx-font-family:FontAwesome ;-fx-font-size: 50px;");
             lblMessage.setContentDisplay(ContentDisplay.LEFT);
             lblMessage.setCursor(Cursor.HAND);
             lblMessage.setGraphic(icon);
