@@ -15,7 +15,7 @@
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
         <children>
-            <JFXButton fx:id="btnAddFile" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Add file" textFill="WHITE">
+            <JFXButton fx:id="btnAddFile" layoutX="900.0" layoutY="31.0" onAction="#addFile" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Add file" textFill="WHITE">
                 <font>
                     <Font name="Segoe UI Semilight" size="18.0" />
                 </font>
@@ -41,12 +41,12 @@
                     <VBox fx:id="vboxListedMessages" alignment="TOP_CENTER" fillWidth="false" maxHeight="495.0" maxWidth="1100.0" prefHeight="495.0" prefWidth="1100.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" />
                 </content>
             </ScrollPane>
-         <TextArea fx:id="txtMessageText" layoutX="14.0" layoutY="511.0" prefHeight="100.0" prefWidth="835.0" promptText="Write a message..." >
+         <TextArea fx:id="txtMessageText" layoutX="14.0" layoutY="511.0" prefHeight="100.0" prefWidth="835.0" promptText="Write a message...">
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>
          </TextArea>
-         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" layoutX="900.0" layoutY="516.0" prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
+         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" disable="true" layoutX="900.0" layoutY="516.0" onAction="#sendMessage" prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>

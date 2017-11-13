@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import main.data.model.Chat;
 import main.data.model.Message;
 import main.data.model.User;
@@ -36,7 +37,7 @@ public class PrivateController extends BaseController {
                     "very very very very very very very very very very very very very very very very very very very long message",
                     applicationManager.getCurrentUser()));
 
-            chat.addMessage(new Message("I have sent you a file!", new File("test.txt"), new User(0, "testUser2", "Simone",
+            chat.addMessage(new Message("I have sent you a file!", new File("main/util/test/test.txt"), new User(0, "testUser2", "Simone",
                     "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())));
 
             chat.addMessage(new Message("And another one test message", applicationManager.getCurrentUser()));

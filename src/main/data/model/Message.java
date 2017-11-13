@@ -9,12 +9,6 @@ public class Message {
     private Time time;
     private User sender;
 
-    //Temp constructor for developing
-    Message(String text) {
-        this.text = text;
-        this.file = null;
-    }
-
     public Message(String text, User sender) {
         this.text = text;
         this.file = null;
