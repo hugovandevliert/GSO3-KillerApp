@@ -12,41 +12,41 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PrivateController {
+public class PrivateController extends BaseController {
     @FXML protected Pane paneContent;
     @FXML private VBox vboxListedChats;
 
-    private BaseController baseController;
+    private Pane parentPane;
 
-    void setBaseController(BaseController baseController) {
-        this.baseController = baseController;
+    void setParentPane(Pane parentPane) {
+        this.parentPane = parentPane;
     }
 
     void loadChats() throws IOException {
         //Temp Chats with messages for testing purposes
         for (int i = 0; i < 10; i++) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedchat.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
             final Pane listedChatPane = fxmlLoader.load();
-            final ListedchatController listedchatController = fxmlLoader.getController();
+            final ListedChatController listedChatController = fxmlLoader.getController();
 
             Chat chat = new Chat(i,"Timo", Chat.ChatType.PRIVATE);
 
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",
-                    baseController.applicationManager.getCurrentUser()));
+                    applicationManager.getCurrentUser()));
 
             chat.addMessage(new Message("I have sent you a file!", new File("test.txt"), new User(0, "testUser2", "Simone",
                     "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())));
 
-            chat.addMessage(new Message("And another one test message", baseController.applicationManager.getCurrentUser()));
+            chat.addMessage(new Message("And another one test message", applicationManager.getCurrentUser()));
 
             chat.addMessage(new Message("And a laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarge test message",
                     new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
                             new ArrayList<>(), new ArrayList<>())));
 
-            listedchatController.setListedchat(chat);
-            listedchatController.setBaseController(baseController);
+            listedChatController.setParentPane(parentPane);
+            listedChatController.setListedChat(chat);
 
             vboxListedChats.getChildren().add(listedChatPane);
         }

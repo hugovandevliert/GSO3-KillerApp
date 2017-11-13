@@ -6,18 +6,18 @@ import javafx.scene.image.ImageView;
 import main.data.model.User;
 
 
-public class AccountController {
+public class AccountController extends BaseController {
     @FXML private ImageView imgviewProfilePicture;
     @FXML private Label lblUsername;
     @FXML private Label lblName;
     @FXML private Label lblFunction;
 
-    void loadAccount(User currentUser) {
-        if (currentUser.getPhoto() != null) {
-            imgviewProfilePicture.setImage(currentUser.getPhoto());
+    void loadAccount(User user) {
+        if (user.getPhoto() != null) {
+            imgviewProfilePicture.setImage(user.getPhoto());
         }
-        lblUsername.setText(currentUser.getUsername());
-        lblName.setText(currentUser.getName());
-        lblFunction.setText(currentUser.getFunction());
+        lblUsername.setText(user.getUsername());
+        lblName.setText(user.getName());
+        lblFunction.setText(user.getFunction());
     }
 }

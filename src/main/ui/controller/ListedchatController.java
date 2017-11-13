@@ -5,22 +5,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import main.data.model.Chat;
-
 import java.io.IOException;
 
-public class ListedchatController {
+public class ListedChatController extends BaseController{
     @FXML private Label lblName;
     @FXML private Label lblLastMessage;
     @FXML private Label lblMessageCount;
 
     private Chat chat;
-    private BaseController baseController;
+    private Pane parentPane;
 
-    void setBaseController(final BaseController baseController) {
-        this.baseController = baseController;
+    void setParentPane(Pane parentPane) {
+        this.parentPane = parentPane;
     }
 
-    void setListedchat(final Chat chat) {
+    void setListedChat(final Chat chat) {
         this.chat = chat;
         lblName.setText(chat.getName());
         lblLastMessage.setText(chat.getLastMessage());
@@ -31,10 +30,9 @@ public class ListedchatController {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chat.fxml"));
         final Pane newContentPane = fxmlLoader.load();
         final ChatController chatController = fxmlLoader.getController();
-        chatController.setBaseController(baseController);
         chatController.loadChat(chat);
 
-        baseController.paneContent.getChildren().clear();
-        baseController.paneContent.getChildren().add(newContentPane);
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(newContentPane);
     }
 }

@@ -3,21 +3,26 @@ package main.ui.controller;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.ApplicationManager;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class BaseController {
-    final protected ApplicationManager applicationManager = new ApplicationManager();
+public class BaseController implements Initializable {
+    final static ApplicationManager applicationManager = new ApplicationManager();
 
     @FXML protected Pane paneContent;
+
     private FontAwesomeIconView selectedIcon;
 
-    public BaseController() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         this.selectedIcon = new FontAwesomeIconView();
 
         applicationManager.login("test", "test");
@@ -42,12 +47,12 @@ public class BaseController {
 
                 paneContent.getChildren().clear();
                 paneContent.getChildren().add(newPane);
-            break;
+                break;
             case "iconPrivate":
                 fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/private.fxml"));
                 newPane = fxmlLoader.load();
                 final PrivateController privateController = fxmlLoader.getController();
-                privateController.setBaseController(this);
+                privateController.setParentPane(paneContent);
                 privateController.loadChats();
 
                 paneContent.getChildren().clear();
@@ -57,7 +62,7 @@ public class BaseController {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/group.fxml"));
                 newPane = fxmlLoader.load();
                 final GroupController groupController = fxmlLoader.getController();
-                groupController.setBaseController(this);
+                groupController.setParentPane(paneContent);
                 groupController.loadChats();
 
                 paneContent.getChildren().clear();
@@ -67,7 +72,7 @@ public class BaseController {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/memo.fxml"));
                 newPane = fxmlLoader.load();
                 final MemoController memoController = fxmlLoader.getController();
-                memoController.setBaseController(this);
+                memoController.setParentPane(paneContent);
 
                 paneContent.getChildren().clear();
                 paneContent.getChildren().add(newPane);

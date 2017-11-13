@@ -3,13 +3,12 @@ package main.ui.controller;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
-public class MemoController {
+public class MemoController extends BaseController{
     @FXML protected Pane paneContent;
 
-    private BaseController baseController;
+    private Pane parentPane;
 
-    void setBaseController(BaseController baseController) {
-        this.baseController = baseController;
+    public void setParentPane(Pane parentPane) {
+        this.parentPane = parentPane;
     }
-
 }

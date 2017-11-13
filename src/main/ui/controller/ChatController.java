@@ -14,15 +14,9 @@ import javafx.scene.text.Font;
 import main.data.model.Chat;
 import main.data.model.Message;
 
-public class ChatController {
+public class ChatController extends BaseController {
     @FXML private Label lblChatName;
     @FXML private VBox vboxListedMessages;
-
-    private BaseController baseController;
-
-    void setBaseController(BaseController baseController) {
-        this.baseController = baseController;
-    }
 
     void loadChat(final Chat chat) {
         lblChatName.setText(chat.getName());
@@ -57,7 +51,7 @@ public class ChatController {
             lblMessage.setOnMouseClicked(event -> openFile());
         }
 
-        if (message.getSender().equals(baseController.applicationManager.getCurrentUser())) {
+        if (message.getSender().getId() == applicationManager.getCurrentUser().getId()) {
             hBox.setAlignment(Pos.CENTER_RIGHT);
         } else {
             hBox.setAlignment(Pos.CENTER_LEFT);
