@@ -52,9 +52,9 @@ public class ChatController extends BaseController {
         if (!this.chat.getMessages().isEmpty()) {
             for (Message message : this.chat.getMessages()) {
                 loadMessage(message);
-
             }
         }
+
         scrollpaneListedMessages.setVvalue(1.0);
     }
 
@@ -135,12 +135,19 @@ public class ChatController extends BaseController {
 
         if (selectedFile != null) {
             btnSendMessage.setDisable(false);
+            txtMessageText.setText(selectedFile.getName());
+            txtMessageText.setEditable(false);
         } else {
             btnSendMessage.setDisable(true);
+            txtMessageText.setText("");
+            txtMessageText.setEditable(true);
         }
     }
 
     public void sendMessage() {
+
+        txtMessageText.setText("");
+        txtMessageText.setEditable(true);
 
         scrollpaneListedMessages.setVvalue(1.0);
     }
