@@ -29,9 +29,11 @@ public class ChatController extends BaseController {
     @FXML private JFXButton btnSendMessage;
     @FXML private VBox vboxListedMessages;
 
+    private Chat chat;
     private File selectedFile;
 
     void loadChat(final Chat chat) {
+        this.chat = chat;
         txtMessageText.textProperty().addListener((observable, oldValue, newValue) -> {
             if (txtMessageText.getText().isEmpty() && selectedFile == null) {
                 btnSendMessage.setDisable(true);
@@ -45,13 +47,15 @@ public class ChatController extends BaseController {
         scrollpaneListedMessages.setFitToHeight(false);
         scrollpaneListedMessages.setContent(vboxListedMessages);
 
-        lblChatName.setText(chat.getName());
+        lblChatName.setText(this.chat.getName());
 
-        if (!chat.getMessages().isEmpty()) {
-            for (Message message : chat.getMessages()) {
+        if (!this.chat.getMessages().isEmpty()) {
+            for (Message message : this.chat.getMessages()) {
                 loadMessage(message);
+
             }
         }
+        scrollpaneListedMessages.setVvalue(1.0);
     }
 
     private void loadMessage(final Message message) {
@@ -64,14 +68,14 @@ public class ChatController extends BaseController {
 
         final Label lblMessage = new Label();
         lblMessage.setText(message.getText());
-        lblMessage.setFont(Font.font("Segoe UI Light", 18));
+        lblMessage.setFont(Font.font("Segoe UI SemiLight", 18));
         lblMessage.setBackground(new Background(new BackgroundFill(Paint.valueOf("E0E0E0"), new CornerRadii(2.5), new Insets(-5))));
-        lblMessage.setMaxWidth(900);
+        lblMessage.setMaxWidth(800);
         lblMessage.setWrapText(true);
 
         if (message.getFile() != null) {
             final FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.FILE_ALT);
-            icon.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 50px;");
+            icon.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 20px;");
             lblMessage.setContentDisplay(ContentDisplay.LEFT);
             lblMessage.setCursor(Cursor.HAND);
             lblMessage.setGraphic(icon);
@@ -83,15 +87,37 @@ public class ChatController extends BaseController {
 
         final Label lblSendTime = new Label();
         lblSendTime.setText(message.getTime());
-        lblSendTime.setFont(Font.font("Segoe UI Light", 12));
+        lblSendTime.setFont(Font.font("Segoe UI SemiLight", 12));
+        lblSendTime.setAlignment(Pos.CENTER);
+        lblSendTime.setMinWidth(55);
         lblSendTime.setPadding(new Insets(10));
 
         if (message.getSender().getId() == applicationManager.getCurrentUser().getId()) {
             hBox.setAlignment(Pos.CENTER_RIGHT);
+
             hBox.getChildren().add(lblMessage);
             hBox.getChildren().add(lblSendTime);
+        } else if (chat.getChatType() != Chat.ChatType.PRIVATE){
+            hBox.setAlignment(Pos.CENTER_LEFT);
+
+            final Label lblSenderName = new Label();
+            lblSenderName.setText(message.getSenderName() + ": ");
+            lblSenderName.setFont(Font.font("Segoe UI SemiBold", 18));
+            lblSenderName.setAlignment(Pos.TOP_LEFT);
+            lblSenderName.setBackground(new Background(new BackgroundFill(Paint.valueOf("E0E0E0"), new CornerRadii(2.5), new Insets(-5))));
+            lblMessage.heightProperty().addListener((obs, oldVal, newVal) -> {
+                lblSenderName.resizeRelocate(lblSenderName.getLayoutX(), lblMessage.getLayoutY(), lblSenderName.getWidth(), newVal.doubleValue());
+            });
+            lblMessage.layoutYProperty().addListener((obs, oldVal, newVal) -> {
+                lblSenderName.relocate(lblSenderName.getLayoutX(), newVal.doubleValue());
+            });
+
+            hBox.getChildren().add(lblSendTime);
+            hBox.getChildren().add(lblSenderName);
+            hBox.getChildren().add(lblMessage);
         } else {
             hBox.setAlignment(Pos.CENTER_LEFT);
+
             hBox.getChildren().add(lblSendTime);
             hBox.getChildren().add(lblMessage);
         }
@@ -116,6 +142,7 @@ public class ChatController extends BaseController {
 
     public void sendMessage() {
 
+        scrollpaneListedMessages.setVvalue(1.0);
     }
 
     private void saveFile() {

@@ -45,8 +45,8 @@ public class Chat {
         return chatType;
     }
 
-    public String getLastMessage() {
-        return messages.get(0).getText();
+    public Message getLastMessage() {
+        return messages.get(0);
     }
 
     public List<Message> getMessages() {

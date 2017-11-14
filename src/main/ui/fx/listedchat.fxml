@@ -22,11 +22,7 @@
             <Font name="Segoe UI Semibold" size="28.0" />
          </font>
       </Label>
-      <Label fx:id="lblLastMessage" alignment="CENTER" layoutX="175.0" layoutY="77.0" prefHeight="100.0" prefWidth="650.0" text="message" wrapText="true">
-         <font>
-            <Font name="Segoe UI Semilight" size="18.0" />
-         </font>
-      </Label>
+      <Label fx:id="lblLastMessage" alignment="CENTER" layoutX="175.0" layoutY="77.0" maxHeight="100" maxWidth="650" prefHeight="100.0" prefWidth="650.0" />
    </children>
 
 </AnchorPane>

@@ -35,15 +35,13 @@
 
     <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
         <children>
-            <ScrollPane fx:id="scrollpaneListedMessages" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
-                        prefHeight="500.0" prefWidth="1100.0" styleClass="edge-to-edge" style="-fx-background: #FFFFFF;"/>
-         <TextArea fx:id="txtMessageText" layoutX="14.0" layoutY="511.0" prefHeight="100.0" prefWidth="835.0" promptText="Write a message...">
+            <ScrollPane fx:id="scrollpaneListedMessages" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" prefHeight="500.0" prefWidth="1100.0" style="-fx-background: #FFFFFF;" styleClass="edge-to-edge" />
+         <TextArea fx:id="txtMessageText" layoutX="50.0" layoutY="511.0" prefHeight="100.0" prefWidth="800.0" promptText="Write a message...">
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>
          </TextArea>
-         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" disable="true" layoutX="900.0" layoutY="516.0" onAction="#sendMessage"
-                    prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
+         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" disable="true" layoutX="900.0" layoutY="516.0" onAction="#sendMessage" prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>
