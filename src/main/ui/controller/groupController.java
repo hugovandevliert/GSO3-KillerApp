@@ -8,6 +8,7 @@ import main.data.model.Chat;
 import main.data.model.Message;
 
 import java.io.IOException;
+import java.sql.Time;
 
 public class GroupController extends BaseController {
     @FXML protected Pane paneContent;
@@ -29,7 +30,7 @@ public class GroupController extends BaseController {
             Chat chat = new Chat(i,"group " + i, Chat.ChatType.GROUP);
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very  very very very very very very very very very very very very very long message", applicationManager.getCurrentUser()));
+                    "very very very very very very  very very very very very very very very very very very very very long message", applicationManager.getCurrentUser(), new Time(20, 45,10)));
 
             listedChatController.setParentPane(parentPane);
             listedChatController.setListedChat(chat);

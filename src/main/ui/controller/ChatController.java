@@ -3,34 +3,31 @@ package main.ui.controller;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import main.data.model.Chat;
 import main.data.model.Message;
-
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 
 public class ChatController extends BaseController {
     @FXML private Label lblChatName;
-    @FXML private VBox vboxListedMessages;
+    @FXML private ScrollPane scrollpaneListedMessages;
     @FXML private TextArea txtMessageText;
     @FXML private JFXButton btnSendMessage;
+    @FXML private VBox vboxListedMessages;
 
     private File selectedFile;
 
@@ -43,6 +40,11 @@ public class ChatController extends BaseController {
             }
         });
 
+        vboxListedMessages = new VBox();
+        vboxListedMessages.setSpacing(20);
+        scrollpaneListedMessages.setFitToHeight(false);
+        scrollpaneListedMessages.setContent(vboxListedMessages);
+
         lblChatName.setText(chat.getName());
 
         if (!chat.getMessages().isEmpty()) {
@@ -54,20 +56,22 @@ public class ChatController extends BaseController {
 
     private void loadMessage(final Message message) {
         //TODO: Add time to message
+        //Maybe like this?
+//        lblMessage.setId(message.getId());
 
         final HBox hBox = new HBox();
         hBox.setMinWidth(1050);
 
         final Label lblMessage = new Label();
         lblMessage.setText(message.getText());
-        lblMessage.setFont(Font.font("Segoe UI Light"));
-        lblMessage.setStyle("-fx-font-size: 18; -fx-background-color: #E0E0E0; -fx-padding: 10;");
+        lblMessage.setFont(Font.font("Segoe UI Light", 18));
+        lblMessage.setBackground(new Background(new BackgroundFill(Paint.valueOf("E0E0E0"), new CornerRadii(2.5), new Insets(-5))));
         lblMessage.setMaxWidth(900);
         lblMessage.setWrapText(true);
 
         if (message.getFile() != null) {
             final FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.FILE_ALT);
-            icon.setStyle("-fx-font-family: FontAwesome;-fx-font-size: 50px;");
+            icon.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 50px;");
             lblMessage.setContentDisplay(ContentDisplay.LEFT);
             lblMessage.setCursor(Cursor.HAND);
             lblMessage.setGraphic(icon);
@@ -77,13 +81,21 @@ public class ChatController extends BaseController {
             lblMessage.setOnMouseClicked(event -> saveFile());
         }
 
+        final Label lblSendTime = new Label();
+        lblSendTime.setText(message.getTime());
+        lblSendTime.setFont(Font.font("Segoe UI Light", 12));
+        lblSendTime.setPadding(new Insets(10));
+
         if (message.getSender().getId() == applicationManager.getCurrentUser().getId()) {
             hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.getChildren().add(lblMessage);
+            hBox.getChildren().add(lblSendTime);
         } else {
             hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.getChildren().add(lblSendTime);
+            hBox.getChildren().add(lblMessage);
         }
 
-        hBox.getChildren().add(lblMessage);
         vboxListedMessages.getChildren().add(hBox);
     }
 
@@ -128,7 +140,7 @@ public class ChatController extends BaseController {
         }
     }
 
-    private static String getFileExtension(File file) {
+    private String getFileExtension(File file) {
         String fileName = file.getName();
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
             return fileName.substring(fileName.lastIndexOf(".") + 1);

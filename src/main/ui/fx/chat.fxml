@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.ChatController">
@@ -34,19 +33,17 @@
         </children>
     </Pane>
 
-    <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0">
+    <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
         <children>
-            <ScrollPane fx:id="scrollpaneListedMessages" hbarPolicy="NEVER" maxHeight="650.0" maxWidth="1100.0" prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
-                <content>
-                    <VBox fx:id="vboxListedMessages" alignment="TOP_CENTER" fillWidth="false" maxHeight="495.0" maxWidth="1100.0" prefHeight="495.0" prefWidth="1100.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" />
-                </content>
-            </ScrollPane>
+            <ScrollPane fx:id="scrollpaneListedMessages" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
+                        prefHeight="500.0" prefWidth="1100.0" styleClass="edge-to-edge" style="-fx-background: #FFFFFF;"/>
          <TextArea fx:id="txtMessageText" layoutX="14.0" layoutY="511.0" prefHeight="100.0" prefWidth="835.0" promptText="Write a message...">
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>
          </TextArea>
-         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" disable="true" layoutX="900.0" layoutY="516.0" onAction="#sendMessage" prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
+         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" disable="true" layoutX="900.0" layoutY="516.0" onAction="#sendMessage"
+                    prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
             <font>
                <Font name="Segoe UI Semilight" size="18.0" />
             </font>

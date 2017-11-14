@@ -11,6 +11,7 @@ import main.data.model.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class PrivateController extends BaseController {
@@ -35,16 +36,32 @@ public class PrivateController extends BaseController {
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",
-                    applicationManager.getCurrentUser()));
+                    applicationManager.getCurrentUser(), new Time(20, 45,10)));
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    applicationManager.getCurrentUser(), new Time(20, 45,20)));
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    applicationManager.getCurrentUser(), new Time(20, 45,50)));
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    applicationManager.getCurrentUser(), new Time(20, 45,20)));
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    applicationManager.getCurrentUser(), new Time(20, 45,50)));
 
-            chat.addMessage(new Message("I have sent you a file!", new File("main/util/test/test.txt"), new User(0, "testUser2", "Simone",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())));
+            chat.addMessage(new Message(new File("main/util/test/test.txt"), new User(0, "testUser2", "Simone",
+                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
 
-            chat.addMessage(new Message("And another one test message", applicationManager.getCurrentUser()));
+            chat.addMessage(new Message("And another one test message", applicationManager.getCurrentUser(), new Time(20, 45,10)));
 
             chat.addMessage(new Message("And a laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarge test message",
                     new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
-                            new ArrayList<>(), new ArrayList<>())));
+                            new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
 
             listedChatController.setParentPane(parentPane);
             listedChatController.setListedChat(chat);
