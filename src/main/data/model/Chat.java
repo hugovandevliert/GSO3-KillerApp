@@ -53,6 +53,10 @@ public class Chat {
         return Collections.unmodifiableList(messages);
     }
 
+    public List<User> getUsers() {
+        return Collections.unmodifiableList(users);
+    }
+
     public int getUnreadMessagesCount() {
         return 999;
     }

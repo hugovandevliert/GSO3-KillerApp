@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
 public class MemoController extends BaseController{
-    @FXML protected Pane paneContent;
-
     private Pane parentPane;
 
     public void setParentPane(Pane parentPane) {

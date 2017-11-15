@@ -14,7 +14,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 public class GroupController extends BaseController {
-    @FXML protected Pane paneContent;
     @FXML private VBox vboxListedChats;
 
     private Pane parentPane;
@@ -42,6 +41,20 @@ public class GroupController extends BaseController {
 
             chat.addMessage(new Message(new File("main/util/test/test.txt"), new User(0, "testUser2", "Ronald",
                     "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
+
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
+                            new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    applicationManager.getCurrentUser(), new Time(20, 45,20)));
+            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very very " +
+                    "very very very very very very very very very very very very very very very very very very very long message",
+                    applicationManager.getCurrentUser(), new Time(1, 1,1)));
 
             chat.addMessage(new Message("And another one test message", new User(0, "testUser2", "JuulVergeetTas",
                     "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));

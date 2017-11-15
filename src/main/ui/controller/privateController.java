@@ -14,7 +14,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 public class PrivateController extends BaseController {
-    @FXML protected Pane paneContent;
     @FXML private VBox vboxListedChats;
 
     private Pane parentPane;
@@ -30,7 +29,12 @@ public class PrivateController extends BaseController {
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
 
-            Chat chat = new Chat(i,"Simone", Chat.ChatType.PRIVATE);
+            ArrayList<User> users = new ArrayList<User>();
+            users.add(applicationManager.getCurrentUser());
+            users.add(new User(0, "testUser2", "Simone",
+                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+
+            Chat chat = new Chat(i,"Simone", Chat.ChatType.PRIVATE, new ArrayList<>(), users);
 
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +

@@ -33,7 +33,7 @@
       <children>
          <ScrollPane fx:id="scrollpaneListedChats" hbarPolicy="NEVER" maxHeight="625.0" maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" styleClass="edge-to-edge" style="-fx-background: #FFFFFF;">
             <content>
-               <VBox fx:id="vboxListedChats" alignment="TOP_CENTER" fillWidth="false" maxHeight="645.0" maxWidth="1100.0" prefHeight="645.0" prefWidth="1100.0" spacing="25.0" style="-fx-background-color: #FFFFFF;" />
+               <VBox fx:id="vboxListedChats" alignment="TOP_CENTER" fillWidth="false" maxHeight="625.0" maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" spacing="25.0" style="-fx-background-color: #FFFFFF;" />
             </content>  
          </ScrollPane>
       </children>

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -31,6 +32,11 @@ public class ChatController extends BaseController {
 
     private Chat chat;
     private File selectedFile;
+    private Pane parentPane;
+
+    public void setParentPane(Pane parentPane) {
+        this.parentPane = parentPane;
+    }
 
     void loadChat(final Chat chat) {
         this.chat = chat;
@@ -142,6 +148,17 @@ public class ChatController extends BaseController {
             txtMessageText.setText("");
             txtMessageText.setEditable(true);
         }
+    }
+
+    public void openChatInfo() throws IOException {
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chatInfo.fxml"));
+        final Pane newContentPane = fxmlLoader.load();
+        final ChatInfoController chatInfoController = fxmlLoader.getController();
+        chatInfoController.setParentPane(parentPane);
+        chatInfoController.loadChatInfo(chat);
+
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(newContentPane);
     }
 
     public void sendMessage() {
