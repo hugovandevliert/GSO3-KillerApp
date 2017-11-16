@@ -22,13 +22,13 @@ public class ChatInfoController extends BaseController {
 
     void loadChatInfo(Chat chat) throws IOException {
         if (chat.getChatType() == Chat.ChatType.PRIVATE) {
-            if (chat.getUsers().get(0) == applicationManager.getCurrentUser()) {
-                lblChatName.setText("Private chat with: " + chat.getUsers().get(1).getName());
+            if (chat.getUsers().get(0).getId() == applicationManager.getCurrentUser().getId()) {
+                lblChatName.setText("Members of private chat with: " + chat.getUsers().get(1).getName());
             } else {
-                lblChatName.setText("Private chat with: " + chat.getUsers().get(0).getName());
+                lblChatName.setText("Members of private chat with: " + chat.getUsers().get(0).getName());
             }
         } else {
-            lblChatName.setText(chat.getName());
+            lblChatName.setText("Members of: " + chat.getName());
         }
 
         for (User user : chat.getUsers()) {

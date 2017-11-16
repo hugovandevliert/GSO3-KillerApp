@@ -34,7 +34,7 @@ public class ChatController extends BaseController {
     private File selectedFile;
     private Pane parentPane;
 
-    public void setParentPane(Pane parentPane) {
+    void setParentPane(Pane parentPane) {
         this.parentPane = parentPane;
     }
 
@@ -65,12 +65,12 @@ public class ChatController extends BaseController {
     }
 
     private void loadMessage(final Message message) {
-        //TODO: Add time to message
+        //TODO: Add file to message
         //Maybe like this?
-//        lblMessage.setId(message.getId());
+        //lblMessage.setId(message.getId());
 
-        final HBox hBox = new HBox();
-        hBox.setMinWidth(1050);
+        final HBox hBoxMessageBody = new HBox();
+        hBoxMessageBody.setMinWidth(1050);
 
         final Label lblMessage = new Label();
         lblMessage.setText(message.getText());
@@ -88,7 +88,7 @@ public class ChatController extends BaseController {
 
             lblMessage.setOnMouseEntered((MouseEvent event) -> ((Label) event.getSource()).setUnderline(true));
             lblMessage.setOnMouseExited((MouseEvent event) -> ((Label) event.getSource()).setUnderline(false));
-            lblMessage.setOnMouseClicked(event -> saveFile());
+            lblMessage.setOnMouseClicked(event -> saveFile(event));
         }
 
         final Label lblSendTime = new Label();
@@ -99,18 +99,19 @@ public class ChatController extends BaseController {
         lblSendTime.setPadding(new Insets(10));
 
         if (message.getSender().getId() == applicationManager.getCurrentUser().getId()) {
-            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBoxMessageBody.setAlignment(Pos.CENTER_RIGHT);
 
-            hBox.getChildren().add(lblMessage);
-            hBox.getChildren().add(lblSendTime);
+            hBoxMessageBody.getChildren().add(lblMessage);
+            hBoxMessageBody.getChildren().add(lblSendTime);
         } else if (chat.getChatType() != Chat.ChatType.PRIVATE){
-            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBoxMessageBody.setAlignment(Pos.CENTER_LEFT);
 
             final Label lblSenderName = new Label();
             lblSenderName.setText(message.getSenderName() + ": ");
             lblSenderName.setFont(Font.font("Segoe UI SemiBold", 18));
             lblSenderName.setAlignment(Pos.TOP_LEFT);
             lblSenderName.setBackground(new Background(new BackgroundFill(Paint.valueOf("E0E0E0"), new CornerRadii(2.5), new Insets(-5))));
+
             lblMessage.heightProperty().addListener((obs, oldVal, newVal) -> {
                 lblSenderName.resizeRelocate(lblSenderName.getLayoutX(), lblMessage.getLayoutY(), lblSenderName.getWidth(), newVal.doubleValue());
             });
@@ -118,17 +119,17 @@ public class ChatController extends BaseController {
                 lblSenderName.relocate(lblSenderName.getLayoutX(), newVal.doubleValue());
             });
 
-            hBox.getChildren().add(lblSendTime);
-            hBox.getChildren().add(lblSenderName);
-            hBox.getChildren().add(lblMessage);
+            hBoxMessageBody.getChildren().add(lblSendTime);
+            hBoxMessageBody.getChildren().add(lblSenderName);
+            hBoxMessageBody.getChildren().add(lblMessage);
         } else {
-            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBoxMessageBody.setAlignment(Pos.CENTER_LEFT);
 
-            hBox.getChildren().add(lblSendTime);
-            hBox.getChildren().add(lblMessage);
+            hBoxMessageBody.getChildren().add(lblSendTime);
+            hBoxMessageBody.getChildren().add(lblMessage);
         }
 
-        vboxListedMessages.getChildren().add(hBox);
+        vboxListedMessages.getChildren().add(hBoxMessageBody);
     }
 
     public void addFile() {
@@ -169,8 +170,13 @@ public class ChatController extends BaseController {
         scrollpaneListedMessages.setVvalue(1.0);
     }
 
-    private void saveFile() {
+    private void saveFile(MouseEvent event) {
         //TODO: Somehow figure out file.
+        //Maybe like this?
+        //Label lblMessage = (Message) event.getSource();
+        //final int messageId = lblMessage.getId();
+
+        //temp file
         final File fileContent = new File("main/util/test/test.txt");
 
         FileChooser fileChooser = new FileChooser();

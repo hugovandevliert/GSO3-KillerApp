@@ -17,14 +17,6 @@ public class Chat {
     private ArrayList<Message> messages;
     private ArrayList<User> users;
 
-    //temp constructor for testing purposes
-    public Chat(final int id, final String name, final ChatType chatType) {
-        this.id = id;
-        this.name = name;
-        this.chatType = chatType;
-        messages = new ArrayList<>();
-    }
-
     public Chat(final int id, final String name, final ChatType chatType, final ArrayList<Message> messages, final ArrayList<User> users) {
         this.id = id;
         this.name = name;
@@ -57,8 +49,12 @@ public class Chat {
         return Collections.unmodifiableList(users);
     }
 
-    public int getUnreadMessagesCount() {
-        return 999;
+    public String getUnreadMessagesCount() {
+        if (999 > 999) {
+            return "999+";
+        } else {
+            return "999";
+        }
     }
 
     public void addMessage(Message message) {

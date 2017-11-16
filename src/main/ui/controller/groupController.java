@@ -29,11 +29,22 @@ public class GroupController extends BaseController {
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
 
-            Chat chat = new Chat(i,"group " + i, Chat.ChatType.GROUP);
+            ArrayList<User> users = new ArrayList<User>();
+            users.add(applicationManager.getCurrentUser());
+            users.add(new User(0, "testUser2", "Simone",
+                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+            users.add(new User(0, "testUser3", "Timo",
+                    "Bierproever", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+            users.add(new User(0, "testUser4", "JuulVergeetTas",
+                    "Paupert", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+
+            Chat chat = new Chat(i,"group " + i, Chat.ChatType.GROUP, new ArrayList<>(), users);
+
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message", new User(0, "testUser2", "Timo",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
+                    "very very very very very very very very very very very very very very very very very very very long message", new User(0, "testUser3", "Timo",
+                    "Bierproever", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
+
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",

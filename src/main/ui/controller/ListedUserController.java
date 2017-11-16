@@ -19,7 +19,7 @@ public class ListedUserController {
         this.parentPane = parentPane;
     }
 
-    public void setListedUser(User user) {
+    void setListedUser(User user) {
         this.user = user;
         lblName.setText(user.getName());
         if (user.getPhoto() != null) {
