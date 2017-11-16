@@ -49,30 +49,30 @@ public class BaseController implements Initializable {
                 paneContent.getChildren().add(newPane);
                 break;
             case "iconPrivate":
-                fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/private.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/privatePage.fxml"));
                 newPane = fxmlLoader.load();
-                final PrivateController privateController = fxmlLoader.getController();
-                privateController.setParentPane(paneContent);
-                privateController.loadChats();
+                final PrivatePageController privatePageController = fxmlLoader.getController();
+                privatePageController.setParentPane(paneContent);
+                privatePageController.loadChats();
 
                 paneContent.getChildren().clear();
                 paneContent.getChildren().add(newPane);
                 break;
             case "iconGroup":
-                fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/group.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/groupPage.fxml"));
                 newPane = fxmlLoader.load();
-                final GroupController groupController = fxmlLoader.getController();
-                groupController.setParentPane(paneContent);
-                groupController.loadChats();
+                final GroupPageController groupPageController = fxmlLoader.getController();
+                groupPageController.setParentPane(paneContent);
+                groupPageController.loadChats();
 
                 paneContent.getChildren().clear();
                 paneContent.getChildren().add(newPane);
                 break;
             case "iconMemo":
-                fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/memo.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/memoPage.fxml"));
                 newPane = fxmlLoader.load();
-                final MemoController memoController = fxmlLoader.getController();
-                memoController.setParentPane(paneContent);
+                final MemoPageController memoPageController = fxmlLoader.getController();
+                memoPageController.setParentPane(paneContent);
 
                 paneContent.getChildren().clear();
                 paneContent.getChildren().add(newPane);
