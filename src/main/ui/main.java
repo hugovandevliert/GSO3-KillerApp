@@ -1,17 +1,19 @@
 package main.ui;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import main.ui.controller.BaseController;
 
 public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final Parent root = FXMLLoader.load(getClass().getResource("fx/base.fxml"));
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fx/base.fxml"));
+        final Parent root = fxmlLoader.load();
+        ((BaseController) fxmlLoader.getController()).setAnimation();
         final Scene scene = new Scene(root);
 
         primaryStage.initStyle(StageStyle.UNDECORATED);

@@ -36,7 +36,6 @@ public class BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.selectedIcon = new FontAwesomeIconView();
 
-        setAnimation();
     }
 
     public void login() {
@@ -109,7 +108,7 @@ public class BaseController implements Initializable {
         icon.setStyle("-fx-fill: black");
     }
 
-    private void setAnimation(){
+    public void setAnimation(){
 		// Initial position setting for Pane
         Rectangle2D boxBounds = new Rectangle2D(0, 0, 150, 750);
         Rectangle clipRect = new Rectangle();
