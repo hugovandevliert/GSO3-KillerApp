@@ -4,44 +4,52 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.ApplicationManager;
+import main.data.model.Chat;
+import main.data.model.Message;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BaseController implements Initializable {
     final static ApplicationManager applicationManager = new ApplicationManager();
 
-    @FXML protected Pane paneContent;
-
     @FXML private Pane paneMenu;
+    @FXML private Pane paneContent;
     @FXML private Pane paneLogin;
 
     private FontAwesomeIconView selectedIcon;
-    private Timeline timelineMenu;
+    private Timeline timelineAlertDown;
+    private Timeline timelineAlertUp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.selectedIcon = new FontAwesomeIconView();
-
     }
 
     public void login() {
         applicationManager.login("test", "test");
         paneContent.getChildren().remove(paneLogin);
-        timelineMenu.play();
+        timelineAlertDown.play();
     }
 
     public void selectMenuIcon(MouseEvent mouseEvent) throws IOException {
@@ -108,8 +116,8 @@ public class BaseController implements Initializable {
         icon.setStyle("-fx-fill: black");
     }
 
-    public void setAnimation(){
-		// Initial position setting for Pane
+    public void setMenuAnimation(){
+        // Initial position setting for Pane
         Rectangle2D boxBounds = new Rectangle2D(0, 0, 150, 750);
         Rectangle clipRect = new Rectangle();
         clipRect.setWidth(0);
@@ -118,7 +126,7 @@ public class BaseController implements Initializable {
         paneMenu.setClip(clipRect);
         paneMenu.translateXProperty().set(-boxBounds.getWidth());
 
-		// Animation for bouncing effect
+        // Animation for bouncing effect
         final Timeline timelineMenuBounce = new Timeline();
         timelineMenuBounce.setCycleCount(2);
         timelineMenuBounce.setAutoReverse(true);
@@ -128,19 +136,68 @@ public class BaseController implements Initializable {
         final KeyFrame kfb = new KeyFrame(Duration.millis(100), kvb1, kvb2, kvb3);
         timelineMenuBounce.getKeyFrames().add(kfb);
 
-		// Event handler to call bouncing effect after scrolling is finished
+        // Event handler to call bouncing effect after scrolling is finished
         EventHandler<ActionEvent> onFinished = t -> timelineMenuBounce.play();
 
-        timelineMenu = new Timeline();
+        timelineAlertDown = new Timeline();
 
         // Animation for scroll to the right
-        timelineMenu.setCycleCount(1);
-        timelineMenu.setAutoReverse(true);
+        timelineAlertDown.setCycleCount(1);
+        timelineAlertDown.setAutoReverse(true);
         final KeyValue kvr1 = new KeyValue(clipRect.widthProperty(), boxBounds.getWidth());
         final KeyValue kvr2 = new KeyValue(clipRect.translateXProperty(), 0);
         final KeyValue kvr3 = new KeyValue(paneMenu.translateXProperty(), 0);
         final KeyFrame kfr = new KeyFrame(Duration.millis(200), onFinished, kvr1, kvr2, kvr3);
-        timelineMenu.getKeyFrames().add(kfr);
+        timelineAlertDown.getKeyFrames().add(kfr);
+    }
+
+    public void setAlertAnimation(Pane paneAlert){
+        // Initial position setting for Pane
+        Rectangle2D boxBounds = new Rectangle2D(0, 0, 900, 100);
+        Rectangle clipRect = new Rectangle();
+        clipRect.setHeight(0);
+        clipRect.setWidth(boxBounds.getWidth());
+        clipRect.translateYProperty().set(boxBounds.getHeight());
+        paneAlert.setClip(clipRect);
+        paneAlert.translateYProperty().set(-boxBounds.getHeight());
+
+        // Animation for bouncing effect
+        final Timeline timelineMenuBounce = new Timeline();
+        timelineMenuBounce.setCycleCount(2);
+        timelineMenuBounce.setAutoReverse(true);
+        final KeyValue kvb1 = new KeyValue(clipRect.heightProperty(), (boxBounds.getHeight()-15));
+        final KeyValue kvb2 = new KeyValue(clipRect.translateYProperty(), 15);
+        final KeyValue kvb3 = new KeyValue(paneAlert.translateYProperty(), -15);
+        final KeyFrame kfb = new KeyFrame(Duration.millis(100), kvb1, kvb2, kvb3);
+        timelineMenuBounce.getKeyFrames().add(kfb);
+
+        // Event handler to call bouncing effect after scrolling is finished
+        EventHandler<ActionEvent> onFinished = t -> timelineMenuBounce.play();
+
+        timelineAlertDown = new Timeline();
+        timelineAlertUp = new Timeline();
+
+        // Animation for scroll down
+        timelineAlertDown.setCycleCount(1);
+        timelineAlertDown.setAutoReverse(true);
+        final KeyValue kvDwn1 = new KeyValue(clipRect.heightProperty(), boxBounds.getHeight());
+        final KeyValue kvDwn2 = new KeyValue(clipRect.translateYProperty(), 0);
+        final KeyValue kvDwn3 = new KeyValue(paneAlert.translateYProperty(), 0);
+        final KeyFrame kfDwn = new KeyFrame(Duration.millis(200), onFinished, kvDwn1, kvDwn2, kvDwn3);
+        timelineAlertDown.getKeyFrames().add(kfDwn);
+
+        // Event handler to remove pane from canvas after it's finished going up
+        EventHandler<ActionEvent> onFinishedUp = t ->
+                ((AnchorPane) paneAlert.getParent()).getChildren().remove(paneAlert);
+
+        // Animation for scroll up
+        timelineAlertUp.setCycleCount(1);
+        timelineAlertUp.setAutoReverse(true);
+        final KeyValue kvUp1 = new KeyValue(clipRect.heightProperty(), 0);
+        final KeyValue kvUp2 = new KeyValue(clipRect.translateYProperty(), boxBounds.getHeight());
+        final KeyValue kvUp3 = new KeyValue(paneAlert.translateYProperty(), -(boxBounds.getHeight()));
+        final KeyFrame kfUp = new KeyFrame(Duration.millis(200), onFinishedUp, kvUp1, kvUp2, kvUp3);
+        timelineAlertUp.getKeyFrames().add(kfUp);
     }
 
     public void closeApplication() {
@@ -149,5 +206,24 @@ public class BaseController implements Initializable {
 
     public void minimizeApplication(MouseEvent mouseEvent) {
         ((Stage)((FontAwesomeIconView)mouseEvent.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    void showAlert(final Chat chat, final Message message, final Parent parentPane) throws IOException {
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
+        final Pane paneAlert = fxmlLoader.load();
+        final AlertController alertController = fxmlLoader.getController();
+        alertController.setMessage(chat, message);
+
+        setAlertAnimation(paneAlert);
+        ((AnchorPane) parentPane).getChildren().add(paneAlert);
+        timelineAlertDown.play();
+
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> timelineAlertUp.play());
+            }
+        }, 5000);
     }
 }

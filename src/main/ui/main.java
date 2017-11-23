@@ -13,7 +13,7 @@ public class main extends Application {
     public void start(Stage primaryStage) throws Exception {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fx/base.fxml"));
         final Parent root = fxmlLoader.load();
-        ((BaseController) fxmlLoader.getController()).setAnimation();
+        ((BaseController) fxmlLoader.getController()).setMenuAnimation();
         final Scene scene = new Scene(root);
 
         primaryStage.initStyle(StageStyle.UNDECORATED);

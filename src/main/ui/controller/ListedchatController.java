@@ -32,7 +32,7 @@ public class ListedChatController extends BaseController{
         txtMessage.setFont(Font.font("Segoe UI SemiLight", 18));
 
         TextFlow txtflowLastMessage = new TextFlow(txtName, txtMessage);
-        txtflowLastMessage.setMaxWidth(650);
+        txtflowLastMessage.setMaxWidth(825);
         lblLastMessage.setGraphic(txtflowLastMessage);
 
         lblMessageCount.setText(String.valueOf(chat.getUnreadMessagesCount()));

@@ -25,54 +25,60 @@ public class PrivatePageController extends BaseController {
 
     void loadChats() throws IOException {
         //Temp Chats with messages for testing purposes
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(applicationManager.getCurrentUser());
+        users.add(new User(0, "testUser2", "Simone",
+                "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+
         for (int i = 0; i < 10; i++) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
 
-            ArrayList<User> users = new ArrayList<User>();
-            users.add(applicationManager.getCurrentUser());
-            users.add(new User(0, "testUser2", "Simone",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
 
-            Chat chat = new Chat(i,"Simone", Chat.ChatType.PRIVATE, new ArrayList<>(), users);
+            Chat chat = new Chat(i, "Simone", Chat.ChatType.PRIVATE, new ArrayList<>(), users);
 
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",
-                    applicationManager.getCurrentUser(), new Time(1, 1,1)));
+                    applicationManager.getCurrentUser(), new Time(1, 1, 1)));
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",
-                    applicationManager.getCurrentUser(), new Time(1, 1,20)));
+                    applicationManager.getCurrentUser(), new Time(1, 1, 20)));
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",
                     new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
-                            new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
+                            new ArrayList<>(), new ArrayList<>()), new Time(20, 45, 10)));
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",
-                    applicationManager.getCurrentUser(), new Time(20, 45,20)));
+                    applicationManager.getCurrentUser(), new Time(20, 45, 20)));
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very long message",
-                    applicationManager.getCurrentUser(), new Time(1, 1,1)));
+                    applicationManager.getCurrentUser(), new Time(1, 1, 1)));
 
             chat.addMessage(new Message(new File("main/util/test/test.txt"), new User(0, "testUser2", "Simone",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(1, 1,10)));
+                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(1, 1, 10)));
 
-            chat.addMessage(new Message("And another one test message", applicationManager.getCurrentUser(), new Time(20, 45,10)));
+            chat.addMessage(new Message("And another one test message", applicationManager.getCurrentUser(), new Time(20, 45, 10)));
 
             chat.addMessage(new Message("And a laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarge test message",
                     new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
-                            new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
+                            new ArrayList<>(), new ArrayList<>()), new Time(20, 45, 10)));
 
             listedChatController.setParentPane(parentPane);
             listedChatController.setListedChat(chat);
 
             vboxListedChats.getChildren().add(listedChatPane);
         }
+
+
+        ////testing alerts
+        showAlert(new Chat(999, "Simone", Chat.ChatType.PRIVATE, new ArrayList<>(), users), new Message("test message", new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
+                new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)), parentPane.getParent());
     }
 
     public void createChat() throws IOException {
