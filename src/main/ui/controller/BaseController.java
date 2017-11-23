@@ -4,7 +4,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +21,6 @@ import javafx.util.Duration;
 import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -53,6 +51,8 @@ public class BaseController implements Initializable {
     }
 
     public void selectMenuIcon(MouseEvent mouseEvent) throws IOException {
+        if (selectedIcon == mouseEvent.getSource()) return;
+
         Pane newPane;
         FXMLLoader fxmlLoader;
 
@@ -208,14 +208,15 @@ public class BaseController implements Initializable {
         ((Stage)((FontAwesomeIconView)mouseEvent.getSource()).getScene().getWindow()).setIconified(true);
     }
 
-    void showAlert(final Chat chat, final Message message, final Parent parentPane) throws IOException {
+    void showAlert(final Chat chat, final Message message, final Parent parent, final Pane parentPane) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
         final Pane paneAlert = fxmlLoader.load();
         final AlertController alertController = fxmlLoader.getController();
+        alertController.setParentPane(parentPane);
         alertController.setMessage(chat, message);
 
         setAlertAnimation(paneAlert);
-        ((AnchorPane) parentPane).getChildren().add(paneAlert);
+        ((AnchorPane) parent).getChildren().add(paneAlert);
         timelineAlertDown.play();
 
         final Timer timer = new Timer();

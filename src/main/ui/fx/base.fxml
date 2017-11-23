@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXButton?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane fx:id="anchorpaneBase" cacheShape="false" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.BaseController">
    <children>
       <Pane fx:id="paneMenu" prefHeight="750.0" prefWidth="150.0" style="-fx-background-color: #E0E0E0;">
@@ -36,7 +36,7 @@
             </FontAwesomeIconView>
          </children></Pane>
 
-      <Pane fx:id="paneContent" layoutX="150.0" layoutY="25.0" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" >
+      <Pane fx:id="paneContent" layoutX="150.0" layoutY="25.0" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Label fx:id="lblProfile" layoutX="20.0" layoutY="110.0" text="View your profile">
                <font>
@@ -61,7 +61,7 @@
          </children>
 
           <Pane fx:id="paneLogin" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
-              <JFXTextField layoutX="330.0" layoutY="275.0" prefHeight="35.0" prefWidth="291.0" promptText="username">
+              <JFXTextField focusColor="#1db01d" layoutX="330.0" layoutY="275.0" prefHeight="35.0" prefWidth="291.0" promptText="username">
                   <font>
                       <Font name="Segoe UI Semilight" size="18.0" />
                   </font>
@@ -69,7 +69,7 @@
                       <Cursor fx:constant="HAND" />
                   </cursor>
               </JFXTextField>
-              <JFXPasswordField layoutX="330.0" layoutY="350.0" prefHeight="35.0" prefWidth="291.0" promptText="password">
+              <JFXPasswordField focusColor="#1db01d" layoutX="330.0" layoutY="350.0" onAction="#login" prefHeight="35.0" prefWidth="291.0" promptText="password">
                   <font>
                       <Font name="Segoe UI Semilight" size="18.0" />
                   </font>

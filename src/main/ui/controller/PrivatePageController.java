@@ -76,9 +76,9 @@ public class PrivatePageController extends BaseController {
         }
 
 
-        ////testing alerts
+        //testing alerts
         showAlert(new Chat(999, "Simone", Chat.ChatType.PRIVATE, new ArrayList<>(), users), new Message("test message", new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
-                new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)), parentPane.getParent());
+                new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)), parentPane.getParent(), parentPane);
     }
 
     public void createChat() throws IOException {

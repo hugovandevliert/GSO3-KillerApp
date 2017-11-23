@@ -1,12 +1,15 @@
 package main;
 
-import main.data.model.Chat;
 import main.data.model.User;
 
 import java.util.ArrayList;
 
 public class ApplicationManager {
     private User currentUser;
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
 
     public boolean login(final String username, final String password) {
         //TODO: make a proper login method.
@@ -15,9 +18,5 @@ public class ApplicationManager {
                 new ArrayList<>(), new ArrayList<>());
 
         return true;
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
     }
 }
