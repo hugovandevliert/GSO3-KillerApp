@@ -135,7 +135,7 @@ public class ChatController extends BaseController {
     public void addFile() {
         selectedFile = null;
         final FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Add an file");
+        fileChooser.setTitle("Add a file");
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("All files", "*.*");
         fileChooser.getExtensionFilters().add(filter);
         selectedFile = fileChooser.showOpenDialog(lblChatName.getScene().getWindow());

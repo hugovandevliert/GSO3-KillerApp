@@ -6,6 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXButton?>
 
 <AnchorPane cacheShape="false" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.BaseController">
    <children>
@@ -35,27 +38,56 @@
 
       <Pane fx:id="paneContent" layoutX="150.0" layoutY="25.0" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" >
          <children>
-            <Label layoutX="20.0" layoutY="110.0" text="View your profile">
+            <Label fx:id="lblProfile" layoutX="20.0" layoutY="110.0" text="View your profile">
                <font>
                   <Font name="Segoe UI Semilight" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="20.0" layoutY="560.0" text="Send and recieve memo's">
+            <Label fx:id="lblPrivateChats" layoutX="20.0" layoutY="260.0" text="Start a private chat with a colleague">
                <font>
                   <Font name="Segoe UI Semilight" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="20.0" layoutY="410.0" text="Chat with multiple colleagues">
-               <font>
-                  <Font name="Segoe UI Semilight" size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="20.0" layoutY="260.0" text="Start a private chat with a colleague">
-               <font>
-                  <Font name="Segoe UI Semilight" size="20.0" />
-               </font>
-            </Label>
-         </children></Pane>
+             <Label fx:id="lblGroupChats" layoutX="20.0" layoutY="410.0" text="Chat with multiple colleagues">
+                 <font>
+                     <Font name="Segoe UI Semilight" size="20.0" />
+                 </font>
+             </Label>
+             <Label fx:id="lblMemos" layoutX="20.0" layoutY="560.0" text="Send and receive memo's">
+                 <font>
+                     <Font name="Segoe UI Semilight" size="20.0" />
+                 </font>
+             </Label>
+         </children>
+
+          <Pane fx:id="paneLogin" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
+              <JFXTextField layoutX="330.0" layoutY="275.0" prefHeight="35.0" prefWidth="291.0" promptText="username">
+                  <font>
+                      <Font name="Segoe UI Semilight" size="18.0" />
+                  </font>
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+              </JFXTextField>
+              <JFXPasswordField layoutX="330.0" layoutY="350.0" prefHeight="35.0" prefWidth="291.0" promptText="password">
+                  <font>
+                      <Font name="Segoe UI Semilight" size="18.0" />
+                  </font>
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+              </JFXPasswordField>
+
+              <JFXButton fx:id="btnLogin" layoutX="400.0" layoutY="450.0" onAction="#login" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Login" textFill="WHITE">
+                  <font>
+                      <Font name="Segoe UI Semilight" size="18.0" />
+                  </font>
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+              </JFXButton>
+          </Pane>
+      </Pane>
 
       <FontAwesomeIconView glyphName="TIMES" layoutX="1224.0" layoutY="25.0" onMouseClicked="#closeApplication" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="24">
           <cursor>
