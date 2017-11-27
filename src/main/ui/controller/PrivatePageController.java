@@ -1,6 +1,5 @@
 package main.ui.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
@@ -8,7 +7,6 @@ import javafx.scene.layout.VBox;
 import main.data.model.Chat;
 import main.data.model.Message;
 import main.data.model.User;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
@@ -23,9 +21,11 @@ public class PrivatePageController extends BaseController {
         this.parentPane = parentPane;
     }
 
+    //Temp Users for testing purposes
+    ArrayList<User> users;
     void loadChats() throws IOException {
         //Temp Chats with messages for testing purposes
-        ArrayList<User> users = new ArrayList<User>();
+        users = new ArrayList<User>();
         users.add(applicationManager.getCurrentUser());
         users.add(new User(0, "testUser2", "Simone",
                 "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
@@ -34,7 +34,6 @@ public class PrivatePageController extends BaseController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
-
 
             Chat chat = new Chat(i, "Simone", Chat.ChatType.PRIVATE, new ArrayList<>(), users);
 
@@ -82,10 +81,11 @@ public class PrivatePageController extends BaseController {
     }
 
     public void createChat() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/createPrivateChat.fxml"));
-        Pane newPane = fxmlLoader.load();
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/createPrivateChat.fxml"));
+        final Pane newPane = fxmlLoader.load();
         final CreatePrivateChatController createPrivateChatController = fxmlLoader.getController();
         createPrivateChatController.setParentPane(parentPane);
+        createPrivateChatController.loadUsers(users);
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newPane);

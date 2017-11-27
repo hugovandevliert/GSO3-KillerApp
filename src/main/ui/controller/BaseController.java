@@ -51,8 +51,6 @@ public class BaseController implements Initializable {
     }
 
     public void selectMenuIcon(MouseEvent mouseEvent) throws IOException {
-        if (selectedIcon == mouseEvent.getSource()) return;
-
         Pane newPane;
         FXMLLoader fxmlLoader;
 

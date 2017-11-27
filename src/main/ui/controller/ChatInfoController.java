@@ -11,10 +11,10 @@ import main.data.model.User;
 import java.io.IOException;
 
 public class ChatInfoController extends BaseController {
-    @FXML private Label lblChatName;
-    @FXML private VBox vboxListedUsers;
-
     private Pane parentPane;
+
+    @FXML private Label lblChatName ;
+    @FXML private VBox vboxListedUsers;
 
     void setParentPane(Pane parentPane) {
         this.parentPane = parentPane;
@@ -36,7 +36,7 @@ public class ChatInfoController extends BaseController {
             final Pane listedUserPane = fxmlLoader.load();
             final ListedUserController listedUserController = fxmlLoader.getController();
             listedUserController.setParentPane(parentPane);
-            listedUserController.setListedUser(user);
+            listedUserController.setListedUser(user, ListedUserController.onAction.OPENPROFILE);
 
             vboxListedUsers.getChildren().add(listedUserPane);
         }

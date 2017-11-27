@@ -24,17 +24,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ChatController extends BaseController {
+    private Chat chat;
+    private File selectedFile;
+    private Pane parentPane;
+
     @FXML private Label lblChatName;
     @FXML private ScrollPane scrollpaneListedMessages;
     @FXML private TextArea txtMessageText;
     @FXML private JFXButton btnSendMessage;
     @FXML private VBox vboxListedMessages;
 
-    private Chat chat;
-    private File selectedFile;
-    private Pane parentPane;
-
-    void setParentPane(Pane parentPane) {
+    void setParentPane(final Pane parentPane) {
         this.parentPane = parentPane;
     }
 
@@ -65,10 +65,6 @@ public class ChatController extends BaseController {
     }
 
     private void loadMessage(final Message message) {
-        //TODO: Add file to message
-        //Maybe like this?
-        //lblMessage.setId(message.getId());
-
         final HBox hBoxMessageBody = new HBox();
         hBoxMessageBody.setMinWidth(1050);
 
@@ -78,6 +74,10 @@ public class ChatController extends BaseController {
         lblMessage.setBackground(new Background(new BackgroundFill(Paint.valueOf("E0E0E0"), new CornerRadii(2.5), new Insets(-5))));
         lblMessage.setMaxWidth(800);
         lblMessage.setWrapText(true);
+
+        //TODO: Add file to message
+        //Maybe like this?
+        //lblMessage.setId(message.getId());
 
         if (message.getFile() != null) {
             final FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.FILE_ALT);
@@ -112,12 +112,10 @@ public class ChatController extends BaseController {
             lblSenderName.setAlignment(Pos.TOP_LEFT);
             lblSenderName.setBackground(new Background(new BackgroundFill(Paint.valueOf("E0E0E0"), new CornerRadii(2.5), new Insets(-5))));
 
-            lblMessage.heightProperty().addListener((obs, oldVal, newVal) -> {
-                lblSenderName.resizeRelocate(lblSenderName.getLayoutX(), lblMessage.getLayoutY(), lblSenderName.getWidth(), newVal.doubleValue());
-            });
-            lblMessage.layoutYProperty().addListener((obs, oldVal, newVal) -> {
-                lblSenderName.relocate(lblSenderName.getLayoutX(), newVal.doubleValue());
-            });
+            lblMessage.heightProperty().addListener((obs, oldVal, newVal) ->
+                    lblSenderName.resizeRelocate(lblSenderName.getLayoutX(), lblMessage.getLayoutY(), lblSenderName.getWidth(), newVal.doubleValue()));
+            lblMessage.layoutYProperty().addListener((obs, oldVal, newVal) ->
+                    lblSenderName.relocate(lblSenderName.getLayoutX(), newVal.doubleValue()));
 
             hBoxMessageBody.getChildren().add(lblSendTime);
             hBoxMessageBody.getChildren().add(lblSenderName);

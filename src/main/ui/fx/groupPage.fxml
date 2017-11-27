@@ -13,7 +13,7 @@
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
         <children>
-            <JFXButton fx:id="btnCreateGroupChat" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Create" textFill="WHITE">
+            <JFXButton fx:id="btnCreateGroupChat" onAction="#createChat" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Create" textFill="WHITE">
                 <font>
                     <Font name="Segoe UI Semilight" size="18.0" />
                 </font>

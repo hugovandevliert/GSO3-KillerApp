@@ -14,14 +14,16 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 public class GroupPageController extends BaseController {
-    @FXML private VBox vboxListedChats;
-
     private Pane parentPane;
 
-    public void setParentPane(Pane parentPane) {
+    @FXML private VBox vboxListedChats;
+
+    public void setParentPane(final Pane parentPane) {
         this.parentPane = parentPane;
     }
 
+    //temp users for testing purposes
+    ArrayList<User> users;
     void loadChats() throws IOException {
         //Temp Chats with messages for testing purposes
         for (int i = 0; i < 10; i++) {
@@ -29,7 +31,7 @@ public class GroupPageController extends BaseController {
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
 
-            ArrayList<User> users = new ArrayList<User>();
+            users = new ArrayList<User>();
             users.add(applicationManager.getCurrentUser());
             users.add(new User(0, "testUser2", "Simone",
                     "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
@@ -75,5 +77,16 @@ public class GroupPageController extends BaseController {
 
             vboxListedChats.getChildren().add(listedChatPane);
         }
+    }
+
+    public void createChat() throws IOException {
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/createGroupChat.fxml"));
+        final Pane newPane = fxmlLoader.load();
+        final CreateGroupChatController createGroupChatController = fxmlLoader.getController();
+        createGroupChatController.setParentPane(parentPane);
+        createGroupChatController.loadUsers(users);
+
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(newPane);
     }
 }
