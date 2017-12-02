@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.data.model.Chat;
 import main.data.model.Message;
+import main.data.model.MessageFile;
 import main.data.model.User;
 
 import java.io.File;
@@ -52,8 +53,10 @@ public class GroupPageController extends BaseController {
                     "very very very very very very very very very very very very very very very very very very very long message",
                     applicationManager.getCurrentUser(), new Time(20, 45,50)));
 
-            chat.addMessage(new Message(new File("main/util/test/test.txt"), new User(0, "testUser2", "Ronald",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10)));
+            Message tempMessage = new Message("test.txt", new User(0, "testUser2", "Ronald",
+                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), new Time(20, 45,10));
+            tempMessage.addFile(new MessageFile(new File("main/util/test/test.txt")));
+            chat.addMessage(tempMessage);
 
             chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
                     "very very very very very very very very very very very very very very very very very very very very " +

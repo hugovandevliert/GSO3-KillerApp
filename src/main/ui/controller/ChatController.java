@@ -98,6 +98,7 @@ public class ChatController extends BaseController {
         lblSendTime.setMinWidth(55);
         lblSendTime.setPadding(new Insets(10));
 
+        //TODO: make getSender() --> getSenderID() instead (So message doesn't has an entire User class)
         if (message.getSender().getId() == applicationManager.getCurrentUser().getId()) {
             hBoxMessageBody.setAlignment(Pos.CENTER_RIGHT);
 

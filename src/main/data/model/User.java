@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class User {
-    private int id;
+    private final int id;
     private String username, name, function;
     private Image photo;
 

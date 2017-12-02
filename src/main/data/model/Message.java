@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 
 public class Message {
     private String text;
-    private File file;
+    private MessageFile file;
     private Time time;
     private User sender;
 
@@ -17,23 +17,18 @@ public class Message {
         this.time = time;
     }
 
-    public Message(File file, User sender, Time time) {
-        this.text = null;
+    public void addFile(MessageFile file) {
         this.file = file;
-        this.sender = sender;
-        this.time = time;
     }
 
     public String getText() {
-        if (file != null) {
-            return file.getName();
-        } else {
-            return text;
-        }
+        if (file != null) return file.getFile().getName();
+        else return text;
     }
 
     public File getFile() {
-        return file;
+        if (file == null) return null;
+        else return file.getFile();
     }
 
     public String getTime() {
