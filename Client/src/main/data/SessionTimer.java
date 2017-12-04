@@ -1,4 +1,4 @@
-package main.data.model;
+package main.data;
 
 import java.util.TimerTask;
 

@@ -1,7 +1,6 @@
 package main.data;
 
 import main.ApplicationManager;
-import main.data.model.SessionTimer;
 import main.data.model.User;
 import java.time.LocalDateTime;
 import java.util.Timer;
