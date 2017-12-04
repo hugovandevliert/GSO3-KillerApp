@@ -2,22 +2,27 @@ package main.data;
 
 import main.ApplicationManager;
 import main.data.model.User;
-import java.time.LocalDateTime;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Timer;
 
 public class Session {
-    private LocalDateTime loginTime;
     private ApplicationManager applicationManager;
     private User currentUser;
 
     public Session(User currentUser, ApplicationManager applicationManager) {
         this.currentUser = currentUser;
         this.applicationManager = applicationManager;
-        loginTime = LocalDateTime.now();
 
-        Timer auctionCountdown = new Timer();
-        //auctionCountdown.schedule(new SessionTimer(this), 0, 1000);
+        final Instant loginTime = new Date().toInstant().plus(Duration.ofSeconds(10));
+        final Timer auctionCountdown = new Timer();
+        auctionCountdown.schedule(new SessionTimer(this), Date.from(loginTime));
     }
 
     public User getCurrentUser() { return currentUser; }
+
+    public void logout() {
+        applicationManager.logout();
+    }
 }

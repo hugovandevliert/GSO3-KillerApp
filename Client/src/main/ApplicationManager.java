@@ -2,7 +2,6 @@ package main;
 
 import main.data.Session;
 import main.data.model.User;
-
 import java.util.ArrayList;
 
 public class ApplicationManager {
@@ -21,5 +20,15 @@ public class ApplicationManager {
         session = new Session(currentUser, this);
 
         return true;
+    }
+
+    public void logout() {
+        session = null;
+        System.out.print("logout");
+    }
+
+    public boolean register(String username, String password, String name, String function) {
+        //TODO: make a proper register method.
+        return false;
     }
 }
