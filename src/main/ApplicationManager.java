@@ -1,21 +1,24 @@
 package main;
 
+import main.data.Session;
 import main.data.model.User;
 
 import java.util.ArrayList;
 
 public class ApplicationManager {
-    private User currentUser;
+    private Session session;
 
     public User getCurrentUser() {
-        return currentUser;
+        return session.getCurrentUser();
     }
 
     public boolean login(final String username, final String password) {
         //TODO: make a proper login method.
 
-        currentUser = new User(1, "testUser", "Hugo", "CEO", null, new ArrayList<>(),
+        User currentUser = new User(1, "testUser", "Hugo", "CEO", null, new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>());
+
+        session = new Session(currentUser, this);
 
         return true;
     }
