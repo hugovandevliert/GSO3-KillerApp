@@ -8,13 +8,17 @@ public class Message {
     private String text;
     private MessageFile file;
     private Time time;
-    private User sender;
+    private int chatId;
+    private int fileId;
+    private int senderId;
+    private String senderName;
 
-    public Message(String text, User sender, Time time) {
+    public Message(String text, int chatId, int senderId, Time time) {
         this.text = text;
-        this.file = null;
-        this.sender = sender;
+        this.chatId = chatId;
+        this.senderId = senderId;
         this.time = time;
+        this.file = null;
     }
 
     public void addFile(MessageFile file) {
@@ -36,11 +40,15 @@ public class Message {
         return sdf.format(time);
     }
 
-    public User getSender() {
-        return sender;
+    public int getSenderId() {
+        return senderId;
     }
 
+    public int getChatId() { return chatId; }
+
+    public int getFileId() { return fileId; }
+
     public String getSenderName() {
-        return sender.getName();
+        return senderName;
     }
 }
