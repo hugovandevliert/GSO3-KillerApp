@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/Client/Client.iml" filepath="$PROJECT_DIR$/Client/Client.iml" />
       <module fileurl="file://$PROJECT_DIR$/GroupServer/GroupServer.iml" filepath="$PROJECT_DIR$/GroupServer/GroupServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/PrivateServer/PrivateServer.iml" filepath="$PROJECT_DIR$/PrivateServer/PrivateServer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PrivateServer/PrivateServer.iml" filepath="$PROJECT_DIR$/PrivateServer/PrivateServer.iml" />
     </modules>
   </component>
 </project>
