@@ -17,7 +17,7 @@ public class Session {
         this.currentUser = currentUser;
         this.applicationManager = applicationManager;
 
-        final Instant loginTime = new Date().toInstant().plus(Duration.ofSeconds(5));
+        final Instant loginTime = new Date().toInstant().plus(Duration.ofHours(24));
         final Timer auctionCountdown = new Timer();
         auctionCountdown.schedule(new SessionTimer(this), Date.from(loginTime));
     }

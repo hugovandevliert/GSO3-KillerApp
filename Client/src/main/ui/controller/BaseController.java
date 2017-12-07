@@ -43,7 +43,7 @@ public class BaseController {
     private Timeline timelineAlertUp;
 
     public void initialSetup() {
-        this.selectedIcon = new FontAwesomeIconView();
+        selectedIcon = new FontAwesomeIconView();
         applicationManager.setBasecontroller(this);
         paneContent.getChildren().removeAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
     }
@@ -56,10 +56,10 @@ public class BaseController {
     }
 
     public void logout() {
-        this.selectedIcon = new FontAwesomeIconView();
+        selectedIcon.setStyle("-fx-fill: black");
+        selectedIcon = new FontAwesomeIconView();
         paneContent.getChildren().clear();
         timelineMenuOut.play();
-//  setMenuAnimation();
         showAlert("You have been logged out.\nPlease log in to confirm your identity.", paneContent);
         paneContent.getChildren().add(paneLogin);
     }
