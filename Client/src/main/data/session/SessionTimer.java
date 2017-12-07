@@ -1,16 +1,17 @@
-package main.data;
+package main.data.session;
 
+import javafx.application.Platform;
 import java.util.TimerTask;
 
 public class SessionTimer extends TimerTask {
     private Session session;
 
-    public SessionTimer(Session session) {
+    SessionTimer(Session session) {
         this.session = session;
     }
 
     @Override
     public void run() {
-        session.logout();
+        Platform.runLater(() -> session.logout());
     }
 }

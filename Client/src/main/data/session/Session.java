@@ -1,7 +1,9 @@
-package main.data;
+package main.data.session;
 
 import main.ApplicationManager;
 import main.data.model.User;
+
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
@@ -15,7 +17,7 @@ public class Session {
         this.currentUser = currentUser;
         this.applicationManager = applicationManager;
 
-        final Instant loginTime = new Date().toInstant().plus(Duration.ofSeconds(10));
+        final Instant loginTime = new Date().toInstant().plus(Duration.ofSeconds(5));
         final Timer auctionCountdown = new Timer();
         auctionCountdown.schedule(new SessionTimer(this), Date.from(loginTime));
     }

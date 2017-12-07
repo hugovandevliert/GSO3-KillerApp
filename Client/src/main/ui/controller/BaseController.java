@@ -9,9 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -22,32 +21,47 @@ import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class BaseController implements Initializable {
+public class BaseController {
     final static ApplicationManager applicationManager = new ApplicationManager();
 
     @FXML private Pane paneMenu;
     @FXML private Pane paneContent;
     @FXML private Pane paneLogin;
+    @FXML private Label lblProfile;
+    @FXML private Label lblPrivateChats;
+    @FXML private Label lblGroupChats;
+    @FXML private Label lblMemos;
 
     private FontAwesomeIconView selectedIcon;
+    private Timeline timelineMenuIn;
+    private Timeline timelineMenuOut;
     private Timeline timelineAlertDown;
     private Timeline timelineAlertUp;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialSetup() {
         this.selectedIcon = new FontAwesomeIconView();
+        applicationManager.setBasecontroller(this);
+        paneContent.getChildren().removeAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
     }
 
     public void login() {
         applicationManager.login("test", "test");
         paneContent.getChildren().remove(paneLogin);
-        timelineAlertDown.play();
+        timelineMenuIn.play();
+        paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
+    }
+
+    public void logout() {
+        this.selectedIcon = new FontAwesomeIconView();
+        paneContent.getChildren().clear();
+        timelineMenuOut.play();
+//  setMenuAnimation();
+        showAlert("You have been logged out.\nPlease log in to confirm your identity.", paneContent);
+        paneContent.getChildren().add(paneLogin);
     }
 
     public void selectMenuIcon(MouseEvent mouseEvent) throws IOException {
@@ -128,7 +142,7 @@ public class BaseController implements Initializable {
         final Timeline timelineMenuBounce = new Timeline();
         timelineMenuBounce.setCycleCount(2);
         timelineMenuBounce.setAutoReverse(true);
-        final KeyValue kvb1 = new KeyValue(clipRect.widthProperty(), (boxBounds.getWidth()-15));
+        final KeyValue kvb1 = new KeyValue(clipRect.widthProperty(), boxBounds.getWidth() - 15);
         final KeyValue kvb2 = new KeyValue(clipRect.translateXProperty(), 15);
         final KeyValue kvb3 = new KeyValue(paneMenu.translateXProperty(), -15);
         final KeyFrame kfb = new KeyFrame(Duration.millis(100), kvb1, kvb2, kvb3);
@@ -137,16 +151,27 @@ public class BaseController implements Initializable {
         // Event handler to call bouncing effect after scrolling is finished
         EventHandler<ActionEvent> onFinished = t -> timelineMenuBounce.play();
 
-        timelineAlertDown = new Timeline();
+        timelineMenuIn = new Timeline();
 
         // Animation for scroll to the right
-        timelineAlertDown.setCycleCount(1);
-        timelineAlertDown.setAutoReverse(true);
+        timelineMenuIn.setCycleCount(1);
+        timelineMenuIn.setAutoReverse(true);
         final KeyValue kvr1 = new KeyValue(clipRect.widthProperty(), boxBounds.getWidth());
         final KeyValue kvr2 = new KeyValue(clipRect.translateXProperty(), 0);
         final KeyValue kvr3 = new KeyValue(paneMenu.translateXProperty(), 0);
         final KeyFrame kfr = new KeyFrame(Duration.millis(200), onFinished, kvr1, kvr2, kvr3);
-        timelineAlertDown.getKeyFrames().add(kfr);
+        timelineMenuIn.getKeyFrames().add(kfr);
+
+        timelineMenuOut = new Timeline();
+
+        // Animation for scroll to the right
+        timelineMenuOut.setCycleCount(1);
+        timelineMenuOut.setAutoReverse(true);
+        final KeyValue kvl1 = new KeyValue(clipRect.widthProperty(), 0);
+        final KeyValue kvl2 = new KeyValue(clipRect.translateXProperty(), boxBounds.getWidth());
+        final KeyValue kvl3 = new KeyValue(paneMenu.translateXProperty(), - boxBounds.getWidth());
+        final KeyFrame kfl = new KeyFrame(Duration.millis(200), kvl1, kvl2, kvl3);
+        timelineMenuOut.getKeyFrames().add(kfl);
     }
 
     public void setAlertAnimation(Pane paneAlert){
@@ -163,7 +188,7 @@ public class BaseController implements Initializable {
         final Timeline timelineMenuBounce = new Timeline();
         timelineMenuBounce.setCycleCount(2);
         timelineMenuBounce.setAutoReverse(true);
-        final KeyValue kvb1 = new KeyValue(clipRect.heightProperty(), (boxBounds.getHeight()-15));
+        final KeyValue kvb1 = new KeyValue(clipRect.heightProperty(), boxBounds.getHeight() - 15);
         final KeyValue kvb2 = new KeyValue(clipRect.translateYProperty(), 15);
         final KeyValue kvb3 = new KeyValue(paneAlert.translateYProperty(), -15);
         final KeyFrame kfb = new KeyFrame(Duration.millis(100), kvb1, kvb2, kvb3);
@@ -193,7 +218,7 @@ public class BaseController implements Initializable {
         timelineAlertUp.setAutoReverse(true);
         final KeyValue kvUp1 = new KeyValue(clipRect.heightProperty(), 0);
         final KeyValue kvUp2 = new KeyValue(clipRect.translateYProperty(), boxBounds.getHeight());
-        final KeyValue kvUp3 = new KeyValue(paneAlert.translateYProperty(), -(boxBounds.getHeight()));
+        final KeyValue kvUp3 = new KeyValue(paneAlert.translateYProperty(), - boxBounds.getHeight());
         final KeyFrame kfUp = new KeyFrame(Duration.millis(200), onFinishedUp, kvUp1, kvUp2, kvUp3);
         timelineAlertUp.getKeyFrames().add(kfUp);
     }
@@ -206,7 +231,7 @@ public class BaseController implements Initializable {
         ((Stage)((FontAwesomeIconView)mouseEvent.getSource()).getScene().getWindow()).setIconified(true);
     }
 
-    void showAlert(final Chat chat, final Message message, final Parent parent, final Pane parentPane) throws IOException {
+    void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
         final Pane paneAlert = fxmlLoader.load();
         final AlertController alertController = fxmlLoader.getController();
@@ -214,7 +239,33 @@ public class BaseController implements Initializable {
         alertController.setMessage(chat, message);
 
         setAlertAnimation(paneAlert);
-        ((AnchorPane) parent).getChildren().add(paneAlert);
+        ((AnchorPane) parentPane.getParent()).getChildren().add(paneAlert);
+        timelineAlertDown.play();
+
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> timelineAlertUp.play());
+            }
+        }, 5000);
+    }
+
+    private void showAlert(final String message, final Pane parentPane) {
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
+        Pane paneAlert = null;
+
+        try {
+            paneAlert = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final AlertController alertController = fxmlLoader.getController();
+        alertController.setText(message);
+
+        setAlertAnimation(paneAlert);
+        ((AnchorPane) parentPane.getParent()).getChildren().add(paneAlert);
         timelineAlertDown.play();
 
         final Timer timer = new Timer();
