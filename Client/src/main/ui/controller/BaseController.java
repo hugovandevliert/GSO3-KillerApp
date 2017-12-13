@@ -1,5 +1,8 @@
 package main.ui.controller;
 
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -11,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -35,6 +39,10 @@ public class BaseController {
     @FXML private Label lblPrivateChats;
     @FXML private Label lblGroupChats;
     @FXML private Label lblMemos;
+    @FXML private JFXTextField txtUsername;
+    @FXML private JFXPasswordField txtPassword;
+    @FXML private JFXTextField txtPasswordVisible;
+    @FXML private JFXCheckBox cboxPasword;
 
     private FontAwesomeIconView selectedIcon;
     private Timeline timelineMenuIn;
@@ -49,7 +57,7 @@ public class BaseController {
     }
 
     public void login() {
-        applicationManager.login("test", "test");
+        applicationManager.login(txtUsername.getText(), txtPassword.getText());
         paneContent.getChildren().remove(paneLogin);
         timelineMenuIn.play();
         paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
@@ -229,6 +237,30 @@ public class BaseController {
 
     public void minimizeApplication(MouseEvent mouseEvent) {
         ((Stage)((FontAwesomeIconView)mouseEvent.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    public void synchronizePasswordfields(KeyEvent keyEvent) {
+        if (keyEvent.getSource().equals(txtPassword)) {
+            txtPasswordVisible.setText(txtPassword.getText());
+        } else {
+            txtPassword.setText(txtPasswordVisible.getText());
+        }
+    }
+
+    public void cboxPasswordChanged() {
+        if(cboxPasword.isSelected()){
+            txtPassword.setVisible(false);
+            txtPasswordVisible.setVisible(true);
+            txtPasswordVisible.requestFocus();
+            txtPasswordVisible.deselect();
+            txtPasswordVisible.positionCaret(txtPasswordVisible.getLength());
+        }else{
+            txtPassword.setVisible(true);
+            txtPasswordVisible.setVisible(false);
+            txtPassword.requestFocus();
+            txtPassword.deselect();
+            txtPassword.positionCaret(txtPassword.getLength());
+        }
     }
 
     void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {
