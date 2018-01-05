@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import main.data.model.Chat;
 import main.data.model.User;
+
 import java.io.IOException;
 import java.util.Objects;
 

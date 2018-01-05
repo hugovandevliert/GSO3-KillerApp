@@ -1,10 +1,9 @@
 package main;
 
-import main.data.session.Session;
 import main.data.model.User;
+import main.data.session.Session;
 import main.ui.controller.BaseController;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ApplicationManager {
@@ -32,7 +31,6 @@ public class ApplicationManager {
 
     public void logout() {
         session = null;
-        System.out.print("logout");
         basecontroller.logout();
     }
 

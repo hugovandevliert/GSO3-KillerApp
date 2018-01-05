@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import main.data.model.Chat;
+
 import java.io.IOException;
 
 public class ListedChatController extends BaseController{

@@ -2,14 +2,13 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.ChatController">
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">

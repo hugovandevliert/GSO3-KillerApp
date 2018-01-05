@@ -3,7 +3,6 @@ package main.data.session;
 import main.ApplicationManager;
 import main.data.model.User;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;

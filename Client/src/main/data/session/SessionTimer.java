@@ -1,6 +1,7 @@
 package main.data.session;
 
 import javafx.application.Platform;
+
 import java.util.TimerTask;
 
 public class SessionTimer extends TimerTask {

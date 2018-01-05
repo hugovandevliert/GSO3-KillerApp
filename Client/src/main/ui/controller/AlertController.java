@@ -11,6 +11,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import main.data.model.Chat;
 import main.data.model.Message;
+
 import java.io.IOException;
 
 public class AlertController {

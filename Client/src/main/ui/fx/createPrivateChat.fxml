@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.CreatePrivateChatController">
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">

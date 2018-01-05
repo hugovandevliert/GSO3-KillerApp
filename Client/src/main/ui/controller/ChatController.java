@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import main.data.model.Chat;
 import main.data.model.Message;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

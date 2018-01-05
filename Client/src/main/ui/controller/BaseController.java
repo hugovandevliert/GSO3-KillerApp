@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
+
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Timer;
@@ -58,6 +59,8 @@ public class BaseController {
 
     public void login() {
         applicationManager.login(txtUsername.getText(), txtPassword.getText());
+        txtPassword.setText("");
+        txtPasswordVisible.setText("");
         paneContent.getChildren().remove(paneLogin);
         timelineMenuIn.play();
         paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
@@ -172,7 +175,7 @@ public class BaseController {
 
         timelineMenuOut = new Timeline();
 
-        // Animation for scroll to the right
+        // Animation for scroll to the left
         timelineMenuOut.setCycleCount(1);
         timelineMenuOut.setAutoReverse(true);
         final KeyValue kvl1 = new KeyValue(clipRect.widthProperty(), 0);
