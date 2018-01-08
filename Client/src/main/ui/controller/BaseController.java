@@ -22,10 +22,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.ApplicationManager;
+import main.data.context.IUserContext;
+import main.data.context.UserMySqlContext;
 import main.data.model.Chat;
 import main.data.model.Message;
+import main.util.sec.HashCalculator;
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
