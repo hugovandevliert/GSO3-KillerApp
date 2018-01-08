@@ -2,12 +2,14 @@ package main;
 
 import main.data.model.User;
 import main.data.session.Session;
+import main.rmi.ClientManager;
 import main.ui.controller.BaseController;
 
 import java.util.ArrayList;
 
 public class ApplicationManager {
     private BaseController basecontroller;
+    private ClientManager clientManager;
     private Session session;
 
     public void setBasecontroller(BaseController basecontroller) {
@@ -26,6 +28,8 @@ public class ApplicationManager {
 
         session = new Session(currentUser, this);
 
+        clientManager = new ClientManager();
+
         return true;
     }
 
@@ -37,5 +41,9 @@ public class ApplicationManager {
     public boolean register(String username, String password, String name, String function) {
         //TODO: make a proper register method.
         return false;
+    }
+
+    public ClientManager getClientManager() {
+        return this.clientManager;
     }
 }

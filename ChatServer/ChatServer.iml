@@ -7,8 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="fontawesomefx-8.9" level="project" />
-    <orderEntry type="library" name="jfoenix" level="project" />
-    <orderEntry type="library" name="FontysPublisher (3)" level="project" />
+    <orderEntry type="library" name="FontysPublisher (2)" level="project" />
+    <orderEntry type="module" module-name="Client" />
   </component>
 </module>

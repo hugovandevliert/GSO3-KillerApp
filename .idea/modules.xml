@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AuthenticationServer/AuthenticationServer.iml" filepath="$PROJECT_DIR$/AuthenticationServer/AuthenticationServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ChatServer/ChatServer.iml" filepath="$PROJECT_DIR$/ChatServer/ChatServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/Client/Client.iml" filepath="$PROJECT_DIR$/Client/Client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GroupServer/GroupServer.iml" filepath="$PROJECT_DIR$/GroupServer/GroupServer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PrivateServer/PrivateServer.iml" filepath="$PROJECT_DIR$/PrivateServer/PrivateServer.iml" />
     </modules>
   </component>
 </project>

@@ -3,6 +3,7 @@ package main.ui.controller;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -17,12 +18,15 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import main.rmi.MessageClient;
 import main.data.model.Chat;
 import main.data.model.Message;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.rmi.NotBoundException;
+import java.sql.Time;
 
 public class ChatController extends BaseController {
     private Chat chat;
@@ -62,10 +66,17 @@ public class ChatController extends BaseController {
             }
         }
 
-        scrollpaneListedMessages.setVvalue(1.0);
+        Platform.runLater(() -> txtMessageText.requestFocus());
+
+        try {
+            final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistry(), chat.getId(), applicationManager.getCurrentUser().getId(), applicationManager.getClientManager(), this);
+            applicationManager.getClientManager().setMessageClient(messageClient);
+        } catch (IOException | NotBoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void loadMessage(final Message message) {
+    public void loadMessage(final Message message) {
         final HBox hBoxMessageBody = new HBox();
         hBoxMessageBody.setMinWidth(1050);
 
@@ -129,6 +140,8 @@ public class ChatController extends BaseController {
         }
 
         vboxListedMessages.getChildren().add(hBoxMessageBody);
+
+        scrollToNewestMessage();
     }
 
     public void addFile() {
@@ -162,11 +175,21 @@ public class ChatController extends BaseController {
     }
 
     public void sendMessage() {
+        //TODO: change time
+        Message message = new Message(txtMessageText.getText(), chat.getId(), applicationManager.getCurrentUser().getId(), new Time(0,0,0));
+        applicationManager.getClientManager().getMessageClient().sendMessage(message);
 
         txtMessageText.setText("");
         txtMessageText.setEditable(true);
 
-        scrollpaneListedMessages.setVvalue(1.0);
+        loadMessage(message);
+    }
+
+    private void scrollToNewestMessage() {
+        Platform.runLater(() -> {
+            scrollpaneListedMessages.layout();
+            scrollpaneListedMessages.setVvalue(1.0);
+        });
     }
 
     private void saveFile(MouseEvent event) {
