@@ -1,6 +1,7 @@
 package main.ui.controller;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -22,11 +23,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.ApplicationManager;
-import main.data.context.IUserContext;
-import main.data.context.UserMySqlContext;
 import main.data.model.Chat;
 import main.data.model.Message;
-import main.util.sec.HashCalculator;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -41,6 +40,7 @@ public class BaseController {
     @FXML private Pane paneMenu;
     @FXML private Pane paneContent;
     @FXML private Pane paneLogin;
+    @FXML private Pane paneRegister;
     @FXML private Label lblProfile;
     @FXML private Label lblPrivateChats;
     @FXML private Label lblGroupChats;
@@ -49,6 +49,12 @@ public class BaseController {
     @FXML private JFXPasswordField txtPassword;
     @FXML private JFXTextField txtPasswordVisible;
     @FXML private JFXCheckBox cboxPasword;
+    @FXML private JFXTextField txtUsernameRegister;
+    @FXML private JFXPasswordField txtPasswordRegister;
+    @FXML private JFXTextField txtPasswordVisibleRegister;
+    @FXML private JFXCheckBox cboxPaswordRegister;
+    @FXML public JFXTextField txtNameRegister;
+    @FXML public JFXComboBox comboboxFunctionRegister;
 
     private FontAwesomeIconView selectedIcon;
     private Timeline timelineMenuIn;
@@ -58,17 +64,25 @@ public class BaseController {
 
     public void initialSetup() {
         selectedIcon = new FontAwesomeIconView();
-        applicationManager.setBasecontroller(this);
-        paneContent.getChildren().removeAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
+        applicationManager.setBaseController(this);
+        paneContent.getChildren().removeAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos, paneRegister);
     }
 
     public void login() {
-        applicationManager.login(txtUsername.getText(), txtPassword.getText());
-        txtPassword.setText("");
-        txtPasswordVisible.setText("");
-        paneContent.getChildren().remove(paneLogin);
-        timelineMenuIn.play();
-        paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
+        try {
+            if (applicationManager.login(txtUsername.getText(), txtPassword.getText())) {
+                txtPassword.setText("");
+                txtPasswordVisible.setText("");
+                paneContent.getChildren().remove(paneLogin);
+                timelineMenuIn.play();
+                paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
+            } else {
+                showAlert("Username or password incorrect. Please try again.", paneContent);
+            }
+        } catch (SQLException | ConnectException e) {
+            showAlert("Unable to log in.\nError: " + e.getMessage(), paneContent);
+            e.printStackTrace();
+        }
     }
 
     public void logout() {
@@ -78,6 +92,36 @@ public class BaseController {
         timelineMenuOut.play();
         showAlert("You have been logged out.\nPlease log in to confirm your identity.", paneContent);
         paneContent.getChildren().add(paneLogin);
+    }
+
+    public void openRegisterForm() {
+        paneContent.getChildren().clear();
+        paneContent.getChildren().add(paneRegister);
+
+        try {
+            comboboxFunctionRegister.getItems().addAll(applicationManager.userRepository.getFunctionNames()) ;
+        } catch (SQLException | ConnectException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), paneContent);
+            e.printStackTrace();
+        }
+    }
+    public void cancelRegistration() {
+        paneContent.getChildren().clear();
+        paneContent.getChildren().add(paneLogin);
+    }
+
+    public void register() {
+        try {
+            applicationManager.register(txtUsernameRegister.getText(), txtPasswordRegister.getText(), txtNameRegister.getText(), comboboxFunctionRegister.getValue().toString());
+            paneContent.getChildren().clear();
+            paneContent.getChildren().add(paneLogin);
+            showAlert("Account created!\nPlease log in with your account to continue.", paneContent);
+        } catch (IllegalArgumentException ex) {
+            showAlert(ex.getMessage(), paneContent);
+        } catch (SQLException | ConnectException e) {
+            showAlert("Unable to register.\nError: " + e.getMessage(), paneContent);
+            e.printStackTrace();
+        }
     }
 
     public void selectMenuIcon(MouseEvent mouseEvent) throws IOException {
@@ -144,7 +188,7 @@ public class BaseController {
         icon.setStyle("-fx-fill: black");
     }
 
-    public void setMenuAnimation(){
+    public void setMenuAnimation() {
         // Initial position setting for Pane
         Rectangle2D boxBounds = new Rectangle2D(0, 0, 150, 750);
         Rectangle clipRect = new Rectangle();
@@ -185,12 +229,12 @@ public class BaseController {
         timelineMenuOut.setAutoReverse(true);
         final KeyValue kvl1 = new KeyValue(clipRect.widthProperty(), 0);
         final KeyValue kvl2 = new KeyValue(clipRect.translateXProperty(), boxBounds.getWidth());
-        final KeyValue kvl3 = new KeyValue(paneMenu.translateXProperty(), - boxBounds.getWidth());
+        final KeyValue kvl3 = new KeyValue(paneMenu.translateXProperty(), -boxBounds.getWidth());
         final KeyFrame kfl = new KeyFrame(Duration.millis(200), kvl1, kvl2, kvl3);
         timelineMenuOut.getKeyFrames().add(kfl);
     }
 
-    public void setAlertAnimation(Pane paneAlert){
+    public void setAlertAnimation(Pane paneAlert) {
         // Initial position setting for Pane
         Rectangle2D boxBounds = new Rectangle2D(0, 0, 900, 100);
         Rectangle clipRect = new Rectangle();
@@ -234,7 +278,7 @@ public class BaseController {
         timelineAlertUp.setAutoReverse(true);
         final KeyValue kvUp1 = new KeyValue(clipRect.heightProperty(), 0);
         final KeyValue kvUp2 = new KeyValue(clipRect.translateYProperty(), boxBounds.getHeight());
-        final KeyValue kvUp3 = new KeyValue(paneAlert.translateYProperty(), - boxBounds.getHeight());
+        final KeyValue kvUp3 = new KeyValue(paneAlert.translateYProperty(), -boxBounds.getHeight());
         final KeyFrame kfUp = new KeyFrame(Duration.millis(200), onFinishedUp, kvUp1, kvUp2, kvUp3);
         timelineAlertUp.getKeyFrames().add(kfUp);
     }
@@ -244,7 +288,7 @@ public class BaseController {
     }
 
     public void minimizeApplication(MouseEvent mouseEvent) {
-        ((Stage)((FontAwesomeIconView)mouseEvent.getSource()).getScene().getWindow()).setIconified(true);
+        ((Stage) ((FontAwesomeIconView) mouseEvent.getSource()).getScene().getWindow()).setIconified(true);
     }
 
     public void synchronizePasswordfields(KeyEvent keyEvent) {
@@ -255,19 +299,43 @@ public class BaseController {
         }
     }
 
+    public void synchronizePasswordfieldsRegister(KeyEvent keyEvent) {
+        if (keyEvent.getSource().equals(txtPasswordRegister)) {
+            txtPasswordVisibleRegister.setText(txtPasswordRegister.getText());
+        } else {
+            txtPasswordRegister.setText(txtPasswordVisibleRegister.getText());
+        }
+    }
+
     public void cboxPasswordChanged() {
-        if(cboxPasword.isSelected()){
+        if (cboxPasword.isSelected()) {
             txtPassword.setVisible(false);
             txtPasswordVisible.setVisible(true);
             txtPasswordVisible.requestFocus();
             txtPasswordVisible.deselect();
             txtPasswordVisible.positionCaret(txtPasswordVisible.getLength());
-        }else{
+        } else {
             txtPassword.setVisible(true);
             txtPasswordVisible.setVisible(false);
             txtPassword.requestFocus();
             txtPassword.deselect();
             txtPassword.positionCaret(txtPassword.getLength());
+        }
+    }
+
+    public void cboxPasswordChangedRegister() {
+        if (cboxPaswordRegister.isSelected()) {
+            txtPasswordRegister.setVisible(false);
+            txtPasswordVisibleRegister.setVisible(true);
+            txtPasswordVisibleRegister.requestFocus();
+            txtPasswordVisibleRegister.deselect();
+            txtPasswordVisibleRegister.positionCaret(txtPasswordVisibleRegister.getLength());
+        } else {
+            txtPasswordRegister.setVisible(true);
+            txtPasswordVisibleRegister.setVisible(false);
+            txtPasswordRegister.requestFocus();
+            txtPasswordRegister.deselect();
+            txtPasswordRegister.positionCaret(txtPasswordRegister.getLength());
         }
     }
 
