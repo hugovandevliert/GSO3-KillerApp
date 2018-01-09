@@ -18,13 +18,15 @@ public class CreatePrivateChatController extends BaseController {
 
     void loadUsers(ArrayList<User> users) throws IOException {
         for (User user : users) {
-            final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedUser.fxml"));
-            final Pane listedUserPane = fxmlLoader.load();
-            final ListedUserController listedUserController = fxmlLoader.getController();
-            listedUserController.setParentPane(parentPane);
-            listedUserController.setListedUser(user, ListedUserController.onAction.OPENCHAT);
+            if (user.getId() != applicationManager.getCurrentUser().getId()) {
+                final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedUser.fxml"));
+                final Pane listedUserPane = fxmlLoader.load();
+                final ListedUserController listedUserController = fxmlLoader.getController();
+                listedUserController.setParentPane(parentPane);
+                listedUserController.setListedUser(user, ListedUserController.onAction.OPENCHAT);
 
-            vboxListedUsers.getChildren().add(listedUserPane);
+                vboxListedUsers.getChildren().add(listedUserPane);
+            }
         }
     }
 }

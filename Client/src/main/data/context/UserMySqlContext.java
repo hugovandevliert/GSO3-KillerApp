@@ -55,6 +55,21 @@ public class UserMySqlContext implements IUserContext {
     }
 
     @Override
+    public List<User> getAllUsers() throws SQLException, ConnectException {
+        final String query = "SELECT u.id, u.username, u.name, f.name AS `function` FROM `User` u " +
+                "INNER JOIN userfunction uf ON uf.userid = u.id " +
+                "INNER JOIN `function` f ON uf.functionId = f.id ";
+        final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{});
+        List<User> users = new ArrayList<>();
+
+        while (resultSet.next()) {
+            users.add(new User(resultSet.getInt("id"), resultSet.getString("username"),
+                    resultSet.getString("name"), resultSet.getString("function"),null));
+        }
+        return users;
+    }
+
+    @Override
     public List<String> getFunctionNames() throws SQLException, ConnectException {
         final String query = "SELECT name FROM `Function`";
 

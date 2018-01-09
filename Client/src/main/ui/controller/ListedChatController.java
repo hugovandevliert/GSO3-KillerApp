@@ -27,14 +27,16 @@ public class ListedChatController extends BaseController{
         this.chat = chat;
         lblName.setText(chat.getName());
 
-        Text txtName = new Text(chat.getLastMessage().getSenderName() + ": ");
-        txtName.setFont(Font.font("Segoe UI SemiBold",18));
-        Text txtMessage = new Text(chat.getLastMessage().getText());
-        txtMessage.setFont(Font.font("Segoe UI SemiLight", 18));
+        if (chat.getLastSentMessage() != null) {
+            Text txtName = new Text(chat.getLastSentMessage().getSenderName() + ": ");
+            txtName.setFont(Font.font("Segoe UI SemiBold", 18));
+            Text txtMessage = new Text(chat.getLastSentMessage().getText());
+            txtMessage.setFont(Font.font("Segoe UI SemiLight", 18));
 
-        TextFlow txtflowLastMessage = new TextFlow(txtName, txtMessage);
-        txtflowLastMessage.setMaxWidth(825);
-        lblLastMessage.setGraphic(txtflowLastMessage);
+            TextFlow txtflowLastMessage = new TextFlow(txtName, txtMessage);
+            txtflowLastMessage.setMaxWidth(825);
+            lblLastMessage.setGraphic(txtflowLastMessage);
+        }
 
         lblMessageCount.setText(String.valueOf(chat.getUnreadMessagesCount()));
     }

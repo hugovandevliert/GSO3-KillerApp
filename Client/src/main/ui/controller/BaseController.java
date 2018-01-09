@@ -25,7 +25,6 @@ import javafx.util.Duration;
 import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -99,7 +98,7 @@ public class BaseController {
         paneContent.getChildren().add(paneRegister);
 
         try {
-            comboboxFunctionRegister.getItems().addAll(applicationManager.userRepository.getFunctionNames()) ;
+            comboboxFunctionRegister.getItems().addAll(applicationManager.getUserRepository().getFunctionNames()) ;
         } catch (SQLException | ConnectException e) {
             showAlert("Unable to connect to database.\nError: " + e.getMessage(), paneContent);
             e.printStackTrace();
@@ -168,6 +167,7 @@ public class BaseController {
                 newPane = fxmlLoader.load();
                 final MemoPageController memoPageController = fxmlLoader.getController();
                 memoPageController.setParentPane(paneContent);
+                memoPageController.loadMemos();
 
                 paneContent.getChildren().clear();
                 paneContent.getChildren().add(newPane);
@@ -359,7 +359,7 @@ public class BaseController {
         }, 5000);
     }
 
-    private void showAlert(final String message, final Pane parentPane) {
+    void showAlert(final String message, final Pane parentPane) {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
         Pane paneAlert = null;
 

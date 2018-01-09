@@ -2,7 +2,6 @@ package main.data.model;
 
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,18 +10,17 @@ public class User {
     private String username, name, function;
     private Image photo;
 
-    private ArrayList<Chat> privateChats, groupChats, memos;
+    private List<Chat> privateChats, groupChats, memos;
 
-    public User(final int id, final String username, final String name, final String function, final Image photo,
-                final ArrayList<Chat> privateChats, final ArrayList<Chat> groupChats, final ArrayList<Chat> memos) {
+    public User(final int id, final String username, final String name, final String function, final Image photo) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.function = function;
         this.photo = photo;
-        this.privateChats = privateChats;
-        this.groupChats = groupChats;
-        this.memos = memos;
+        this.privateChats = null;
+        this.groupChats = null;
+        this.memos = null;
     }
 
     public void addPrivateChat(final Chat chat) {
@@ -35,6 +33,18 @@ public class User {
 
     public void addMemo(final Chat chat) {
         memos.add(chat);
+    }
+
+    public void setPrivateChats(List<Chat> privateChats) {
+        this.privateChats = privateChats;
+    }
+
+    public void setGroupChats(List<Chat> groupChats) {
+        this.groupChats = groupChats;
+    }
+
+    public void setMemos(List<Chat> memos) {
+        this.memos = memos;
     }
 
     public int getId() {

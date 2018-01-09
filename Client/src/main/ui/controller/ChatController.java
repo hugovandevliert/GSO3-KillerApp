@@ -25,8 +25,11 @@ import main.data.model.Message;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.rmi.NotBoundException;
+import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class ChatController extends BaseController {
     private Chat chat;
@@ -60,10 +63,13 @@ public class ChatController extends BaseController {
 
         lblChatName.setText(this.chat.getName());
 
-        if (!this.chat.getMessages().isEmpty()) {
+        try {
+            chat.setMessages((ArrayList<Message>) applicationManager.getMessageRepository().getMessagesByChatId(chat.getId()));
             for (Message message : this.chat.getMessages()) {
                 loadMessage(message);
             }
+        } catch (SQLException | ConnectException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
         }
 
         Platform.runLater(() -> txtMessageText.requestFocus());
@@ -176,7 +182,8 @@ public class ChatController extends BaseController {
 
     public void sendMessage() {
         //TODO: change time
-        Message message = new Message(txtMessageText.getText(), chat.getId(), applicationManager.getCurrentUser().getId(), new Time(0,0,0));
+        Message message = new Message(txtMessageText.getText(), applicationManager.getCurrentUser().getId(),
+                applicationManager.getCurrentUser().getName(),new Time(0,0,0), null);
         applicationManager.getClientManager().getMessageClient().sendMessage(message);
 
         txtMessageText.setText("");

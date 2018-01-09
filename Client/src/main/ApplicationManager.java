@@ -13,16 +13,18 @@ import main.util.sec.HashCalculator;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class ApplicationManager {
-    public UserRepository userRepository = new UserRepository();
-    public ChatRepository chatRepository = new ChatRepository();
-    public MessageRepository messageRepository = new MessageRepository();
+    private UserRepository userRepository = new UserRepository();
+    private ChatRepository chatRepository = new ChatRepository();
+    private MessageRepository messageRepository = new MessageRepository();
     private BaseController baseController;
     private HashCalculator hashCalculator = new HashCalculator();
     private ClientManager clientManager;
     private Session session;
+    private List<User> allUsers;
 
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
@@ -41,6 +43,7 @@ public class ApplicationManager {
             session.getCurrentUser().setGroupChats(chatRepository.getGroupChatsByUserId(session.getCurrentUser().getId()));
             session.getCurrentUser().setMemos(chatRepository.getMemosByUserId(session.getCurrentUser().getId()));
 
+            allUsers = userRepository.getAllUsers();
             clientManager = new ClientManager();
             return true;
         }
@@ -75,7 +78,23 @@ public class ApplicationManager {
         return userRepository.registerUser(username, hashCalculator.hashString(password, salt), salt, name, function);
     }
 
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public ChatRepository getChatRepository() {
+        return chatRepository;
+    }
+
+    public MessageRepository getMessageRepository() {
+        return messageRepository;
+    }
+
     public ClientManager getClientManager() {
         return this.clientManager;
+    }
+
+    public List<User> getAllUsers() {
+        return allUsers;
     }
 }

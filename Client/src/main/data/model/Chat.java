@@ -16,6 +16,7 @@ public class Chat {
     private ChatType chatType;
     private ArrayList<Message> messages;
     private ArrayList<User> users;
+    private Message lastSentMessage;
 
     public Chat(final int id, final String name, final ChatType chatType) {
         this.id = id;
@@ -37,6 +38,10 @@ public class Chat {
         this.users = users;
     }
 
+    public void setLastSentMessage(Message lastSentMessage) {
+        this.lastSentMessage = lastSentMessage;
+    }
+
     public int getId() {
         return id;
     }
@@ -49,8 +54,8 @@ public class Chat {
         return chatType;
     }
 
-    public Message getLastMessage() {
-        return messages.get(0);
+    public Message getLastSentMessage() {
+        return lastSentMessage;
     }
 
     public List<Message> getMessages() {

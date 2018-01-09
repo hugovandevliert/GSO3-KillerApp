@@ -9,25 +9,29 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserRepository {
-    private final IUserContext context = new UserMySqlContext();
+    private final IUserContext userContext = new UserMySqlContext();
 
     public boolean registerUser(final String username, final String password, final String salt, final String name, final String functionName) throws SQLException, ConnectException {
-        return context.registerUser(username, password, salt, name, functionName);
+        return userContext.registerUser(username, password, salt, name, functionName);
     }
 
     public String[] getSaltAndHash(final String username) throws SQLException, ConnectException {
-        return context.getSaltAndHash(username);
+        return userContext.getSaltAndHash(username);
     }
 
     public User getUserByUsername(final String username) throws SQLException, ConnectException {
-        return context.getUserByUsername(username);
+        return userContext.getUserByUsername(username);
+    }
+
+    public List<User> getAllUsers() throws SQLException, ConnectException {
+        return userContext.getAllUsers();
     }
 
     public List<String> getFunctionNames() throws SQLException, ConnectException {
-        return context.getFunctionNames();
+        return userContext.getFunctionNames();
     }
 
     public boolean checkUsernameAvailability(final String username) throws SQLException, ConnectException {
-        return context.checkUsernameAvailability(username);
+        return userContext.checkUsernameAvailability(username);
     }
 }

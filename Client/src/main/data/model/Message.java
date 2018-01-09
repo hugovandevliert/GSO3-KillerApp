@@ -9,20 +9,20 @@ public class Message implements Serializable {
     private String text;
     private MessageFile file;
     private Time time;
-    private int chatId;
-    private int fileId;
     private int senderId;
+    private Integer fileId;
     private String senderName;
 
-    public Message(String text, int chatId, int senderId, Time time) {
+    public Message(final String text, final int senderId, final String senderName, final Time time, final Integer fileId) {
         this.text = text;
-        this.chatId = chatId;
         this.senderId = senderId;
+        this.senderName = senderName;
         this.time = time;
+        this.fileId = fileId;
         this.file = null;
     }
 
-    public void addFile(MessageFile file) {
+    public void addFile(final MessageFile file) {
         this.file = file;
     }
 
@@ -44,8 +44,6 @@ public class Message implements Serializable {
     public int getSenderId() {
         return senderId;
     }
-
-    public int getChatId() { return chatId; }
 
     public int getFileId() { return fileId; }
 
