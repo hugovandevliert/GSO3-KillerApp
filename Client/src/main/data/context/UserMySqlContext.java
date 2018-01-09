@@ -13,12 +13,6 @@ import java.util.List;
 public class UserMySqlContext implements IUserContext {
     @Override
     public boolean registerUser(final String username, final String password, final String salt, final String name, final String functionName) throws SQLException, ConnectException {
-        System.out.println(username);
-        System.out.println(password);
-        System.out.println(salt);
-        System.out.println(name);
-        System.out.println(functionName);
-
         final String query = "INSERT INTO `User` (`Username`, `Password`, `Salt`, `Name`) VALUES (?, ?, ?, ?);" +
                 "INSERT INTO `userfunction` (userId, functionId) VALUES (LAST_INSERT_ID(), (SELECT id FROM `Function` WHERE `name` = ?));";
 
@@ -47,18 +41,16 @@ public class UserMySqlContext implements IUserContext {
 
     @Override
     public User getUserByUsername(final String username) throws SQLException, ConnectException {
-//        final String query = "SELECT id, username, name FROM `User` WHERE username = ?";
-//        final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{username});
-//
-//        if (resultSet != null && resultSet.next()) {
-//            return new User
-//                    (
-//                            resultSet.getInt("id"),
-//                            resultSet.getString("username"),
-//                            resultSet.getString("name"),
-//
-//                    );
-//        }
+        final String query = "SELECT u.id, u.username, u.name, f.name AS `function` FROM `User` u " +
+                "INNER JOIN userfunction uf ON uf.userid = u.id " +
+                "INNER JOIN `function` f ON uf.functionId = f.id " +
+                "WHERE username = ?";
+        final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{username});
+
+        if (resultSet != null && resultSet.next()) {
+            return new User(resultSet.getInt("id"), resultSet.getString("username"),
+                    resultSet.getString("name"), resultSet.getString("function"),null);
+        }
         return null;
     }
 

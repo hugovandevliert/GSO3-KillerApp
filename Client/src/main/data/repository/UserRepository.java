@@ -4,7 +4,6 @@ import main.data.context.IUserContext;
 import main.data.context.UserMySqlContext;
 import main.data.model.User;
 
-import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,7 +19,7 @@ public class UserRepository {
         return context.getSaltAndHash(username);
     }
 
-    public User getUserByUsername(final String username) throws SQLException, IOException, ClassNotFoundException {
+    public User getUserByUsername(final String username) throws SQLException, ConnectException {
         return context.getUserByUsername(username);
     }
 

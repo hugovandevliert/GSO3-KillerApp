@@ -115,7 +115,7 @@ public class BaseController {
             applicationManager.register(txtUsernameRegister.getText(), txtPasswordRegister.getText(), txtNameRegister.getText(), comboboxFunctionRegister.getValue().toString());
             paneContent.getChildren().clear();
             paneContent.getChildren().add(paneLogin);
-            showAlert("Account created!\nPlease log in with your account to continue.", paneContent);
+            showAlert("Account created!\nPlease log in with your account.", paneContent);
         } catch (IllegalArgumentException ex) {
             showAlert(ex.getMessage(), paneContent);
         } catch (SQLException | ConnectException e) {

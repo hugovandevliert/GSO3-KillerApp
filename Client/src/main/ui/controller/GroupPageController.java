@@ -32,51 +32,51 @@ public class GroupPageController extends BaseController {
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
 
-            users = new ArrayList<User>();
-            users.add(applicationManager.getCurrentUser());
-            users.add(new User(0, "testUser2", "Simone",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-            users.add(new User(0, "testUser3", "Timo",
-                    "Bierproever", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-            users.add(new User(0, "testUser4", "JuulVergeetTas",
-                    "Paupert", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+//            users = new ArrayList<User>();
+//            users.add(applicationManager.getCurrentUser());
+//            users.add(new User(0, "testUser2", "Simone",
+//                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+//            users.add(new User(0, "testUser3", "Timo",
+//                    "Bierproever", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+//            users.add(new User(0, "testUser4", "JuulVergeetTas",
+//                    "Paupert", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+//
+//            Chat chat = new Chat(i,"group " + i, Chat.ChatType.GROUP, new ArrayList<>(), users);
+//
+//            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very long message", i, new User(0, "testUser3", "Timo",
+//                    "Bierproever", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10)));
+//
+//            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very long message", i,
+//                    applicationManager.getCurrentUser().getId(), new Time(20, 45,50)));
+//
+//            Message tempMessage = new Message("test.txt", i, new User(0, "testUser2", "Ronald",
+//                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10));
+//            tempMessage.addFile(new MessageFile(new File("main/util/test/test.txt")));
+//            chat.addMessage(tempMessage);
+//
+//            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very long message", i,
+//                    new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
+//                            new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10)));
+//            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very long message", i,
+//                    applicationManager.getCurrentUser().getId(), new Time(20, 45,20)));
+//            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very very " +
+//                    "very very very very very very very very very very very very very very very very very very very long message", i,
+//                    applicationManager.getCurrentUser().getId(), new Time(1, 1,1)));
+//
+//            chat.addMessage(new Message("And another one test message", i, new User(0, "testUser2", "JuulVergeetTas",
+//                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10)));
 
-            Chat chat = new Chat(i,"group " + i, Chat.ChatType.GROUP, new ArrayList<>(), users);
-
-            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message", i, new User(0, "testUser3", "Timo",
-                    "Bierproever", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10)));
-
-            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message", i,
-                    applicationManager.getCurrentUser().getId(), new Time(20, 45,50)));
-
-            Message tempMessage = new Message("test.txt", i, new User(0, "testUser2", "Ronald",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10));
-            tempMessage.addFile(new MessageFile(new File("main/util/test/test.txt")));
-            chat.addMessage(tempMessage);
-
-            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message", i,
-                    new User(0, "testUser2", "Simone", "SuperCEO", null, new ArrayList<>(),
-                            new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10)));
-            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message", i,
-                    applicationManager.getCurrentUser().getId(), new Time(20, 45,20)));
-            chat.addMessage(new Message("This is a very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very very very very very long message", i,
-                    applicationManager.getCurrentUser().getId(), new Time(1, 1,1)));
-
-            chat.addMessage(new Message("And another one test message", i, new User(0, "testUser2", "JuulVergeetTas",
-                    "SuperCEO", null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()).getId(), new Time(20, 45,10)));
-
-            listedChatController.setParentPane(parentPane);
-            listedChatController.setListedChat(chat);
+//            listedChatController.setParentPane(parentPane);
+//            listedChatController.setListedChat(chat);
 
             vboxListedChats.getChildren().add(listedChatPane);
         }

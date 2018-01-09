@@ -1,6 +1,9 @@
 package main;
 
+import main.data.model.Chat;
 import main.data.model.User;
+import main.data.repository.ChatRepository;
+import main.data.repository.MessageRepository;
 import main.data.repository.UserRepository;
 import main.data.session.Session;
 import main.rmi.ClientManager;
@@ -14,6 +17,8 @@ import java.util.regex.Pattern;
 
 public class ApplicationManager {
     public UserRepository userRepository = new UserRepository();
+    public ChatRepository chatRepository = new ChatRepository();
+    public MessageRepository messageRepository = new MessageRepository();
     private BaseController baseController;
     private HashCalculator hashCalculator = new HashCalculator();
     private ClientManager clientManager;
@@ -31,13 +36,13 @@ public class ApplicationManager {
         final String[] saltAndHash = userRepository.getSaltAndHash(username);
 
         if (saltAndHash.length > 0 && hashCalculator.hashString(password, saltAndHash[0]).equals(saltAndHash[1])){
-            try {
-                session = new Session(userRepository.getUserByUsername(username), this);
-                clientManager = new ClientManager();
-                return true;
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            session = new Session(userRepository.getUserByUsername(username), this);
+            session.getCurrentUser().setPrivateChats(chatRepository.getPrivateChatsByUserId(session.getCurrentUser().getId()));
+            session.getCurrentUser().setGroupChats(chatRepository.getGroupChatsByUserId(session.getCurrentUser().getId()));
+            session.getCurrentUser().setMemos(chatRepository.getMemosByUserId(session.getCurrentUser().getId()));
+
+            clientManager = new ClientManager();
+            return true;
         }
         return false;
     }
