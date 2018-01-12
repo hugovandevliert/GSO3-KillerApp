@@ -31,6 +31,7 @@ import main.rmi.MessageClient;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -56,8 +57,9 @@ public class BaseController {
     @FXML private JFXPasswordField txtPasswordRegister;
     @FXML private JFXTextField txtPasswordVisibleRegister;
     @FXML private JFXCheckBox cboxPaswordRegister;
-    @FXML public JFXTextField txtNameRegister;
-    @FXML public JFXComboBox comboboxFunctionRegister;
+    @FXML private JFXTextField txtNameRegister;
+    @FXML private JFXComboBox comboboxFunctionRegister;
+    @FXML private Label lblOfflineMode;
 
     private FontAwesomeIconView selectedIcon;
     private Timeline timelineMenuIn;
@@ -80,14 +82,17 @@ public class BaseController {
                 timelineMenuIn.play();
                 paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
 
-
-                try {
-                    final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistry(),
-                            applicationManager.getCurrentUser().getId(), applicationManager.getClientManager(), this);
-                    applicationManager.getClientManager().setMessageClient(messageClient);
-                } catch (IOException | NotBoundException e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistry(),
+                                applicationManager.getCurrentUser().getId(), applicationManager.getClientManager(), this);
+                        applicationManager.getClientManager().setMessageClient(messageClient);
+                    } catch (RemoteException | NotBoundException e) {
+                        showAlert("Unable to connect to our server.\nYou are now in offline mode.", paneContent);
+                        lblOfflineMode.setVisible(true);
+                        e.printStackTrace();
+                    }
+                });
             } else {
                 showAlert("Username or password incorrect. Please try again.", paneContent);
             }
@@ -352,11 +357,20 @@ public class BaseController {
         }
     }
 
-    public void displayMessage(final Message message) throws IOException, SQLException {
-        //TODO: refresh page
-        final Chat chat = applicationManager.getChatRepository().getChatWithId(message.getChatId());
-        chat.setUsers((ArrayList<User>) applicationManager.getUserRepository().getUsersByChatId(chat.getId()));
-        showAlert(chat, message, paneContent);
+    public void displayMessage(final Message message) throws IOException {
+        //Don't display message if the chat is already opened.
+        if (applicationManager.getOpenedChat() != null && applicationManager.getOpenedChat().getChatId() == message.getChatId()) {
+            applicationManager.getOpenedChat().loadMessage(message);
+        } else {
+            try {
+                final Chat chat = applicationManager.getChatRepository().getChatWithId(message.getChatId());
+                chat.setUsers((ArrayList<User>) applicationManager.getUserRepository().getUsersByChatId(chat.getId()));
+                showAlert(chat, message, paneContent);
+            } catch (SQLException e) {
+                showAlert("Unable to connect to database.\nError: " + e.getMessage(), paneContent);
+                e.printStackTrace();
+            }
+        }
     }
 
     void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {

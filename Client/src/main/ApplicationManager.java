@@ -8,6 +8,7 @@ import main.data.repository.UserRepository;
 import main.data.session.Session;
 import main.rmi.ClientManager;
 import main.ui.controller.BaseController;
+import main.ui.controller.ChatController;
 import main.util.sec.HashCalculator;
 
 import java.io.IOException;
@@ -21,7 +22,9 @@ public class ApplicationManager {
     private UserRepository userRepository = new UserRepository();
     private ChatRepository chatRepository = new ChatRepository();
     private MessageRepository messageRepository = new MessageRepository();
+
     private BaseController baseController;
+    private ChatController openedChat;
     private HashCalculator hashCalculator = new HashCalculator();
     private ClientManager clientManager;
     private Session session;
@@ -120,5 +123,13 @@ public class ApplicationManager {
 
     public List<User> getAllUsers() {
         return allUsers;
+    }
+
+    public ChatController getOpenedChat() {
+        return openedChat;
+    }
+
+    public void setOpenedChat(ChatController openedChat) {
+        this.openedChat = openedChat;
     }
 }

@@ -8,15 +8,15 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
-<?import javafx.scene.control.Label?>
 
-<AnchorPane fx:id="anchorpaneBase" cacheShape="false" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.BaseController">
+<AnchorPane fx:id="anchorpaneBase" cacheShape="false" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: #FFFFFF; -fx-border-color: green; -fx-border-width: 1px;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.BaseController">
     <children>
-        <Pane fx:id="paneMenu" prefHeight="750.0" prefWidth="150.0" style="-fx-background-color: #E0E0E0;">
+        <Pane fx:id="paneMenu" layoutX="1" layoutY="1" prefHeight="750.0" prefWidth="149.0" style="-fx-background-color: #E0E0E0;">
             <children>
                 <FontAwesomeIconView fx:id="iconAccount" glyphName="KEY" layoutX="50.0" layoutY="165.0" onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="50">
                     <cursor>
@@ -38,6 +38,11 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </FontAwesomeIconView>
+            <Label fx:id="lblOfflineMode" layoutX="15.0" layoutY="706.0" text="Offline mode" textFill="RED" visible="false">
+               <font>
+                  <Font name="Segoe UI Semibold" size="20.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
 

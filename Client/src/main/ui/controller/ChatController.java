@@ -49,7 +49,12 @@ public class ChatController extends BaseController {
         this.parentPane = parentPane;
     }
 
+    int getChatId() {
+        return chat.getId();
+    }
+
     void loadChat(final Chat chat) {
+        applicationManager.setOpenedChat(this);
         this.chat = chat;
         txtMessageText.textProperty().addListener((observable, oldValue, newValue) -> {
             if (txtMessageText.getText().isEmpty() && selectedFile == null) {
@@ -63,6 +68,7 @@ public class ChatController extends BaseController {
         vboxListedMessages.setSpacing(20);
         scrollpaneListedMessages.setFitToHeight(false);
         scrollpaneListedMessages.setContent(vboxListedMessages);
+        scrollpaneListedMessages.vvalueProperty().bind(vboxListedMessages.heightProperty());
 
         if (chat.getChatType().equals(Chat.ChatType.PRIVATE)) {
             for (User u : chat.getUsers()) {
@@ -128,7 +134,7 @@ public class ChatController extends BaseController {
         loadMessage(message);
     }
 
-    private void loadMessage(final Message message) {
+    void loadMessage(final Message message) {
         final HBox hBoxMessageBody = new HBox();
         hBoxMessageBody.setMinWidth(1050);
 
@@ -167,7 +173,7 @@ public class ChatController extends BaseController {
 
             hBoxMessageBody.getChildren().add(lblMessage);
             hBoxMessageBody.getChildren().add(lblSendTime);
-        } else if (chat.getChatType() != Chat.ChatType.PRIVATE){
+        } else if (chat.getChatType() != Chat.ChatType.PRIVATE) {
             hBoxMessageBody.setAlignment(Pos.CENTER_LEFT);
 
             final Label lblSenderName = new Label();
@@ -192,15 +198,6 @@ public class ChatController extends BaseController {
         }
 
         vboxListedMessages.getChildren().add(hBoxMessageBody);
-
-        scrollToNewestMessage();
-    }
-
-    private void scrollToNewestMessage() {
-        Platform.runLater(() -> {
-            scrollpaneListedMessages.layout();
-            scrollpaneListedMessages.setVvalue(1.0);
-        });
     }
 
     private void saveFile(MouseEvent event) {

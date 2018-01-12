@@ -7,6 +7,7 @@ import main.ui.controller.BaseController;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
+import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
@@ -21,7 +22,7 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
     private transient final BaseController baseController;
     //private final MusicPlayer musicPlayer;
 
-    public MessageClient(final Registry registry, final int currentUserId, final ClientManager clientManager, final BaseController baseController) throws IOException, NotBoundException {
+    public MessageClient(final Registry registry, final int currentUserId, final ClientManager clientManager, final BaseController baseController) throws RemoteException, NotBoundException {
         super();
 
         this.baseController = baseController;
@@ -54,7 +55,7 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
            try {
                baseController.displayMessage(message);
                //musicPlayer.playSound();
-           } catch (IOException | SQLException e) {
+           } catch (IOException e) {
                e.printStackTrace();
            }
        });
