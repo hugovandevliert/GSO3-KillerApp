@@ -27,6 +27,8 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
 
         publisher = new RemotePublisher();
         this.publisher.registerProperty(CHANGED_PROPERTY);
+        this.publisher.registerProperty(CHANGED_PROPERTY + "1"); //TODO: this should be done by the authentication server when it's ready
+        this.publisher.registerProperty(CHANGED_PROPERTY + "7"); //TODO: this should be done by the authentication server when it's ready
         System.out.println("Started publisher and registered " + CHANGED_PROPERTY + " property");
 
         Registry registry = LocateRegistry.createRegistry(PORT_NUMBER);
@@ -55,6 +57,14 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
             e.printStackTrace();
         }
 
-        publisher.inform(CHANGED_PROPERTY, null, message);
+        try {
+            for (int userId : messageServerRepository.getUserIdsFromChatId(message.getChatId())) {
+                if (userId != message.getSenderId()) {
+                    publisher.inform(CHANGED_PROPERTY + userId, null, message);
+                }
+            }
+        } catch (SQLException | ConnectException e) {
+            e.printStackTrace();
+        }
     }
 }

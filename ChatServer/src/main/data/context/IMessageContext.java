@@ -6,5 +6,5 @@ import java.net.ConnectException;
 import java.sql.SQLException;
 
 public interface IMessageContext {
-    void addMessage(Message message) throws SQLException, ConnectException;
+    void addMessage(final Message message) throws SQLException, ConnectException;
 }

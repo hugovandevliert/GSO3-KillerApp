@@ -73,13 +73,6 @@ public class ChatController extends BaseController {
         }
 
         Platform.runLater(() -> txtMessageText.requestFocus());
-
-        try {
-            final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistry(), applicationManager.getCurrentUser().getId(), applicationManager.getClientManager(), this);
-            applicationManager.getClientManager().setMessageClient(messageClient);
-        } catch (IOException | NotBoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public void loadMessage(final Message message) {
@@ -188,6 +181,8 @@ public class ChatController extends BaseController {
 
         txtMessageText.setText("");
         txtMessageText.setEditable(true);
+
+        loadMessage(message);
     }
 
     private void scrollToNewestMessage() {

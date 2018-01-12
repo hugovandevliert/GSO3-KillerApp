@@ -14,7 +14,8 @@ public class MessageMySqlContext implements IMessageContext {
     public List<Message> getMessagesByChatId(final int chatId) throws SQLException, ConnectException {
         final String query = "SELECT m.senderId, m.fileId, u.name, m.text, m.datetime FROM message m " +
                 "INNER JOIN `user` u on u.id = m.senderId " +
-                "WHERE m.chatId = ?";
+                "WHERE m.chatId = ?" +
+                "ORDER BY m.datetime";
         final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{String.valueOf(chatId)});
         List<Message> messages = new ArrayList<>();
 

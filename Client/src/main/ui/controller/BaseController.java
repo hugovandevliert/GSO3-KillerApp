@@ -25,9 +25,11 @@ import javafx.util.Duration;
 import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
+import main.rmi.MessageClient;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.rmi.NotBoundException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Timer;
@@ -75,6 +77,15 @@ public class BaseController {
                 paneContent.getChildren().remove(paneLogin);
                 timelineMenuIn.play();
                 paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
+
+
+                try {
+                    final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistry(),
+                            applicationManager.getCurrentUser().getId(), applicationManager.getClientManager(), this);
+                    applicationManager.getClientManager().setMessageClient(messageClient);
+                } catch (IOException | NotBoundException e) {
+                    e.printStackTrace();
+                }
             } else {
                 showAlert("Username or password incorrect. Please try again.", paneContent);
             }
@@ -337,6 +348,10 @@ public class BaseController {
             txtPasswordRegister.deselect();
             txtPasswordRegister.positionCaret(txtPasswordRegister.getLength());
         }
+    }
+
+    public void displayMessage(final Message message) throws IOException, SQLException {
+        showAlert(applicationManager.getChatRepository().getChatWithId(message.getChatId()), message, paneContent);
     }
 
     void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {

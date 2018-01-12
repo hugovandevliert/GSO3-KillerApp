@@ -10,4 +10,5 @@ public interface IChatContext {
     List<Chat> getPrivateChatsByUserId(final int userId) throws SQLException, ConnectException;
     List<Chat> getGroupChatsByUserId(final int userId) throws SQLException, ConnectException;
     List<Chat> getMemosByUserId(final int userId) throws SQLException, ConnectException;
+    Chat getChatWithId(int chatId) throws SQLException, ConnectException;
 }

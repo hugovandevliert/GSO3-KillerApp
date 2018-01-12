@@ -11,15 +11,19 @@ import java.util.List;
 public class ChatRepository {
     private IChatContext chatContext = new ChatMySqlContext();
 
-    public List<Chat> getPrivateChatsByUserId(int userId) throws SQLException, ConnectException {
+    public List<Chat> getPrivateChatsByUserId(final int userId) throws SQLException, ConnectException {
         return chatContext.getPrivateChatsByUserId(userId);
     }
 
-    public List<Chat> getGroupChatsByUserId(int userId) throws SQLException, ConnectException {
+    public List<Chat> getGroupChatsByUserId(final int userId) throws SQLException, ConnectException {
         return chatContext.getGroupChatsByUserId(userId);
     }
 
-    public List<Chat> getMemosByUserId(int userId) throws SQLException, ConnectException {
+    public List<Chat> getMemosByUserId(final int userId) throws SQLException, ConnectException {
         return chatContext.getMemosByUserId(userId);
+    }
+
+    public Chat getChatWithId(final int chatId) throws SQLException, ConnectException {
+        return chatContext.getChatWithId(chatId);
     }
 }

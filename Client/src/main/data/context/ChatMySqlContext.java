@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ChatMySqlContext implements IChatContext {
     @Override
-    public List<Chat> getPrivateChatsByUserId(int userId) throws SQLException, ConnectException {
+    public List<Chat> getPrivateChatsByUserId(final int userId) throws SQLException, ConnectException {
         final String query = "SELECT c.id, c.name, c.chatType FROM chat c " +
                 "INNER JOIN userchats uc ON uc.chatId = c.id " +
                 "WHERE uc.userId = ? AND c.chatType = ?";
@@ -25,7 +25,7 @@ public class ChatMySqlContext implements IChatContext {
     }
 
     @Override
-    public List<Chat> getGroupChatsByUserId(int userId) throws SQLException, ConnectException {
+    public List<Chat> getGroupChatsByUserId(final int userId) throws SQLException, ConnectException {
         final String query = "SELECT c.id, c.name, c.chatType FROM chat c " +
                 "INNER JOIN userchats uc ON uc.chatId = c.id " +
                 "WHERE uc.userId = ? AND c.chatType = ?";
@@ -42,7 +42,7 @@ public class ChatMySqlContext implements IChatContext {
     }
 
     @Override
-    public List<Chat> getMemosByUserId(int userId) throws SQLException, ConnectException {
+    public List<Chat> getMemosByUserId(final int userId) throws SQLException, ConnectException {
         final String query = "SELECT c.id, c.name, c.chatType FROM chat c " +
                 "INNER JOIN userchats uc ON uc.chatId = c.id " +
                 "WHERE uc.userId = ? AND c.chatType = ?";
@@ -56,5 +56,19 @@ public class ChatMySqlContext implements IChatContext {
             }
         }
         return memos;
+    }
+
+    @Override
+    public Chat getChatWithId(final int chatId) throws SQLException, ConnectException {
+        final String qeury = "SELECT c.id, c.chatType, c.name FROM chat c " +
+                "WHERE c.id = ?";
+        final ResultSet resultSet = DatabaseHandler.getData(qeury, new String[]{String.valueOf(chatId)});
+
+        if (resultSet.next()) {
+            final String chatType = resultSet.getString("chatType").toUpperCase();
+            return new Chat(resultSet.getInt("id"), resultSet.getString("name"), Chat.ChatType.valueOf(chatType));
+        } else {
+            return null;
+        }
     }
 }
