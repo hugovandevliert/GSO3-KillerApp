@@ -3,20 +3,24 @@ package main;
 import fontyspublisher.IRemotePublisherForDomain;
 import fontyspublisher.RemotePublisher;
 import main.data.model.Message;
+import main.data.repository.MessageServerRepository;
 import main.rmi.IMessageServer;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 
 import static main.util.constant.constants.*;
 
 public class MessageServer extends UnicastRemoteObject implements IMessageServer {
     private IRemotePublisherForDomain publisher;
+    private MessageServerRepository messageServerRepository = new MessageServerRepository();
 
-    protected MessageServer() throws IOException {
+    private MessageServer() throws IOException {
         super();
 
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
@@ -45,6 +49,12 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
 
     @Override
     public void sendMessage(Message message) throws RemoteException {
+        try {
+            messageServerRepository.addMessage(message);
+        } catch (SQLException | ConnectException e) {
+            e.printStackTrace();
+        }
+        
         publisher.inform(CHANGED_PROPERTY, null, message);
     }
 }

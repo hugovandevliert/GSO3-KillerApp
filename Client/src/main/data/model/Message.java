@@ -51,7 +51,7 @@ public class Message implements Serializable {
         return senderId;
     }
 
-    public int getFileId() { return fileId; }
+    public Integer getFileId() { return fileId; }
 
     public String getSenderName() {
         return senderName;

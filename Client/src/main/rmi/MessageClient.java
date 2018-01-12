@@ -11,8 +11,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import static main.util.constant.constants.*;
 
+import static main.util.constant.constants.*;
 
 public class MessageClient extends UnicastRemoteObject implements IMessageClient {
     private transient IMessageServer server;
@@ -33,7 +33,7 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
         IRemotePublisherForListener messageListener = (IRemotePublisherForListener) registry.lookup(SERVER_NAME_THAT_PUSHES_TO_CLIENTS);
-        messageListener.subscribeRemoteListener(this, CHANGED_PROPERTY + currentUserId);
+        messageListener.subscribeRemoteListener(this, CHANGED_PROPERTY); //////// <<<<--------------
         clientManager.addBidServerMessageListener(messageListener, this);
 
         server = (IMessageServer) registry.lookup(SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS);
