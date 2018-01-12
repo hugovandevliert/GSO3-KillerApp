@@ -12,6 +12,10 @@ public class AccountController extends BaseController {
     @FXML private Label lblName;
     @FXML private Label lblFunction;
 
+    public void logout() {
+        applicationManager.logout();
+    }
+
     void loadAccount(User user) {
         if (user.getPhoto() != null) {
             imgviewProfilePicture.setImage(user.getPhoto());
