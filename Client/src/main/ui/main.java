@@ -9,6 +9,8 @@ import javafx.stage.StageStyle;
 import main.ui.controller.BaseController;
 
 public class main extends Application {
+    private double xOffset, yOffset;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fx/base.fxml"));
@@ -23,6 +25,25 @@ public class main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        enableGUIMoving(root, primaryStage);
+
         //primaryStage.setOnCloseRequest(e -> Platform.exit());
+    }
+
+    private void enableGUIMoving(final Parent parent, final Stage stage) {
+        // Change the offset for both X and Y
+        // whenever the user clicks on our GUI we need to register that coordinate and save it
+        parent.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        // Change the actual offset of the scene with the changed variables
+        parent.setOnMouseDragged(event -> {
+            if (yOffset < 30) {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
     }
 }
