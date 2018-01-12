@@ -11,15 +11,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import static main.util.constant.constants.*;
+
 public class MessageServer extends UnicastRemoteObject implements IMessageServer {
-
-    private static final String SERVER_NAME_THAT_PUSHES_TO_CLIENTS = "Server_Pusher";
-    private static final String SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS = "Server_Receiver";
-    private static final String CHANGED_PROPERTY = "newMessage";
-    private static final String SERVER_IP = "localhost";
-    private static final int PORT_NUMBER = 1098;
-
-    private Registry registry = null;
     private IRemotePublisherForDomain publisher;
 
     protected MessageServer() throws IOException {
@@ -31,7 +25,7 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
         this.publisher.registerProperty(CHANGED_PROPERTY);
         System.out.println("Started publisher and registered " + CHANGED_PROPERTY + " property");
 
-        registry = LocateRegistry.createRegistry(PORT_NUMBER);
+        Registry registry = LocateRegistry.createRegistry(PORT_NUMBER);
         System.out.println("Created registry on port " + PORT_NUMBER);
 
         registry.rebind(SERVER_NAME_THAT_PUSHES_TO_CLIENTS, publisher);
@@ -43,7 +37,7 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
 
     public static void main(String[] args) {
         try {
-            final MessageServer messageServer = new MessageServer();
+            new MessageServer();
         } catch (IOException e) {
             e.printStackTrace();
         }

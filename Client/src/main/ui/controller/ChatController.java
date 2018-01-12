@@ -183,7 +183,7 @@ public class ChatController extends BaseController {
     public void sendMessage() {
         //TODO: change time
         Message message = new Message(txtMessageText.getText(), applicationManager.getCurrentUser().getId(),
-                applicationManager.getCurrentUser().getName(),new Time(0,0,0), null);
+                applicationManager.getCurrentUser().getName(), chat.getId(), new Time(0,0,0), null);
         applicationManager.getClientManager().getMessageClient().sendMessage(message);
 
         txtMessageText.setText("");

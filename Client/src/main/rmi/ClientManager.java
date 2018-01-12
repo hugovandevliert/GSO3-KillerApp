@@ -7,14 +7,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import static main.util.constant.constants.*;
+
 public class ClientManager {
-
-    private static final String SERVER_NAME_THAT_PUSHES_TO_CLIENTS = "Server_Pusher";
-    private static final String SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS = "Server_Receiver";
-    private static final String CHANGED_PROPERTY = "newMessage";
-    private static final String SERVER_IP = "localhost";
-    private static final int PORT_NUMBER = 1098;
-
     private Registry registry;
     private MessageClient messageClient;
     private IRemotePublisherForListener messageServerListener;

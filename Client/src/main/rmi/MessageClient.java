@@ -11,14 +11,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import static main.util.constant.constants.*;
+
 
 public class MessageClient extends UnicastRemoteObject implements IMessageClient {
-
-    private static final String SERVER_NAME_THAT_PUSHES_TO_CLIENTS = "Server_Pusher";
-    private static final String SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS = "Server_Receiver";
-    private static final String CHANGED_PROPERTY = "newMessage";
-    private static final String SERVER_IP = "localhost";
-
     private transient IMessageServer server;
 
     private final int auctionId;
@@ -37,7 +33,7 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
         IRemotePublisherForListener messageListener = (IRemotePublisherForListener) registry.lookup(SERVER_NAME_THAT_PUSHES_TO_CLIENTS);
-        messageListener.subscribeRemoteListener(this, CHANGED_PROPERTY);
+        messageListener.subscribeRemoteListener(this, CHANGED_PROPERTY + currentUserId);
         clientManager.addBidServerMessageListener(messageListener, this);
 
         server = (IMessageServer) registry.lookup(SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS);
@@ -52,20 +48,19 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
     }
 
     @Override
-    public int getMessageId() {
-        return this.auctionId;
-    }
-
-    @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         final Message message = (Message) propertyChangeEvent.getNewValue();
 
         Platform.runLater(() -> chatController.loadMessage(message));
         //musicPlayer.playSound();
-        System.out.println(message.getText());
     }
 
     private boolean isCurrentUser(final int userId) {
         return userId == this.currentUserId;
+    }
+
+    @Override
+    public int getMessageId() throws RemoteException {
+        return 0;
     }
 }

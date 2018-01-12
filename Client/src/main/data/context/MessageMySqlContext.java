@@ -20,7 +20,7 @@ public class MessageMySqlContext implements IMessageContext {
 
         while (resultSet.next()) {
             messages.add(new Message(resultSet.getString("text"), resultSet.getInt("senderId"),
-                    resultSet.getString("name"), resultSet.getTime("datetime"), resultSet.getInt("fileId")));
+                    resultSet.getString("name"), chatId, resultSet.getTime("datetime"), resultSet.getInt("fileId")));
         }
         return messages;
     }
@@ -35,7 +35,7 @@ public class MessageMySqlContext implements IMessageContext {
 
         if (resultSet != null && resultSet.next()) {
             return new Message(resultSet.getString("text"), resultSet.getInt("senderId"),
-                    resultSet.getString("name"), resultSet.getTime("datetime"), resultSet.getInt("fileId"));
+                    resultSet.getString("name"), chatId, resultSet.getTime("datetime"), resultSet.getInt("fileId"));
         } else {
             return null;
         }
