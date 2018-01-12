@@ -47,7 +47,7 @@ public class ListedChatController extends BaseController{
             lblLastMessage.setGraphic(txtflowLastMessage);
         }
 
-        lblMessageCount.setText(String.valueOf(chat.getUnreadMessagesCount()));
+        lblMessageCount.setText(String.valueOf(chat.getUnreadCount()));
     }
 
     public void openChat() throws IOException {

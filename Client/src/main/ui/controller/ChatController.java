@@ -30,7 +30,9 @@ import java.net.ConnectException;
 import java.rmi.NotBoundException;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChatController extends BaseController {
     private Chat chat;
@@ -73,6 +75,7 @@ public class ChatController extends BaseController {
         }
 
         try {
+            applicationManager.getChatRepository().resetUnreadCount(chat.getId(), applicationManager.getCurrentUser().getId());
             chat.setMessages((ArrayList<Message>) applicationManager.getMessageRepository().getMessagesByChatId(chat.getId()));
             for (Message message : this.chat.getMessages()) {
                 loadMessage(message);
@@ -116,7 +119,7 @@ public class ChatController extends BaseController {
 
     public void sendMessage() {
         Message message = new Message(txtMessageText.getText(), applicationManager.getCurrentUser().getId(),
-                applicationManager.getCurrentUser().getName(), chat.getId(), null, null);
+                applicationManager.getCurrentUser().getName(), chat.getId(), new Time(new Date().getTime()), null);
         applicationManager.getClientManager().getMessageClient().sendMessage(message);
 
         txtMessageText.setText("");

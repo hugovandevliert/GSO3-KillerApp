@@ -17,6 +17,7 @@ public class Chat {
     private ArrayList<Message> messages;
     private ArrayList<User> users;
     private Message lastSentMessage;
+    private int unreadCount;
 
     public Chat(final int id, final String name, final ChatType chatType) {
         this.id = id;
@@ -24,22 +25,23 @@ public class Chat {
         this.chatType = chatType;
         this.messages = null;
         this.users = null;
+        unreadCount = 0;
     }
 
-    public void addMessage(Message message) {
-        messages.add(message);
-    }
-
-    public void setMessages(ArrayList<Message> messages) {
+    public void setMessages(final ArrayList<Message> messages) {
         this.messages = messages;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    public void setUsers(final ArrayList<User> users) {
         this.users = users;
     }
 
-    public void setLastSentMessage(Message lastSentMessage) {
+    public void setLastSentMessage(final Message lastSentMessage) {
         this.lastSentMessage = lastSentMessage;
+    }
+
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
     }
 
     public int getId() {
@@ -66,12 +68,11 @@ public class Chat {
         return Collections.unmodifiableList(users);
     }
 
-    public String getUnreadMessagesCount() {
-        //TODO: fix this
-        if (999 > 999) {
+    public String getUnreadCount() {
+        if (unreadCount > 999) {
             return "999+";
         } else {
-            return "999";
+            return String.valueOf(unreadCount);
         }
     }
 }

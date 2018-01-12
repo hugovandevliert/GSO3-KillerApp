@@ -41,25 +41,16 @@ public class ApplicationManager {
         if (saltAndHash.length > 0 && hashCalculator.hashString(password, saltAndHash[0]).equals(saltAndHash[1])){
             session = new Session(userRepository.getUserByUsername(username), this);
 
-            session.getCurrentUser().setPrivateChats(chatRepository.getPrivateChatsByUserId(session.getCurrentUser().getId()));
-            session.getCurrentUser().setGroupChats(chatRepository.getGroupChatsByUserId(session.getCurrentUser().getId()));
-            session.getCurrentUser().setMemos(chatRepository.getMemosByUserId(session.getCurrentUser().getId()));
-
-            for (Chat chat : getCurrentUser().getPrivateChats()) {
-                chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
-            }
-            for (Chat chat : getCurrentUser().getGroupChats()) {
-                chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
-            }
-            for (Chat chat : getCurrentUser().getMemos()) {
-                chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
-            }
+            loadPrivateChats();
+            loadGroupChats();
+            loadMemos();
 
             allUsers = userRepository.getAllUsers();
             clientManager = new ClientManager();
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void logout() {
@@ -88,6 +79,27 @@ public class ApplicationManager {
 
         final String salt = hashCalculator.generateSalt();
         return userRepository.registerUser(username, hashCalculator.hashString(password, salt), salt, name, function);
+    }
+
+    public void loadPrivateChats() throws SQLException, ConnectException {
+        session.getCurrentUser().setPrivateChats(chatRepository.getPrivateChatsByUserId(session.getCurrentUser().getId()));
+        for (Chat chat : getCurrentUser().getPrivateChats()) {
+            chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
+        }
+    }
+
+    public void loadGroupChats() throws SQLException, ConnectException {
+        session.getCurrentUser().setGroupChats(chatRepository.getGroupChatsByUserId(session.getCurrentUser().getId()));
+        for (Chat chat : getCurrentUser().getGroupChats()) {
+            chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
+        }
+    }
+
+    public void loadMemos() throws SQLException, ConnectException {
+        session.getCurrentUser().setMemos(chatRepository.getMemosByUserId(session.getCurrentUser().getId()));
+        for (Chat chat : getCurrentUser().getMemos()) {
+            chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
+        }
     }
 
     public UserRepository getUserRepository() {

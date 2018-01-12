@@ -12,21 +12,23 @@ import java.util.List;
 public class ChatMySqlContext implements IChatContext {
     @Override
     public List<Chat> getPrivateChatsByUserId(final int userId) throws SQLException, ConnectException {
-        final String query = "SELECT c.id, c.name, c.chatType FROM chat c " +
+        final String query = "SELECT c.id, c.name, c.chatType, uc.unreadCount FROM chat c " +
                 "INNER JOIN userchats uc ON uc.chatId = c.id " +
                 "WHERE uc.userId = ? AND c.chatType = ?";
         final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{String.valueOf(userId), "PRIVATE"});
         List<Chat> privateChats = new ArrayList<>();
 
         while (resultSet.next()) {
-            privateChats.add(new Chat(resultSet.getInt("id"), resultSet.getString("name"), Chat.ChatType.PRIVATE));
+            Chat chat = new Chat(resultSet.getInt("id"), resultSet.getString("name"), Chat.ChatType.PRIVATE);
+            chat.setUnreadCount(resultSet.getInt("unreadCount"));
+            privateChats.add(chat);
         }
         return privateChats;
     }
 
     @Override
     public List<Chat> getGroupChatsByUserId(final int userId) throws SQLException, ConnectException {
-        final String query = "SELECT c.id, c.name, c.chatType FROM chat c " +
+        final String query = "SELECT c.id, c.name, c.chatType, uc.unreadCount FROM chat c " +
                 "INNER JOIN userchats uc ON uc.chatId = c.id " +
                 "WHERE uc.userId = ? AND c.chatType = ?";
         final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{String.valueOf(userId), "GROUP"});
@@ -35,7 +37,9 @@ public class ChatMySqlContext implements IChatContext {
         while (resultSet.next()) {
             final String chatType = resultSet.getString("chatType").toUpperCase();
             if (Chat.ChatType.valueOf(chatType) == Chat.ChatType.GROUP) {
-                groupChats.add(new Chat(resultSet.getInt("id"), resultSet.getString("name"), Chat.ChatType.GROUP));
+                Chat chat = new Chat(resultSet.getInt("id"), resultSet.getString("name"), Chat.ChatType.GROUP);
+                chat.setUnreadCount(resultSet.getInt("unreadCount"));
+                groupChats.add(chat);
             }
         }
         return groupChats;
@@ -43,7 +47,7 @@ public class ChatMySqlContext implements IChatContext {
 
     @Override
     public List<Chat> getMemosByUserId(final int userId) throws SQLException, ConnectException {
-        final String query = "SELECT c.id, c.name, c.chatType FROM chat c " +
+        final String query = "SELECT c.id, c.name, c.chatType, uc.unreadCount FROM chat c " +
                 "INNER JOIN userchats uc ON uc.chatId = c.id " +
                 "WHERE uc.userId = ? AND c.chatType = ?";
         final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{String.valueOf(userId), "MEMO"});
@@ -52,7 +56,9 @@ public class ChatMySqlContext implements IChatContext {
         while (resultSet.next()) {
             final String chatType = resultSet.getString("chatType").toUpperCase();
             if (Chat.ChatType.valueOf(chatType) == Chat.ChatType.MEMO) {
-                memos.add(new Chat(resultSet.getInt("id"), resultSet.getString("name"), Chat.ChatType.MEMO));
+                Chat chat = new Chat(resultSet.getInt("id"), resultSet.getString("name"), Chat.ChatType.MEMO);
+                chat.setUnreadCount(resultSet.getInt("unreadCount"));
+                memos.add(chat);
             }
         }
         return memos;
@@ -60,9 +66,9 @@ public class ChatMySqlContext implements IChatContext {
 
     @Override
     public Chat getChatWithId(final int chatId) throws SQLException, ConnectException {
-        final String qeury = "SELECT c.id, c.chatType, c.name FROM chat c " +
+        final String query = "SELECT c.id, c.chatType, c.name FROM chat c " +
                 "WHERE c.id = ?";
-        final ResultSet resultSet = DatabaseHandler.getData(qeury, new String[]{String.valueOf(chatId)});
+        final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{String.valueOf(chatId)});
 
         if (resultSet.next()) {
             final String chatType = resultSet.getString("chatType").toUpperCase();
@@ -70,5 +76,12 @@ public class ChatMySqlContext implements IChatContext {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void resetUnreadCount(int chatId, int userId) throws SQLException, ConnectException {
+        final String query = "UPDATE userchats SET unreadCount = 0 " +
+                "WHERE chatId = ? AND userId = ?";
+        DatabaseHandler.setData(query, new String[]{String.valueOf(chatId), String.valueOf(userId)}, true);
     }
 }

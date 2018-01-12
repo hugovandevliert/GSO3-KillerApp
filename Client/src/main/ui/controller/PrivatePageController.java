@@ -5,14 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.data.model.Chat;
-import main.data.model.Message;
 import main.data.model.User;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PrivatePageController extends BaseController {
     @FXML private VBox vboxListedChats;
@@ -24,10 +22,15 @@ public class PrivatePageController extends BaseController {
     }
 
     void loadChats() throws IOException {
-        final List<Chat> chats = applicationManager.getCurrentUser().getPrivateChats();
+        try {
+            applicationManager.loadPrivateChats();
+        } catch (SQLException | ConnectException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
+            e.printStackTrace();
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
 
-        for (Chat chat : chats) {
+        for (Chat chat : applicationManager.getCurrentUser().getPrivateChats()) {
             try {
                 chat.setLastSentMessage(applicationManager.getMessageRepository().getLastMessageByChatId(chat.getId()));
             } catch (SQLException | ConnectException e) {

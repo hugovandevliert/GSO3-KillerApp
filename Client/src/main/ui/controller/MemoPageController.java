@@ -23,6 +23,12 @@ public class MemoPageController extends BaseController{
     }
 
     void loadMemos() throws IOException {
+        try {
+            applicationManager.loadMemos();
+        } catch (SQLException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
+            e.printStackTrace();
+        }
         final List<Chat> memos = applicationManager.getCurrentUser().getMemos();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
 

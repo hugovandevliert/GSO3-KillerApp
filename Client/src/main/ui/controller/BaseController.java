@@ -25,12 +25,14 @@ import javafx.util.Duration;
 import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
+import main.data.model.User;
 import main.rmi.MessageClient;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.rmi.NotBoundException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -351,7 +353,10 @@ public class BaseController {
     }
 
     public void displayMessage(final Message message) throws IOException, SQLException {
-        showAlert(applicationManager.getChatRepository().getChatWithId(message.getChatId()), message, paneContent);
+        //TODO: refresh page
+        final Chat chat = applicationManager.getChatRepository().getChatWithId(message.getChatId());
+        chat.setUsers((ArrayList<User>) applicationManager.getUserRepository().getUsersByChatId(chat.getId()));
+        showAlert(chat, message, paneContent);
     }
 
     void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {

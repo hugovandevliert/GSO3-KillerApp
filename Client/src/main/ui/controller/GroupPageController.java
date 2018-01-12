@@ -23,6 +23,12 @@ public class GroupPageController extends BaseController {
     }
 
     void loadChats() throws IOException {
+        try {
+            applicationManager.loadGroupChats();
+        } catch (SQLException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
+            e.printStackTrace();
+        }
         final List<Chat> chats = applicationManager.getCurrentUser().getGroupChats();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
 

@@ -26,4 +26,8 @@ public class ChatRepository {
     public Chat getChatWithId(final int chatId) throws SQLException, ConnectException {
         return chatContext.getChatWithId(chatId);
     }
+
+    public void resetUnreadCount(final int chatId, final int userId) throws SQLException, ConnectException {
+        chatContext.resetUnreadCount(chatId, userId);
+    }
 }
