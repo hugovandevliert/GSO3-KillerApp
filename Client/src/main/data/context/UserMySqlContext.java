@@ -1,8 +1,11 @@
 package main.data.context;
 
+import com.sun.corba.se.impl.orb.DataCollectorBase;
 import main.data.model.User;
 import main.util.database.DatabaseHandler;
 
+import javax.xml.crypto.Data;
+import javax.xml.transform.Result;
 import java.net.ConnectException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +63,23 @@ public class UserMySqlContext implements IUserContext {
                 "INNER JOIN userfunction uf ON uf.userid = u.id " +
                 "INNER JOIN `function` f ON uf.functionId = f.id ";
         final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{});
+        List<User> users = new ArrayList<>();
+
+        while (resultSet.next()) {
+            users.add(new User(resultSet.getInt("id"), resultSet.getString("username"),
+                    resultSet.getString("name"), resultSet.getString("function"),null));
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersByChatId(final int chatId) throws SQLException, ConnectException {
+        final String query = "SELECT u.id, u.username, u.name, f.name AS `function` FROM `user` u " +
+                "INNER JOIN userchats uc ON uc.userId = u.id " +
+                "INNER JOIN userfunction uf ON uf.userid = u.id " +
+                "INNER JOIN `function` f ON uf.functionId = f.id " +
+                "WHERE uc.chatId = ?";
+        final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{String.valueOf(chatId)});
         List<User> users = new ArrayList<>();
 
         while (resultSet.next()) {

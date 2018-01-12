@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import main.data.model.Chat;
+import main.data.model.User;
 
 import java.io.IOException;
 
@@ -25,7 +26,15 @@ public class ListedChatController extends BaseController{
 
     void setListedChat(final Chat chat) {
         this.chat = chat;
-        lblName.setText(chat.getName());
+        if (chat.getChatType().equals(Chat.ChatType.PRIVATE)) {
+            for (User u : chat.getUsers()) {
+                if (u.getId() != applicationManager.getCurrentUser().getId()) {
+                    lblName.setText(u.getName());
+                }
+            }
+        } else {
+            lblName.setText(this.chat.getName());
+        }
 
         if (chat.getLastSentMessage() != null) {
             Text txtName = new Text(chat.getLastSentMessage().getSenderName() + ": ");

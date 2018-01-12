@@ -27,6 +27,10 @@ public class UserRepository {
         return userContext.getAllUsers();
     }
 
+    public List<User> getUsersByChatId(final int chatId) throws SQLException, ConnectException {
+        return userContext.getUsersByChatId(chatId);
+    }
+
     public List<String> getFunctionNames() throws SQLException, ConnectException {
         return userContext.getFunctionNames();
     }

@@ -11,10 +11,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import main.data.model.Chat;
 import main.data.model.Message;
+import main.data.model.User;
 
 import java.io.IOException;
 
-public class AlertController {
+public class AlertController extends BaseController {
 
     @FXML private Pane paneMessage;
     @FXML private Label lblName;
@@ -29,7 +30,15 @@ public class AlertController {
 
     void setMessage(Chat chat, Message message) {
         this.chat = chat;
-        lblName.setText("Private chat with: " + chat.getName());
+        if (chat.getChatType().equals(Chat.ChatType.PRIVATE)) {
+            for (User u : chat.getUsers()) {
+                if (u.getId() != applicationManager.getCurrentUser().getId()) {
+                    lblName.setText(u.getName());
+                }
+            }
+        } else {
+            lblName.setText(this.chat.getName());
+        }
 
         Text txtName = new Text(message.getSenderName() + ": ");
         txtName.setFont(Font.font("Segoe UI SemiBold",18));

@@ -18,6 +18,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import main.data.model.User;
 import main.rmi.MessageClient;
 import main.data.model.Chat;
 import main.data.model.Message;
@@ -61,7 +62,15 @@ public class ChatController extends BaseController {
         scrollpaneListedMessages.setFitToHeight(false);
         scrollpaneListedMessages.setContent(vboxListedMessages);
 
-        lblChatName.setText(this.chat.getName());
+        if (chat.getChatType().equals(Chat.ChatType.PRIVATE)) {
+            for (User u : chat.getUsers()) {
+                if (u.getId() != applicationManager.getCurrentUser().getId()) {
+                    lblChatName.setText(u.getName());
+                }
+            }
+        } else {
+            lblChatName.setText(this.chat.getName());
+        }
 
         try {
             chat.setMessages((ArrayList<Message>) applicationManager.getMessageRepository().getMessagesByChatId(chat.getId()));
@@ -75,7 +84,48 @@ public class ChatController extends BaseController {
         Platform.runLater(() -> txtMessageText.requestFocus());
     }
 
-    public void loadMessage(final Message message) {
+    public void addFile() {
+        selectedFile = null;
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Add a file");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("All files", "*.*");
+        fileChooser.getExtensionFilters().add(filter);
+        selectedFile = fileChooser.showOpenDialog(lblChatName.getScene().getWindow());
+
+        if (selectedFile != null) {
+            btnSendMessage.setDisable(false);
+            txtMessageText.setText(selectedFile.getName());
+            txtMessageText.setEditable(false);
+        } else {
+            btnSendMessage.setDisable(true);
+            txtMessageText.setText("");
+            txtMessageText.setEditable(true);
+        }
+    }
+
+    public void openChatInfo() throws IOException {
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chatInfo.fxml"));
+        final Pane newContentPane = fxmlLoader.load();
+        final ChatInfoController chatInfoController = fxmlLoader.getController();
+        chatInfoController.setParentPane(parentPane);
+        chatInfoController.loadChatInfo(chat);
+
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(newContentPane);
+    }
+
+    public void sendMessage() {
+        Message message = new Message(txtMessageText.getText(), applicationManager.getCurrentUser().getId(),
+                applicationManager.getCurrentUser().getName(), chat.getId(), null, null);
+        applicationManager.getClientManager().getMessageClient().sendMessage(message);
+
+        txtMessageText.setText("");
+        txtMessageText.setEditable(true);
+
+        loadMessage(message);
+    }
+
+    private void loadMessage(final Message message) {
         final HBox hBoxMessageBody = new HBox();
         hBoxMessageBody.setMinWidth(1050);
 
@@ -141,48 +191,6 @@ public class ChatController extends BaseController {
         vboxListedMessages.getChildren().add(hBoxMessageBody);
 
         scrollToNewestMessage();
-    }
-
-    public void addFile() {
-        selectedFile = null;
-        final FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Add a file");
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("All files", "*.*");
-        fileChooser.getExtensionFilters().add(filter);
-        selectedFile = fileChooser.showOpenDialog(lblChatName.getScene().getWindow());
-
-        if (selectedFile != null) {
-            btnSendMessage.setDisable(false);
-            txtMessageText.setText(selectedFile.getName());
-            txtMessageText.setEditable(false);
-        } else {
-            btnSendMessage.setDisable(true);
-            txtMessageText.setText("");
-            txtMessageText.setEditable(true);
-        }
-    }
-
-    public void openChatInfo() throws IOException {
-        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chatInfo.fxml"));
-        final Pane newContentPane = fxmlLoader.load();
-        final ChatInfoController chatInfoController = fxmlLoader.getController();
-        chatInfoController.setParentPane(parentPane);
-        chatInfoController.loadChatInfo(chat);
-
-        parentPane.getChildren().clear();
-        parentPane.getChildren().add(newContentPane);
-    }
-
-    public void sendMessage() {
-        //TODO: change time
-        Message message = new Message(txtMessageText.getText(), applicationManager.getCurrentUser().getId(),
-                applicationManager.getCurrentUser().getName(), chat.getId(), new Time(0,0,0), null);
-        applicationManager.getClientManager().getMessageClient().sendMessage(message);
-
-        txtMessageText.setText("");
-        txtMessageText.setEditable(true);
-
-        loadMessage(message);
     }
 
     private void scrollToNewestMessage() {

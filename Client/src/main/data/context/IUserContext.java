@@ -12,6 +12,7 @@ public interface IUserContext {
     boolean setPassword(final String newPassword, final String salt, final String username) throws SQLException, ConnectException;
     User getUserByUsername(final String username) throws SQLException, ConnectException;
     List<User> getAllUsers() throws SQLException, ConnectException;
+    List<User> getUsersByChatId(int chatId) throws SQLException, ConnectException;
     List<String> getFunctionNames() throws SQLException, ConnectException;
     boolean checkUsernameAvailability(final String username) throws SQLException, ConnectException;
 }
