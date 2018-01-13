@@ -288,8 +288,12 @@ public class BaseController {
         timelineAlertDown.getKeyFrames().add(kfDwn);
 
         // Event handler to remove pane from canvas after it's finished going up
-        EventHandler<ActionEvent> onFinishedUp = t ->
-                ((AnchorPane) paneAlert.getParent()).getChildren().remove(paneAlert);
+        EventHandler<ActionEvent> onFinishedUp = t -> {
+                try {
+                    ((AnchorPane) paneAlert.getParent()).getChildren().remove(paneAlert);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }};
 
         // Animation for scroll up
         timelineAlertUp.setCycleCount(1);

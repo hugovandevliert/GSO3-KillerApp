@@ -29,7 +29,7 @@ public class ClientManager {
         }
     }
 
-    public void addBidServerMessageListener(final IRemotePublisherForListener serverMessageListener, final IRemotePropertyListener remotePropertyListener) {
+    public void addServerMessageListener(final IRemotePublisherForListener serverMessageListener, final IRemotePropertyListener remotePropertyListener) {
         this.messageServerListener = serverMessageListener;
         this.messageRemotePropertyListener = remotePropertyListener;
     }

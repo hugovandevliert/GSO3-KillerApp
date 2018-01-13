@@ -20,7 +20,11 @@ public class Message implements Serializable {
         this.senderName = senderName;
         this.chatId = chatId;
         this.time = time;
-        this.fileId = fileId;
+        if (fileId == 0) {
+            this.fileId = null;
+        } else {
+            this.fileId = fileId;
+        }
         this.file = null;
     }
 

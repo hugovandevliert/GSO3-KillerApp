@@ -7,12 +7,10 @@ import main.ui.controller.BaseController;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
-import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.SQLException;
 
 import static main.util.constant.constants.*;
 
@@ -33,7 +31,7 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
 
         IRemotePublisherForListener messageListener = (IRemotePublisherForListener) registry.lookup(SERVER_NAME_THAT_PUSHES_TO_CLIENTS);
         messageListener.subscribeRemoteListener(this, CHANGED_PROPERTY + currentUserId);
-        clientManager.addBidServerMessageListener(messageListener, this);
+        clientManager.addServerMessageListener(messageListener, this);
 
         server = (IMessageServer) registry.lookup(SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS);
     }

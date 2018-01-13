@@ -1,6 +1,10 @@
 package main.util.database;
 
+import main.data.model.MessageFile;
+
+import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.*;
@@ -64,7 +68,7 @@ public class DatabaseHandler {
     }
 
     public static ResultSet setData(final String query, final String[] values, final boolean isUpdateQuery) throws ConnectException, SQLException {
-        ResultSet updateCount;
+        ResultSet generatedId;
         PreparedStatement preparedStatement;
 
         final Connection connection = DatabaseHandler.getConnection();
@@ -88,9 +92,36 @@ public class DatabaseHandler {
             preparedStatement.executeQuery();
         }
 
-        updateCount = preparedStatement.getGeneratedKeys();
+        generatedId = preparedStatement.getGeneratedKeys();
 
-        return updateCount;
+        return generatedId;
+    }
+
+    public static ResultSet setData(final String query, final MessageFile messageFile, final String name, final String extension) throws IOException, SQLException {
+        ResultSet fileId;
+        PreparedStatement preparedStatement;
+
+        final Connection connection = DatabaseHandler.getConnection();
+        if(connection != null) {
+            preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        } else {
+            throw new ConnectException(connectionError);
+        }
+
+        byte[] fileData = new byte[(int) messageFile.getFile().length()];
+        DataInputStream dis = new DataInputStream(new FileInputStream(messageFile.getFile()));
+        dis.readFully(fileData);  // read from file into byte[] array
+        dis.close();
+
+        preparedStatement.setBytes(1, fileData);
+        preparedStatement.setString(2, name);
+        preparedStatement.setString(3, extension);
+
+        preparedStatement.executeUpdate();
+
+        fileId = preparedStatement.getGeneratedKeys();
+
+        return fileId;
     }
 
     private static void fillPreparedStatementRowWithValue(final PreparedStatement preparedStatement, final String value, final int index) throws SQLException {

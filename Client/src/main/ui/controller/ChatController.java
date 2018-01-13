@@ -1,6 +1,7 @@
 package main.ui.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.sun.org.apache.xml.internal.security.algorithms.MessageDigestAlgorithm;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
@@ -18,12 +19,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import main.data.model.MessageFile;
 import main.data.model.User;
 import main.rmi.MessageClient;
 import main.data.model.Chat;
 import main.data.model.Message;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -124,9 +127,25 @@ public class ChatController extends BaseController {
     }
 
     public void sendMessage() {
+        MessageFile messageFile = null;
+        Integer fileId = null;
+
+        if (selectedFile != null) {
+            messageFile = new MessageFile(selectedFile, selectedFile.getName(), getFileExtension(selectedFile));
+            try {
+                fileId = applicationManager.getMessageRepository().addFile(messageFile);
+            } catch (SQLException | ConnectException e) {
+                showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
+                e.printStackTrace();
+            }
+        }
         Message message = new Message(txtMessageText.getText(), applicationManager.getCurrentUser().getId(),
-                applicationManager.getCurrentUser().getName(), chat.getId(), new Time(new Date().getTime()), null);
+                applicationManager.getCurrentUser().getName(), chat.getId(), new Time(new Date().getTime()), fileId);
         applicationManager.getClientManager().getMessageClient().sendMessage(message);
+
+        if (messageFile != null) {
+            message.addFile(messageFile);
+        }
 
         txtMessageText.setText("");
         txtMessageText.setEditable(true);
@@ -145,13 +164,11 @@ public class ChatController extends BaseController {
         lblMessage.setMaxWidth(800);
         lblMessage.setWrapText(true);
 
-        //TODO: Add file to message
-        //Maybe like this?
-        //lblMessage.setId(message.getId());
-
-        if (message.getFile() != null) {
+        if (message.getFileId() != null) {
             final FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.FILE_ALT);
             icon.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 20px;");
+
+            lblMessage.setId(String.valueOf(message.getFileId()));
             lblMessage.setContentDisplay(ContentDisplay.LEFT);
             lblMessage.setCursor(Cursor.HAND);
             lblMessage.setGraphic(icon);
@@ -201,28 +218,37 @@ public class ChatController extends BaseController {
     }
 
     private void saveFile(MouseEvent event) {
-        //TODO: Somehow figure out file.
-        //Maybe like this?
-        //Label lblMessage = (Message) event.getSource();
-        //final int messageId = lblMessage.getId();
+        Label lblMessage = (Label) event.getSource();
+        final int fileId = Integer.valueOf(lblMessage.getId());
+        String fileName = null;
+        String fileExtension = null;
 
-        //temp file
-        final File fileContent = new File("main/util/test/test.txt");
+        try {
+            fileName = applicationManager.getMessageRepository().getFileName(fileId);
+            fileExtension = applicationManager.getMessageRepository().getFileExtension(fileId);
+        } catch (SQLException | ConnectException e) {
+            //TODO: proper feedback
+            e.printStackTrace();
+        }
+
+        System.out.println(fileExtension);
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save file");
-        fileChooser.setInitialFileName(fileContent.getName());
-        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(getFileExtension(fileContent), getFileExtension(fileContent)));
-        final File file = fileChooser.showSaveDialog(lblChatName.getScene().getWindow());
+        fileChooser.setInitialFileName(fileName);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(fileExtension + " files", "*." + fileExtension);
+        FileChooser.ExtensionFilter extFilterDefault = new FileChooser.ExtensionFilter("all files", "*.*" );
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.getExtensionFilters().add(extFilterDefault);
+        final File savedFile = fileChooser.showSaveDialog(lblChatName.getScene().getWindow());
 
-        if (file != null) {
+        if (savedFile != null) {
             try {
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(String.valueOf(fileContent));
-                fileWriter.close();
-            } catch (IOException ex) {
-                //TODO: proper error feedback for user
-                System.out.println("Could not save file.\n" + ex.getMessage());
+                FileOutputStream stream = new FileOutputStream(savedFile);
+                stream.write(applicationManager.getMessageRepository().getFile(fileId));
+                stream.close();
+            } catch (IOException | SQLException e) {
+                showAlert("Could not save file.\n" + e.getMessage(), parentPane);
             }
         }
     }
