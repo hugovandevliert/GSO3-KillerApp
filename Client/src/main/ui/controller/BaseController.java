@@ -128,6 +128,9 @@ public class BaseController {
         }
     }
     public void cancelRegistration() {
+        txtPasswordRegister.setText("");
+        txtPasswordVisibleRegister.setText("");
+        comboboxFunctionRegister.getItems().clear();
         paneContent.getChildren().clear();
         paneContent.getChildren().add(paneLogin);
     }
@@ -135,6 +138,13 @@ public class BaseController {
     public void register() {
         try {
             applicationManager.register(txtUsernameRegister.getText(), txtPasswordRegister.getText(), txtNameRegister.getText(), comboboxFunctionRegister.getValue());
+
+            txtNameRegister.setText("");
+            txtUsernameRegister.setText("");
+            txtPasswordRegister.setText("");
+            txtPasswordVisibleRegister.setText("");
+            comboboxFunctionRegister.getItems().clear();
+
             paneContent.getChildren().clear();
             paneContent.getChildren().add(paneLogin);
             showAlert("Account created!\nPlease log in with your account.", paneContent);

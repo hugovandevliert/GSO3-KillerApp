@@ -32,7 +32,7 @@ public class GroupPageController extends BaseController {
             e.printStackTrace();
         }
         final List<Chat> chats = applicationManager.getCurrentUser().getGroupChats();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
+        FXMLLoader fxmlLoader;
 
         for (Chat chat : chats) {
             try {
@@ -40,6 +40,7 @@ public class GroupPageController extends BaseController {
             } catch (SQLException | ConnectException e) {
                 showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
             }
+            fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
 
