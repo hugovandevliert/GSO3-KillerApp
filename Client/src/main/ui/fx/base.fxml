@@ -6,167 +6,202 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane fx:id="anchorpaneBase" cacheShape="false" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: #FFFFFF; -fx-border-color: green; -fx-border-width: 1px;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.BaseController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorpaneBase" cacheShape="false" prefHeight="750.0"
+            prefWidth="1250.0"
+            style="-fx-background-color: #FFFFFF; -fx-border-color: green; -fx-border-width: 1px;" xmlns="http://javafx.com/javafx/8.0.141"
+            fx:controller="main.ui.controller.BaseController">
     <children>
-        <Pane fx:id="paneMenu" layoutX="1" layoutY="1" prefHeight="750.0" prefWidth="149.0" style="-fx-background-color: #E0E0E0;">
+        <Pane fx:id="paneMenu" layoutX="1" layoutY="1" prefHeight="750.0" prefWidth="149.0"
+              style="-fx-background-color: #E0E0E0;">
             <children>
-                <FontAwesomeIconView fx:id="iconAccount" glyphName="KEY" layoutX="50.0" layoutY="165.0" onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="50">
+                <FontAwesomeIconView fx:id="iconAccount" glyphName="KEY" layoutX="50.0" layoutY="165.0"
+                                     onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon"
+                                     onMouseExited="#revertHighlightMenuIcon" size="50">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </FontAwesomeIconView>
-                <FontAwesomeIconView fx:id="iconPrivate" glyphName="USER" layoutX="55.0" layoutY="315.0" onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="50" text="">
+                <FontAwesomeIconView fx:id="iconPrivate" glyphName="USER" layoutX="55.0" layoutY="315.0"
+                                     onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon"
+                                     onMouseExited="#revertHighlightMenuIcon" size="50" text="">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </FontAwesomeIconView>
-                <FontAwesomeIconView fx:id="iconGroup" glyphName="USERS" layoutX="48.0" layoutY="465.0" onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="50" text="">
+                <FontAwesomeIconView fx:id="iconGroup" glyphName="USERS" layoutX="48.0" layoutY="465.0"
+                                     onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon"
+                                     onMouseExited="#revertHighlightMenuIcon" size="50" text="">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </FontAwesomeIconView>
-                <FontAwesomeIconView fx:id="iconMemo" glyphName="BULLHORN" layoutX="50.0" layoutY="615.0" onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="50">
+                <FontAwesomeIconView fx:id="iconMemo" glyphName="BULLHORN" layoutX="50.0" layoutY="615.0"
+                                     onMouseClicked="#selectMenuIcon" onMouseEntered="#highlightMenuIcon"
+                                     onMouseExited="#revertHighlightMenuIcon" size="50">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </FontAwesomeIconView>
-            <Label fx:id="lblOfflineMode" layoutX="15.0" layoutY="706.0" text="Offline mode" textFill="RED" visible="false">
-               <font>
-                  <Font name="Segoe UI Semibold" size="20.0" />
-               </font>
-            </Label>
+                <Label fx:id="lblOfflineMode" layoutX="15.0" layoutY="706.0" text="Offline mode" textFill="RED"
+                       visible="false">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="20.0"/>
+                    </font>
+                </Label>
             </children>
         </Pane>
 
-        <Pane fx:id="paneContent" layoutX="150.0" layoutY="25.0" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
+        <Pane fx:id="paneContent" layoutX="150.0" layoutY="25.0" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0"
+              minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
             <children>
                 <Label fx:id="lblProfile" layoutX="20.0" layoutY="110.0" text="View your profile">
                     <font>
-                        <Font name="Segoe UI Semilight" size="20.0" />
+                        <Font name="Segoe UI Semilight" size="20.0"/>
                     </font>
                 </Label>
-                <Label fx:id="lblPrivateChats" layoutX="20.0" layoutY="260.0" text="Start a private chat with a colleague">
+                <Label fx:id="lblPrivateChats" layoutX="20.0" layoutY="260.0"
+                       text="Start a private chat with a colleague">
                     <font>
-                        <Font name="Segoe UI Semilight" size="20.0" />
+                        <Font name="Segoe UI Semilight" size="20.0"/>
                     </font>
                 </Label>
                 <Label fx:id="lblGroupChats" layoutX="20.0" layoutY="410.0" text="Chat with multiple colleagues">
                     <font>
-                        <Font name="Segoe UI Semilight" size="20.0" />
+                        <Font name="Segoe UI Semilight" size="20.0"/>
                     </font>
                 </Label>
                 <Label fx:id="lblMemos" layoutX="20.0" layoutY="560.0" text="Send and receive memos">
                     <font>
-                        <Font name="Segoe UI Semilight" size="20.0" />
+                        <Font name="Segoe UI Semilight" size="20.0"/>
                     </font>
                 </Label>
             </children>
 
-            <Pane fx:id="paneLogin" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
-                <JFXTextField fx:id="txtUsername" focusColor="#1db01d" layoutX="330.0" layoutY="275.0" prefHeight="35.0" prefWidth="291.0" promptText="username">
+            <Pane fx:id="paneLogin" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0"
+                  prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
+                <JFXTextField fx:id="txtUsername" focusColor="#1db01d" layoutX="330.0" layoutY="275.0" prefHeight="35.0"
+                              prefWidth="291.0" promptText="username">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXTextField>
-                <JFXPasswordField fx:id="txtPassword" focusColor="#1db01d" layoutX="330.0" layoutY="350.0" onAction="#login" onKeyReleased="#synchronizePasswordfields" prefHeight="35.0" prefWidth="291.0" promptText="password">
+                <JFXPasswordField fx:id="txtPassword" focusColor="#1db01d" layoutX="330.0" layoutY="350.0"
+                                  onAction="#login" onKeyReleased="#synchronizePasswordfields" prefHeight="35.0"
+                                  prefWidth="291.0" promptText="password">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXPasswordField>
-                <JFXTextField fx:id="txtPasswordVisible" focusColor="#1db01d" layoutX="330.0" layoutY="350.0" onAction="#login" onKeyReleased="#synchronizePasswordfields" prefHeight="35.0" prefWidth="291.0" promptText="password" visible="false">
+                <JFXTextField fx:id="txtPasswordVisible" focusColor="#1db01d" layoutX="330.0" layoutY="350.0"
+                              onAction="#login" onKeyReleased="#synchronizePasswordfields" prefHeight="35.0"
+                              prefWidth="291.0" promptText="password" visible="false">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXTextField>
-                <JFXCheckBox fx:id="cboxPasword" checkedColor="#1db01d" layoutX="602.0" layoutY="359.0" onAction="#cboxPasswordChanged" style="-fx-text-fill: #a6b5c9;" text="">
+                <JFXCheckBox fx:id="cboxPasword" checkedColor="#1db01d" layoutX="602.0" layoutY="359.0"
+                             onAction="#cboxPasswordChanged" style="-fx-text-fill: #a6b5c9;" text="">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXCheckBox>
-                <JFXButton fx:id="btnLogin" layoutX="400.0" layoutY="450.0" onAction="#login" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Login" textFill="WHITE">
+                <JFXButton fx:id="btnLogin" layoutX="400.0" layoutY="450.0" onAction="#login" prefWidth="150.0"
+                           style="-fx-background-color: #1DB01D" text="Login" textFill="WHITE">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXButton>
                 <TextFlow layoutX="400.0" layoutY="495.0" prefHeight="35.0" prefWidth="150.0" textAlignment="CENTER">
                     <children>
-                        <Hyperlink fx:id="btnOpenRegisterForm" onAction="#openRegisterForm" text="Register" underline="true">
+                        <Hyperlink fx:id="btnOpenRegisterForm" onAction="#openRegisterForm" text="Register"
+                                   underline="true">
                             <font>
-                                <Font name="Segoe UI Semilight" size="14.0" />
+                                <Font name="Segoe UI Semilight" size="14.0"/>
                             </font>
                         </Hyperlink>
                     </children>
                 </TextFlow>
             </Pane>
 
-            <Pane fx:id="paneRegister" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
-                <JFXTextField fx:id="txtUsernameRegister" focusColor="#1db01d" layoutX="168.0" layoutY="275.0" prefHeight="35.0" prefWidth="291.0" promptText="username">
+            <Pane fx:id="paneRegister" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0"
+                  prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
+                <JFXTextField fx:id="txtUsernameRegister" focusColor="#1db01d" layoutX="168.0" layoutY="275.0"
+                              prefHeight="35.0" prefWidth="291.0" promptText="username">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXTextField>
-                <JFXTextField fx:id="txtNameRegister" focusColor="#1db01d" layoutX="483.0" layoutY="275.0" prefHeight="35.0" prefWidth="291.0" promptText="name">
+                <JFXTextField fx:id="txtNameRegister" focusColor="#1db01d" layoutX="483.0" layoutY="275.0"
+                              prefHeight="35.0" prefWidth="291.0" promptText="name">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXTextField>
-                <JFXPasswordField fx:id="txtPasswordRegister" focusColor="#1db01d" layoutX="168.0" layoutY="350.0" onKeyReleased="#synchronizePasswordfieldsRegister" prefHeight="35.0" prefWidth="291.0" promptText="password">
+                <JFXPasswordField fx:id="txtPasswordRegister" focusColor="#1db01d" layoutX="168.0" layoutY="350.0"
+                                  onKeyReleased="#synchronizePasswordfieldsRegister" prefHeight="35.0" prefWidth="291.0"
+                                  promptText="password">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXPasswordField>
-                <JFXTextField fx:id="txtPasswordVisibleRegister" focusColor="#1db01d" layoutX="168.0" layoutY="350.0" onKeyReleased="#synchronizePasswordfieldsRegister" prefHeight="35.0" prefWidth="291.0" promptText="password" visible="false">
+                <JFXTextField fx:id="txtPasswordVisibleRegister" focusColor="#1db01d" layoutX="168.0" layoutY="350.0"
+                              onKeyReleased="#synchronizePasswordfieldsRegister" prefHeight="35.0" prefWidth="291.0"
+                              promptText="password" visible="false">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXTextField>
-                <JFXCheckBox fx:id="cboxPaswordRegister" checkedColor="#1db01d" layoutX="440.0" layoutY="359.0" onAction="#cboxPasswordChangedRegister" style="-fx-text-fill: #a6b5c9;" text="">
+                <JFXCheckBox fx:id="cboxPaswordRegister" checkedColor="#1db01d" layoutX="440.0" layoutY="359.0"
+                             onAction="#cboxPasswordChangedRegister" style="-fx-text-fill: #a6b5c9;" text="">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXCheckBox>
-                <JFXComboBox fx:id="comboboxFunctionRegister" focusColor="#1db01d" layoutX="483.0" layoutY="350.0" prefHeight="25.0" prefWidth="291.0" promptText="function" style="-fx-font-family: Segoe UI; -fx-font-weight: lighter; -fx-font-size: 18px;">
+                <JFXComboBox fx:id="comboboxFunctionRegister" focusColor="#1db01d" layoutX="483.0" layoutY="350.0"
+                             prefHeight="25.0" prefWidth="291.0" promptText="function"
+                             style="-fx-font-family: Segoe UI; -fx-font-weight: lighter; -fx-font-size: 18px;">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXComboBox>
-                <JFXButton fx:id="btnRegister" layoutX="400.0" layoutY="450.0" onAction="#register" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Register" textFill="WHITE">
+                <JFXButton fx:id="btnRegister" layoutX="400.0" layoutY="450.0" onAction="#register" prefWidth="150.0"
+                           style="-fx-background-color: #1DB01D" text="Register" textFill="WHITE">
                     <font>
-                        <Font name="Segoe UI Semilight" size="18.0" />
+                        <Font name="Segoe UI Semilight" size="18.0"/>
                     </font>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
                 </JFXButton>
                 <TextFlow layoutX="400.0" layoutY="495.0" prefHeight="35.0" prefWidth="150.0" textAlignment="CENTER">
                     <children>
                         <Hyperlink fx:id="btnCancel" onAction="#cancelRegistration" text="Cancel" underline="true">
                             <font>
-                                <Font name="Segoe UI Semilight" size="14.0" />
+                                <Font name="Segoe UI Semilight" size="14.0"/>
                             </font>
                         </Hyperlink>
                     </children>
@@ -174,14 +209,16 @@
             </Pane>
         </Pane>
 
-        <FontAwesomeIconView glyphName="TIMES" layoutX="1224.0" layoutY="25.0" onMouseClicked="#closeApplication" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="24">
+        <FontAwesomeIconView glyphName="TIMES" layoutX="1224.0" layoutY="25.0" onMouseClicked="#closeApplication"
+                             onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="24">
             <cursor>
-                <Cursor fx:constant="HAND" />
+                <Cursor fx:constant="HAND"/>
             </cursor>
         </FontAwesomeIconView>
-        <FontAwesomeIconView glyphName="MINUS" layoutX="1191.0" layoutY="30.0" onMouseClicked="#minimizeApplication" onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="24">
+        <FontAwesomeIconView glyphName="MINUS" layoutX="1191.0" layoutY="30.0" onMouseClicked="#minimizeApplication"
+                             onMouseEntered="#highlightMenuIcon" onMouseExited="#revertHighlightMenuIcon" size="24">
             <cursor>
-                <Cursor fx:constant="HAND" />
+                <Cursor fx:constant="HAND"/>
             </cursor>
         </FontAwesomeIconView>
     </children>

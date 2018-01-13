@@ -4,24 +4,28 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane minHeight="200.0" minWidth="1050.0" onMouseClicked="#openChat" prefHeight="200.0" prefWidth="1050.0" style="-fx-background-color: #E0E0E0; -fx-background-radius: 2.5;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.ListedChatController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="200.0" minWidth="1050.0" onMouseClicked="#openChat" prefHeight="200.0"
+            prefWidth="1050.0" style="-fx-background-color: #E0E0E0; -fx-background-radius: 2.5;"
+            xmlns="http://javafx.com/javafx/8.0.111" fx:controller="main.ui.controller.ListedChatController">
 
-   <cursor>
-      <Cursor fx:constant="HAND" />
-   </cursor>
+    <cursor>
+        <Cursor fx:constant="HAND"/>
+    </cursor>
 
-   <children>
-      <Label fx:id="lblMessageCount" layoutX="975.0" layoutY="74.0" text="0">
-         <font>
-            <Font name="Segoe UI Semibold" size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblName" layoutX="100.0" layoutY="22.0" maxWidth="825.0" prefHeight="40.0" prefWidth="825.0" text="name">
-         <font>
-            <Font name="Segoe UI Semibold" size="28.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblLastMessage" layoutX="100.0" layoutY="77.0" maxHeight="100" maxWidth="825.0" prefHeight="100.0" prefWidth="825.0" />
-   </children>
+    <children>
+        <Label fx:id="lblMessageCount" layoutX="975.0" layoutY="74.0" text="0">
+            <font>
+                <Font name="Segoe UI Semibold" size="36.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblName" layoutX="100.0" layoutY="22.0" maxWidth="825.0" prefHeight="40.0" prefWidth="825.0"
+               text="name">
+            <font>
+                <Font name="Segoe UI Semibold" size="28.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblLastMessage" layoutX="100.0" layoutY="77.0" maxHeight="100" maxWidth="825.0" prefHeight="100.0"
+               prefWidth="825.0"/>
+    </children>
 
 </AnchorPane>

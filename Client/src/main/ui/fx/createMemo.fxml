@@ -8,24 +8,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
             fx:controller="main.ui.controller.CreateMemoController"
             prefHeight="750.0" prefWidth="1100.0">
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
         <children>
-            <JFXButton fx:id="btnSendMemo" layoutX="900.0" layoutY="31.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Create" textFill="WHITE">
+            <JFXButton fx:id="btnSendMemo" layoutX="900.0" layoutY="31.0" prefWidth="150.0"
+                       style="-fx-background-color: #1DB01D" text="Create" textFill="WHITE">
                 <font>
-                    <Font name="Segoe UI Semilight" size="18.0" />
+                    <Font name="Segoe UI Semilight" size="18.0"/>
                 </font>
                 <cursor>
-                    <Cursor fx:constant="HAND" />
+                    <Cursor fx:constant="HAND"/>
                 </cursor>
             </JFXButton>
             <Label fx:id="lblSendMemo" layoutX="50.0" layoutY="30.0" text="Send memo">
                 <font>
-                    <Font name="Segoe UI Semibold" size="28.0" />
+                    <Font name="Segoe UI Semibold" size="28.0"/>
                 </font>
             </Label>
         </children>
@@ -33,9 +34,13 @@
 
     <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0">
         <children>
-            <ScrollPane fx:id="scrollpaneListedFunctions" hbarPolicy="NEVER" maxHeight="625.0" maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" styleClass="edge-to-edge" style="-fx-background: #FFFFFF;">
+            <ScrollPane fx:id="scrollpaneListedFunctions" hbarPolicy="NEVER" maxHeight="625.0" maxWidth="1100.0"
+                        prefHeight="625.0" prefWidth="1100.0" styleClass="edge-to-edge"
+                        style="-fx-background: #FFFFFF;">
                 <content>
-                    <VBox fx:id="vboxListedFunctions" alignment="TOP_CENTER" fillWidth="false" maxHeight="625.0" maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" spacing="25.0" style="-fx-background-color: #FFFFFF;" />
+                    <VBox fx:id="vboxListedFunctions" alignment="TOP_CENTER" fillWidth="false" maxHeight="625.0"
+                          maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" spacing="25.0"
+                          style="-fx-background-color: #FFFFFF;"/>
                 </content>
             </ScrollPane>
         </children>

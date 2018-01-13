@@ -20,7 +20,7 @@ public class DatabaseHandler {
     private static String connectionError = "Could not connect to database.";
 
     public static Connection getConnection() throws ConnectException {
-        if (server == null || username == null || password == null){
+        if (server == null || username == null || password == null) {
             try (FileInputStream fileInput = new FileInputStream("Client/src/main/util/database/DatabaseCredentials.properties")) {
 
                 Properties properties = new Properties();
@@ -34,7 +34,7 @@ public class DatabaseHandler {
             }
         }
 
-        if (connection == null){
+        if (connection == null) {
             try {
                 connection = DriverManager.getConnection(server, username, password);
             } catch (SQLException exception) {
@@ -55,8 +55,8 @@ public class DatabaseHandler {
             throw new ConnectException(connectionError);
         }
 
-        if (values != null && values.length > 0){
-            for (int i = 0; i < values.length; i++){
+        if (values != null && values.length > 0) {
+            for (int i = 0; i < values.length; i++) {
                 final int index = i + 1;
 
                 fillPreparedStatementRowWithValue(preparedStatement, values[i], index);
@@ -76,8 +76,8 @@ public class DatabaseHandler {
             throw new ConnectException(connectionError);
         }
 
-        if (values != null && values.length > 0){
-            for (int i = 0; i < values.length; i++){
+        if (values != null && values.length > 0) {
+            for (int i = 0; i < values.length; i++) {
                 final int index = i + 1;
 
                 fillPreparedStatementRowWithValue(preparedStatement, values[i], index);
@@ -100,7 +100,7 @@ public class DatabaseHandler {
         PreparedStatement preparedStatement;
 
         final Connection connection = DatabaseHandler.getConnection();
-        if(connection != null) {
+        if (connection != null) {
             preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } else {
             throw new ConnectException(connectionError);
@@ -128,13 +128,13 @@ public class DatabaseHandler {
     private static void fillPreparedStatementRowWithValue(final PreparedStatement preparedStatement, final String value, final int index) throws SQLException {
         if (value.equals("null")) {
             preparedStatement.setNull(index, Types.INTEGER);
-        } else if (isDouble(value)){
+        } else if (isDouble(value)) {
             preparedStatement.setDouble(index, Double.parseDouble(value));
-        } else if (isInteger(value)){
+        } else if (isInteger(value)) {
             preparedStatement.setInt(index, Integer.parseInt(value));
-        } else if (isDate(value)){
+        } else if (isDate(value)) {
             preparedStatement.setTimestamp(index, Timestamp.valueOf(LocalDateTime.parse(value)));
-        } else if (isBoolean(value)){
+        } else if (isBoolean(value)) {
             preparedStatement.setBoolean(index, Boolean.parseBoolean(value));
         } else {
             preparedStatement.setString(index, value);

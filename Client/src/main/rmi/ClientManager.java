@@ -22,24 +22,24 @@ public class ClientManager {
         }
     }
 
+    public MessageClient getMessageClient() {
+        return messageClient;
+    }
+
     public void setMessageClient(final MessageClient messageClient) {
-        if (messageClient != null){
+        if (messageClient != null) {
             this.messageClient = messageClient;
         }
+    }
+
+    public AuthClient getAuthClient() {
+        return authClient;
     }
 
     public void setAuthClient(AuthClient authClient) {
         if (authClient != null) {
             this.authClient = authClient;
         }
-    }
-
-    public MessageClient getMessageClient() {
-        return messageClient;
-    }
-
-    public AuthClient getAuthClient() {
-        return authClient;
     }
 
     public Registry getRegistryMessage() {

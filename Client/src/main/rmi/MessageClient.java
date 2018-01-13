@@ -15,9 +15,8 @@ import java.rmi.server.UnicastRemoteObject;
 import static main.util.constant.constants.*;
 
 public class MessageClient extends UnicastRemoteObject implements IMessageClient {
-    private transient IMessageServer server;
-
     private transient final BaseController baseController;
+    private transient IMessageServer server;
     //TODO: Add notification sound
     //private final MusicPlayer musicPlayer;
 
@@ -50,13 +49,13 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         final Message message = (Message) propertyChangeEvent.getNewValue();
 
-       Platform.runLater(() -> {
-           try {
-               baseController.displayMessage(message);
-               //musicPlayer.playSound();
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-       });
+        Platform.runLater(() -> {
+            try {
+                baseController.displayMessage(message);
+                //musicPlayer.playSound();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

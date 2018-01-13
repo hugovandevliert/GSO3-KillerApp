@@ -6,22 +6,26 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="apaneListedUser" minHeight="200.0" minWidth="1050.0" prefHeight="200.0" prefWidth="1050.0" style="-fx-background-color: #E0E0E0; -fx-background-radius: 2.5;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.ListedUserController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="apaneListedUser" minHeight="200.0" minWidth="1050.0" prefHeight="200.0"
+            prefWidth="1050.0" style="-fx-background-color: #E0E0E0; -fx-background-radius: 2.5;"
+            xmlns="http://javafx.com/javafx/8.0.111" fx:controller="main.ui.controller.ListedUserController">
 
     <cursor>
-        <Cursor fx:constant="HAND" />
+        <Cursor fx:constant="HAND"/>
     </cursor>
 
     <children>
-      <ImageView fx:id="imgviewProfilePicture" fitHeight="150.0" fitWidth="150.0" layoutX="21.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" >
-          <image>
-              <Image url="@../../util/img/profile-placeholder.png" />
-          </image>
-      </ImageView>
+        <ImageView fx:id="imgviewProfilePicture" fitHeight="150.0" fitWidth="150.0" layoutX="21.0" layoutY="25.0"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../util/img/profile-placeholder.png"/>
+            </image>
+        </ImageView>
 
-        <Label fx:id="lblName" alignment="CENTER" layoutX="275.0" layoutY="80.0" prefHeight="40.0" prefWidth="500.0" text="name">
+        <Label fx:id="lblName" alignment="CENTER" layoutX="275.0" layoutY="80.0" prefHeight="40.0" prefWidth="500.0"
+               text="name">
             <font>
-                <Font name="Segoe UI Semibold" size="28.0" />
+                <Font name="Segoe UI Semibold" size="28.0"/>
             </font>
         </Label>
     </children>

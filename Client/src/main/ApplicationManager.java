@@ -39,7 +39,7 @@ public class ApplicationManager {
     public boolean login(final String username, final String password) throws SQLException, ConnectException {
         final String[] saltAndHash = userRepository.getSaltAndHash(username);
 
-        if (saltAndHash.length > 0 && hashCalculator.hashString(password, saltAndHash[0]).equals(saltAndHash[1])){
+        if (saltAndHash.length > 0 && hashCalculator.hashString(password, saltAndHash[0]).equals(saltAndHash[1])) {
             session = new Session(userRepository.getUserByUsername(username), this);
 
             loadPrivateChats();
@@ -62,13 +62,13 @@ public class ApplicationManager {
     public boolean register(String username, String password, String name, String function) throws SQLException, ConnectException {
         if (!userRepository.checkUsernameAvailability(username)) {
             throw new IllegalArgumentException("This username is already in use.\nPlease choose a new username.");
-        } else if (name == null || name.length() == 0){
+        } else if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Name can not be empty.");
-        } else if (username == null || username.length() == 0){
+        } else if (username == null || username.length() == 0) {
             throw new IllegalArgumentException("Username can not be empty.");
-        } else if (username.length() > 16){
+        } else if (username.length() > 16) {
             throw new IllegalArgumentException("Username can not be longer than 16 characters.");
-        } else if (password.length() < 6){
+        } else if (password.length() < 6) {
             throw new IllegalArgumentException("Password should be at least 6 characters");
         } else if (password.matches("^[0-9]*$")) {
             throw new IllegalArgumentException("Password should not only contain numbers");

@@ -7,7 +7,7 @@ import java.security.SecureRandom;
 
 public class HashCalculator {
     public String hashString(final String password, final String salt) {
-        if (password != null  && salt != null){
+        if (password != null && salt != null) {
             MessageDigest messageDigest = null;
             try {
                 messageDigest = MessageDigest.getInstance("SHA-256");
@@ -32,7 +32,7 @@ public class HashCalculator {
         final SecureRandom secureRandom = new SecureRandom();
         final StringBuilder saltStringBuilder = new StringBuilder();
 
-        for (int i = 0; i < 16; i++){
+        for (int i = 0; i < 16; i++) {
             saltStringBuilder.append(characters[secureRandom.nextInt(characters.length)]);
         }
         return saltStringBuilder.toString();

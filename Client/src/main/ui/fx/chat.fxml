@@ -9,48 +9,57 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0" prefHeight="725.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.ChatController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="725.0" maxWidth="1100.0" minHeight="725.0" minWidth="1100.0"
+            prefHeight="725.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111"
+            fx:controller="main.ui.controller.ChatController">
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
         <children>
-            <JFXButton fx:id="btnAddFile" layoutX="900.0" layoutY="31.0" onAction="#addFile" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Add file" textFill="WHITE">
+            <JFXButton fx:id="btnAddFile" layoutX="900.0" layoutY="31.0" onAction="#addFile" prefWidth="150.0"
+                       style="-fx-background-color: #1DB01D" text="Add file" textFill="WHITE">
                 <font>
-                    <Font name="Segoe UI Semilight" size="18.0" />
+                    <Font name="Segoe UI Semilight" size="18.0"/>
                 </font>
                 <cursor>
-                    <Cursor fx:constant="HAND" />
+                    <Cursor fx:constant="HAND"/>
                 </cursor>
             </JFXButton>
             <Label fx:id="lblChatName" layoutX="50.0" layoutY="30.0" onMouseClicked="#openChatInfo" text="chatname">
                 <font>
-                    <Font name="Segoe UI Semibold" size="28.0" />
+                    <Font name="Segoe UI Semibold" size="28.0"/>
                 </font>
                 <cursor>
-                    <Cursor fx:constant="HAND" />
+                    <Cursor fx:constant="HAND"/>
                 </cursor>
             </Label>
         </children>
     </Pane>
 
-    <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;">
+    <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0"
+          style="-fx-background-color: #FFFFFF;">
         <children>
-            <ScrollPane fx:id="scrollpaneListedMessages" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" prefHeight="500.0" prefWidth="1100.0" style="-fx-background: #FFFFFF;" styleClass="edge-to-edge" />
-         <TextArea fx:id="txtMessageText" layoutX="50.0" layoutY="511.0" prefHeight="100.0" prefWidth="800.0" promptText="Write a message...">
-            <font>
-               <Font name="Segoe UI Semilight" size="18.0" />
-            </font>
-         </TextArea>
-         <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" disable="true" layoutX="900.0" layoutY="516.0" onAction="#sendMessage" prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D" text=" Send" textFill="WHITE">
-            <font>
-               <Font name="Segoe UI Semilight" size="18.0" />
-            </font>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-            <graphic>
-               <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="25" wrappingWidth="25.0" />
-            </graphic>
-         </JFXButton>
+            <ScrollPane fx:id="scrollpaneListedMessages" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
+                        vbarPolicy="NEVER" prefHeight="500.0" prefWidth="1100.0" style="-fx-background: #FFFFFF;"
+                        styleClass="edge-to-edge"/>
+            <TextArea fx:id="txtMessageText" layoutX="50.0" layoutY="511.0" prefHeight="100.0" prefWidth="800.0"
+                      promptText="Write a message...">
+                <font>
+                    <Font name="Segoe UI Semilight" size="18.0"/>
+                </font>
+            </TextArea>
+            <JFXButton fx:id="btnSendMessage" contentDisplay="TOP" disable="true" layoutX="900.0" layoutY="516.0"
+                       onAction="#sendMessage" prefHeight="90.0" prefWidth="150.0" style="-fx-background-color: #1DB01D"
+                       text=" Send" textFill="WHITE">
+                <font>
+                    <Font name="Segoe UI Semilight" size="18.0"/>
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+                <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="25" wrappingWidth="25.0"/>
+                </graphic>
+            </JFXButton>
         </children>
     </Pane>
 

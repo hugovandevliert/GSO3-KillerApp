@@ -9,8 +9,9 @@ public class MessageFile {
 
     /**
      * initialize class
-     * @param file the file in this messageFile
-     * @param name the name of the file in this messageFile
+     *
+     * @param file      the file in this messageFile
+     * @param name      the name of the file in this messageFile
      * @param extension the extension of the file in this messageFile
      */
     public MessageFile(final File file, final String name, final String extension) {

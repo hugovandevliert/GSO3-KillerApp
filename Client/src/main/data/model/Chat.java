@@ -4,12 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Chat {
-    public enum ChatType {
-        PRIVATE,
-        GROUP,
-        MEMO
-    }
-
     private int id;
     private String name;
     private ChatType chatType;
@@ -20,8 +14,9 @@ public class Chat {
 
     /**
      * initialize class
-     * @param id the id of the chat
-     * @param name the name of the chat
+     *
+     * @param id       the id of the chat
+     * @param name     the name of the chat
      * @param chatType the type of the chat
      */
     public Chat(final int id, final String name, final ChatType chatType) {
@@ -31,38 +26,6 @@ public class Chat {
         this.messages = null;
         this.users = null;
         unreadCount = 0;
-    }
-
-    /**
-     * set the messages of the chat
-     * @param messages list of messages in the chat
-     */
-    public void setMessages(final List<Message> messages) {
-        this.messages = messages;
-    }
-
-    /**
-     * set the users of the chat
-     * @param users list of participants in the chat
-     */
-    public void setUsers(final List<User> users) {
-        this.users = users;
-    }
-
-    /**
-     * set the last sent message
-     * @param lastSentMessage the last sent message of this chat
-     */
-    public void setLastSentMessage(final Message lastSentMessage) {
-        this.lastSentMessage = lastSentMessage;
-    }
-
-    /**
-     * set the unread counter of this chat
-     * @param unreadCount the number of unread messages in this chat
-     */
-    public void setUnreadCount(int unreadCount) {
-        this.unreadCount = unreadCount;
     }
 
     /**
@@ -94,6 +57,15 @@ public class Chat {
     }
 
     /**
+     * set the last sent message
+     *
+     * @param lastSentMessage the last sent message of this chat
+     */
+    public void setLastSentMessage(final Message lastSentMessage) {
+        this.lastSentMessage = lastSentMessage;
+    }
+
+    /**
      * @return all messages in this chat
      */
     public List<Message> getMessages() {
@@ -101,10 +73,28 @@ public class Chat {
     }
 
     /**
+     * set the messages of the chat
+     *
+     * @param messages list of messages in the chat
+     */
+    public void setMessages(final List<Message> messages) {
+        this.messages = messages;
+    }
+
+    /**
      * @return all users in this chat
      */
     public List<User> getUsers() {
         return Collections.unmodifiableList(users);
+    }
+
+    /**
+     * set the users of the chat
+     *
+     * @param users list of participants in the chat
+     */
+    public void setUsers(final List<User> users) {
+        this.users = users;
     }
 
     /**
@@ -116,5 +106,20 @@ public class Chat {
         } else {
             return String.valueOf(unreadCount);
         }
+    }
+
+    /**
+     * set the unread counter of this chat
+     *
+     * @param unreadCount the number of unread messages in this chat
+     */
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
+    }
+
+    public enum ChatType {
+        PRIVATE,
+        GROUP,
+        MEMO
     }
 }

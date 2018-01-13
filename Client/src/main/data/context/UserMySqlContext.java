@@ -16,7 +16,7 @@ public class UserMySqlContext implements IUserContext {
         final String query = "INSERT INTO `User` (`Username`, `Password`, `Salt`, `Name`) VALUES (?, ?, ?, ?);" +
                 "INSERT INTO `userfunction` (userId, functionId) VALUES (LAST_INSERT_ID(), (SELECT id FROM `Function` WHERE `name` = ?));";
 
-        return DatabaseHandler.setData(query, new String[]{ username, password, salt, name, functionName}, true).next();
+        return DatabaseHandler.setData(query, new String[]{username, password, salt, name, functionName}, true).next();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserMySqlContext implements IUserContext {
 
         if (resultSet != null && resultSet.next()) {
             return new User(resultSet.getInt("id"), resultSet.getString("username"),
-                    resultSet.getString("name"), resultSet.getString("function"),null);
+                    resultSet.getString("name"), resultSet.getString("function"), null);
         }
         return null;
     }
@@ -57,7 +57,7 @@ public class UserMySqlContext implements IUserContext {
 
         while (resultSet.next()) {
             users.add(new User(resultSet.getInt("id"), resultSet.getString("username"),
-                    resultSet.getString("name"), resultSet.getString("function"),null));
+                    resultSet.getString("name"), resultSet.getString("function"), null));
         }
         return users;
     }
@@ -74,7 +74,7 @@ public class UserMySqlContext implements IUserContext {
 
         while (resultSet.next()) {
             users.add(new User(resultSet.getInt("id"), resultSet.getString("username"),
-                    resultSet.getString("name"), resultSet.getString("function"),null));
+                    resultSet.getString("name"), resultSet.getString("function"), null));
         }
         return users;
     }

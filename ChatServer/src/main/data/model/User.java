@@ -18,11 +18,12 @@ public class User {
 
     /**
      * initialize class
-     * @param id the id of this user
+     *
+     * @param id       the id of this user
      * @param username the username of this user
-     * @param name the name of this user
+     * @param name     the name of this user
      * @param function the function of this user
-     * @param photo the photo of this user
+     * @param photo    the photo of this user
      */
     public User(final int id, final String username, final String name, final String function, final Image photo) {
         this.id = id;
@@ -33,30 +34,6 @@ public class User {
         this.privateChats = null;
         this.groupChats = null;
         this.memos = null;
-    }
-
-    /**
-     * set the private chats this user participates in
-     * @param privateChats private chats this user participates in
-     */
-    public void setPrivateChats(List<Chat> privateChats) {
-        this.privateChats = privateChats;
-    }
-
-    /**
-     * set the group chats this user participates in
-     * @param groupChats group chats this user participates in
-     */
-    public void setGroupChats(List<Chat> groupChats) {
-        this.groupChats = groupChats;
-    }
-
-    /**
-     * set the memos this user has received or sent
-     * @param memos the memos of this user
-     */
-    public void setMemos(List<Chat> memos) {
-        this.memos = memos;
     }
 
     /**
@@ -102,6 +79,15 @@ public class User {
     }
 
     /**
+     * set the private chats this user participates in
+     *
+     * @param privateChats private chats this user participates in
+     */
+    public void setPrivateChats(List<Chat> privateChats) {
+        this.privateChats = privateChats;
+    }
+
+    /**
      * @return group chats this user is participating in
      */
     public List<Chat> getGroupChats() {
@@ -109,9 +95,27 @@ public class User {
     }
 
     /**
+     * set the group chats this user participates in
+     *
+     * @param groupChats group chats this user participates in
+     */
+    public void setGroupChats(List<Chat> groupChats) {
+        this.groupChats = groupChats;
+    }
+
+    /**
      * @return memos this user has sent or received
      */
     public List<Chat> getMemos() {
         return Collections.unmodifiableList(memos);
+    }
+
+    /**
+     * set the memos this user has received or sent
+     *
+     * @param memos the memos of this user
+     */
+    public void setMemos(List<Chat> memos) {
+        this.memos = memos;
     }
 }

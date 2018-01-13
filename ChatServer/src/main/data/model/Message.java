@@ -16,12 +16,13 @@ public class Message implements Serializable {
 
     /**
      * initialize class
-     * @param text the text of this message
-     * @param senderId the id of the sender of this message
+     *
+     * @param text       the text of this message
+     * @param senderId   the id of the sender of this message
      * @param senderName the name of the sender of this message
-     * @param chatId the id of the chat this message is sent in
-     * @param time the time this message is sent at
-     * @param fileId the id of the file sent within this message (can be null)
+     * @param chatId     the id of the chat this message is sent in
+     * @param time       the time this message is sent at
+     * @param fileId     the id of the file sent within this message (can be null)
      */
     public Message(final String text, final int senderId, final String senderName, final int chatId, final Time time, final Integer fileId) {
         this.text = text;
@@ -39,6 +40,7 @@ public class Message implements Serializable {
 
     /**
      * add file to this message
+     *
      * @param file messageFile to add to this message
      */
     public void addFile(final MessageFile file) {
@@ -66,8 +68,7 @@ public class Message implements Serializable {
     public File getFile() {
         if (file == null) {
             return null;
-        }
-        else {
+        } else {
             return file.getFile();
         }
     }

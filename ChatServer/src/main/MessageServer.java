@@ -60,6 +60,7 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
             }
         } catch (SQLException | ConnectException e) {
             e.printStackTrace();
-        } catch (RemoteException ignored) {}
+        } catch (RemoteException ignored) {
+        }
     }
 }

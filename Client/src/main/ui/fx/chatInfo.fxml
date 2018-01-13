@@ -8,21 +8,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.ChatInfoController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.111" fx:controller="main.ui.controller.ChatInfoController">
 
     <Pane fx:id="paneHeader" prefHeight="100.0" prefWidth="1100.0">
         <children>
-            <JFXButton fx:id="btnLeaveChat" layoutX="900.0" layoutY="31.0" onAction="#leaveChat" prefWidth="150.0" style="-fx-background-color: #1DB01D" text="Leave chat" textFill="WHITE">
+            <JFXButton fx:id="btnLeaveChat" layoutX="900.0" layoutY="31.0" onAction="#leaveChat" prefWidth="150.0"
+                       style="-fx-background-color: #1DB01D" text="Leave chat" textFill="WHITE">
                 <font>
-                    <Font name="Segoe UI Semilight" size="18.0" />
+                    <Font name="Segoe UI Semilight" size="18.0"/>
                 </font>
                 <cursor>
-                    <Cursor fx:constant="HAND" />
+                    <Cursor fx:constant="HAND"/>
                 </cursor>
             </JFXButton>
             <Label fx:id="lblChatName" layoutX="50.0" layoutY="30.0" text="Chat info">
                 <font>
-                    <Font name="Segoe UI Semibold" size="28.0" />
+                    <Font name="Segoe UI Semibold" size="28.0"/>
                 </font>
             </Label>
         </children>
@@ -30,9 +32,13 @@
 
     <Pane fx:id="paneContent" layoutY="100.0" prefHeight="625.0" prefWidth="1100.0">
         <children>
-            <ScrollPane fx:id="scrollpaneListedUsers" hbarPolicy="NEVER" maxHeight="625.0" maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" style="-fx-background: #FFFFFF;" styleClass="edge-to-edge">
+            <ScrollPane fx:id="scrollpaneListedUsers" hbarPolicy="NEVER" maxHeight="625.0" maxWidth="1100.0"
+                        prefHeight="625.0" prefWidth="1100.0" style="-fx-background: #FFFFFF;"
+                        styleClass="edge-to-edge">
                 <content>
-                    <VBox fx:id="vboxListedUsers" alignment="TOP_CENTER" fillWidth="false" maxHeight="625.0" maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" spacing="25.0" style="-fx-background-color: #FFFFFF;" />
+                    <VBox fx:id="vboxListedUsers" alignment="TOP_CENTER" fillWidth="false" maxHeight="625.0"
+                          maxWidth="1100.0" prefHeight="625.0" prefWidth="1100.0" spacing="25.0"
+                          style="-fx-background-color: #FFFFFF;"/>
                 </content>
             </ScrollPane>
         </children>

@@ -21,7 +21,9 @@ public class Session {
         auctionCountdown.schedule(new SessionTimer(this), Date.from(loginTime));
     }
 
-    public User getCurrentUser() { return currentUser; }
+    public User getCurrentUser() {
+        return currentUser;
+    }
 
     public void logout() {
         applicationManager.logout();
