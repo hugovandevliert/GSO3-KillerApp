@@ -26,20 +26,20 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
         publisher = new RemotePublisher();
-        this.publisher.registerProperty(CHANGED_PROPERTY);
-        this.publisher.registerProperty(CHANGED_PROPERTY + "1"); //TODO: this should be done by the authentication server when it's ready
-        this.publisher.registerProperty(CHANGED_PROPERTY + "7"); //TODO: this should be done by the authentication server when it's ready
-        this.publisher.registerProperty(CHANGED_PROPERTY + "8"); //TODO: this should be done by the authentication server when it's ready
+//        this.publisher.registerProperty(CHANGED_PROPERTY);
+        this.publisher.registerProperty(CHANGED_PROPERTY + "1"); //TODO: this should be done by the authentication server when it's done
+        this.publisher.registerProperty(CHANGED_PROPERTY + "7"); //TODO: this should be done by the authentication server when it's done
+        this.publisher.registerProperty(CHANGED_PROPERTY + "8"); //TODO: this should be done by the authentication server when it's done
         System.out.println("Started publisher and registered " + CHANGED_PROPERTY + " property");
 
-        Registry registry = LocateRegistry.createRegistry(PORT_NUMBER);
-        System.out.println("Created registry on port " + PORT_NUMBER);
+        Registry registry = LocateRegistry.createRegistry(PORT_NUMBER_MESSAGE);
+        System.out.println("Created message registry on port " + PORT_NUMBER_MESSAGE);
 
-        registry.rebind(SERVER_NAME_THAT_PUSHES_TO_CLIENTS, publisher);
-        System.out.println("Rebinded " + SERVER_NAME_THAT_PUSHES_TO_CLIENTS + " to publisher for message pushing towards clients");
+        registry.rebind(SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS, publisher);
+        System.out.println("Rebinded " + SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS + " to publisher for message pushing to clients");
 
-        registry.rebind(SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS, this);
-        System.out.println("Rebinded " + SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS + " to publisher for message receiving from clients");
+        registry.rebind(SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS, this);
+        System.out.println("Rebinded " + SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS + " to publisher for message receiving from clients");
     }
 
     public static void main(String[] args) {

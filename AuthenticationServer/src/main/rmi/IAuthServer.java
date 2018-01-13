@@ -1,8 +1,8 @@
-package main;
+package main.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface IAuthServer extends Remote {
-    void AnnounceClient() throws RemoteException;
+    String announceClient() throws RemoteException;
 }

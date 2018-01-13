@@ -10,14 +10,18 @@ import java.rmi.registry.Registry;
 import static main.util.constant.constants.*;
 
 public class ClientManager {
-    private Registry registry;
+    private Registry registryAuth;
+    private Registry registryMessage;
+    private AuthClient authClient;
     private MessageClient messageClient;
     private IRemotePublisherForListener messageServerListener;
     private IRemotePropertyListener messageRemotePropertyListener;
 
+
     public ClientManager() {
         try {
-            registry = LocateRegistry.getRegistry(SERVER_IP, PORT_NUMBER);
+            registryAuth = LocateRegistry.getRegistry(SERVER_IP, PORT_NUMBER_AUTH);
+            registryMessage = LocateRegistry.getRegistry(SERVER_IP, PORT_NUMBER_MESSAGE);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -53,7 +57,21 @@ public class ClientManager {
         return messageClient;
     }
 
-    public Registry getRegistry() {
-        return registry;
+    public Registry getRegistryMessage() {
+        return registryMessage;
+    }
+
+    public Registry getRegistryAuth() {
+        return registryAuth;
+    }
+
+    public AuthClient getAuthClient() {
+        return authClient;
+    }
+
+    public void setAuthClient(AuthClient authClient) {
+        if (authClient != null) {
+            this.authClient = authClient;
+        }
     }
 }

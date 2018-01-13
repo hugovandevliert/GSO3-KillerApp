@@ -26,6 +26,7 @@ import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
 import main.data.model.User;
+import main.rmi.AuthClient;
 import main.rmi.MessageClient;
 
 import java.io.IOException;
@@ -84,9 +85,14 @@ public class BaseController {
 
                 Platform.runLater(() -> {
                     try {
-                        final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistry(),
+                        final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistryMessage(),
                                 applicationManager.getCurrentUser().getId(), applicationManager.getClientManager(), this);
                         applicationManager.getClientManager().setMessageClient(messageClient);
+
+                        final AuthClient authClient = new AuthClient(applicationManager.getClientManager().getRegistryAuth(), applicationManager.getClientManager());
+                        applicationManager.getClientManager().setAuthClient(authClient);
+
+                        System.out.println(authClient.announceClient());
                     } catch (RemoteException | NotBoundException e) {
                         showAlert("Unable to connect to our server.\nYou are now in offline mode.", paneContent);
                         lblOfflineMode.setVisible(true);

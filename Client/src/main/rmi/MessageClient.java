@@ -29,11 +29,11 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
         /* This is needed to assure we will not get a connection refused. The server also has this line of code. When the IP changes it should be edited in the server as well */
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
-        IRemotePublisherForListener messageListener = (IRemotePublisherForListener) registry.lookup(SERVER_NAME_THAT_PUSHES_TO_CLIENTS);
+        IRemotePublisherForListener messageListener = (IRemotePublisherForListener) registry.lookup(SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS);
         messageListener.subscribeRemoteListener(this, CHANGED_PROPERTY + currentUserId);
         clientManager.addServerMessageListener(messageListener, this);
 
-        server = (IMessageServer) registry.lookup(SERVER_NAME_THAT_RECEIVES_FROM_CLIENTS);
+        server = (IMessageServer) registry.lookup(SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS);
     }
 
     @Override
