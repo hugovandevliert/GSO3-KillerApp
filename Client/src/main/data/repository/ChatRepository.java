@@ -3,6 +3,7 @@ package main.data.repository;
 import main.data.context.ChatMySqlContext;
 import main.data.context.IChatContext;
 import main.data.model.Chat;
+import main.data.model.User;
 
 import java.net.ConnectException;
 import java.sql.SQLException;
@@ -29,5 +30,9 @@ public class ChatRepository {
 
     public void resetUnreadCount(final int chatId, final int userId) throws SQLException, ConnectException {
         chatContext.resetUnreadCount(chatId, userId);
+    }
+
+    public Chat createChat(final String chatName, final Chat.ChatType chatType, final List<User> chatUsers) throws SQLException, ConnectException {
+        return chatContext.createChat(chatName, chatType, chatUsers);
     }
 }

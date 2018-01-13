@@ -9,7 +9,6 @@ import java.util.List;
 public interface IUserContext {
     boolean registerUser(final String username, final String password, final String salt, final String name, final String functionName) throws SQLException, ConnectException;
     String[] getSaltAndHash(final String username) throws SQLException, ConnectException;
-    boolean setPassword(final String newPassword, final String salt, final String username) throws SQLException, ConnectException;
     User getUserByUsername(final String username) throws SQLException, ConnectException;
     List<User> getAllUsers() throws SQLException, ConnectException;
     List<User> getUsersByChatId(int chatId) throws SQLException, ConnectException;

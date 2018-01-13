@@ -1,11 +1,8 @@
 package main.data.context;
 
-import com.sun.corba.se.impl.orb.DataCollectorBase;
 import main.data.model.User;
 import main.util.database.DatabaseHandler;
 
-import javax.xml.crypto.Data;
-import javax.xml.transform.Result;
 import java.net.ConnectException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +16,7 @@ public class UserMySqlContext implements IUserContext {
         final String query = "INSERT INTO `User` (`Username`, `Password`, `Salt`, `Name`) VALUES (?, ?, ?, ?);" +
                 "INSERT INTO `userfunction` (userId, functionId) VALUES (LAST_INSERT_ID(), (SELECT id FROM `Function` WHERE `name` = ?));";
 
-        return 1 == DatabaseHandler.setData(query, new String[]{ username, password, salt, name, functionName}, true);
+        return DatabaseHandler.setData(query, new String[]{ username, password, salt, name, functionName}, true).next();
     }
 
     @Override
@@ -33,13 +30,6 @@ public class UserMySqlContext implements IUserContext {
         }
         //There is no user with this username
         return new String[]{};
-    }
-
-    @Override
-    public boolean setPassword(final String newPassword, final String salt, final String username) throws SQLException, ConnectException {
-        final String query = "UPDATE `User` SET `password` = ?, salt = ? WHERE username = ?";
-
-        return 1 == DatabaseHandler.setData(query, new String[] { newPassword, salt, username }, true);
     }
 
     @Override

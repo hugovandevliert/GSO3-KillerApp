@@ -1,6 +1,7 @@
 package main.data.context;
 
 import main.data.model.Chat;
+import main.data.model.User;
 import main.util.database.DatabaseHandler;
 
 import java.net.ConnectException;
@@ -79,9 +80,30 @@ public class ChatMySqlContext implements IChatContext {
     }
 
     @Override
-    public void resetUnreadCount(int chatId, int userId) throws SQLException, ConnectException {
+    public void resetUnreadCount(final int chatId, final int userId) throws SQLException, ConnectException {
         final String query = "UPDATE userchats SET unreadCount = 0 " +
                 "WHERE chatId = ? AND userId = ?";
         DatabaseHandler.setData(query, new String[]{String.valueOf(chatId), String.valueOf(userId)}, true);
+    }
+
+    @Override
+    public Chat createChat(final String chatName, final Chat.ChatType chatType, final List<User> chatUsers) throws SQLException, ConnectException {
+        StringBuilder query = new StringBuilder("INSERT INTO chat (chatType, name) VALUES (?, ?);");
+        ArrayList<String> values = new ArrayList<>();
+        values.add(chatType.toString());
+        values.add(chatName);
+        for (User u : chatUsers) {
+            query.append("INSERT INTO userchats (chatId, userId) VALUES (LAST_INSERT_ID(), ?);");
+            values.add(String.valueOf(u.getId()));
+        }
+
+        ResultSet resultSet = DatabaseHandler.setData(query.toString(), values.toArray(new String[0]), true);
+        if (resultSet.next()) {
+            Chat chat = new Chat(resultSet.getInt(1), chatName, chatType);
+            chat.setUsers((ArrayList<User>) chatUsers);
+            return chat;
+        } else {
+            return null;
+        }
     }
 }

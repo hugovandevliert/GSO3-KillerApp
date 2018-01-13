@@ -29,6 +29,7 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
         this.publisher.registerProperty(CHANGED_PROPERTY);
         this.publisher.registerProperty(CHANGED_PROPERTY + "1"); //TODO: this should be done by the authentication server when it's ready
         this.publisher.registerProperty(CHANGED_PROPERTY + "7"); //TODO: this should be done by the authentication server when it's ready
+        this.publisher.registerProperty(CHANGED_PROPERTY + "8"); //TODO: this should be done by the authentication server when it's ready
         System.out.println("Started publisher and registered " + CHANGED_PROPERTY + " property");
 
         Registry registry = LocateRegistry.createRegistry(PORT_NUMBER);

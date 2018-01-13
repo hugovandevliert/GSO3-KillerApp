@@ -1,5 +1,6 @@
 package main.util.database;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -63,13 +64,13 @@ public class DatabaseHandler {
         return preparedStatement.executeQuery();
     }
 
-    public static int setData(final String query, final String[] values, final boolean isUpdateQuery) throws ConnectException, SQLException {
-        int updateCount = -1;
+    public static ResultSet setData(final String query, final String[] values, final boolean isUpdateQuery) throws ConnectException, SQLException {
+        ResultSet updateCount;
         PreparedStatement preparedStatement;
 
         final Connection connection = DatabaseHandler.getConnection();
         if(connection != null) {
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } else {
             throw new ConnectException(connectionError);
         }
@@ -88,7 +89,7 @@ public class DatabaseHandler {
             preparedStatement.executeQuery();
         }
 
-        updateCount = preparedStatement.getUpdateCount();
+        updateCount = preparedStatement.getGeneratedKeys();
 
         return updateCount;
     }

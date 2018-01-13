@@ -10,6 +10,9 @@ import main.data.model.Chat;
 import main.data.model.User;
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ListedUserController extends BaseController {
@@ -19,12 +22,12 @@ public class ListedUserController extends BaseController {
         SELECTUSER
     }
 
-    private Pane parentPane;
-    private User user;
-
     @FXML private AnchorPane apaneListedUser;
     @FXML private ImageView imgviewProfilePicture;
     @FXML private Label lblName;
+
+    private Pane parentPane;
+    private User user;
 
     void setParentPane(final Pane parentPane) {
         this.parentPane = parentPane;
@@ -66,9 +69,9 @@ public class ListedUserController extends BaseController {
     }
 
     private void openChat() {
-        for (Chat chat : user.getPrivateChats()) {
-            for (User user : chat.getUsers()) {
-                if (user.getId() == BaseController.applicationManager.getCurrentUser().getId()) {
+        for (Chat chat : applicationManager.getCurrentUser().getPrivateChats()) {
+            for (User u : chat.getUsers()) {
+                if (u.getId() == user.getId()) {
                     final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chat.fxml"));
                     Pane newContentPane = null;
                     try {
@@ -86,7 +89,7 @@ public class ListedUserController extends BaseController {
             }
         }
 
-        createChat();
+        createPrivateChat();
     }
 
     private void selectUser() {
@@ -97,7 +100,7 @@ public class ListedUserController extends BaseController {
         }
     }
 
-    private void createChat() {
+    private void createPrivateChat() {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chat.fxml"));
         Pane newContentPane = null;
         try {
@@ -106,9 +109,16 @@ public class ListedUserController extends BaseController {
             e.printStackTrace();
         }
         final ChatController chatController = fxmlLoader.getController();
-        System.out.println("Creating chats not implemented yet.");
-//        TODO: create chat
-//        chatController.loadChat();
+        try {
+            ArrayList<User> users = new ArrayList<>();
+            users.add(applicationManager.getCurrentUser());
+            users.add(user);
+
+            chatController.loadChat(applicationManager.getChatRepository().createChat("", Chat.ChatType.PRIVATE, users));
+        } catch (ConnectException | SQLException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
+            e.printStackTrace();
+        }
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newContentPane);
