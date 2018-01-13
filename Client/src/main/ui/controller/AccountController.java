@@ -19,6 +19,7 @@ public class AccountController extends BaseController {
 
     void loadAccount(User user) {
         applicationManager.setOpenedChat(null);
+        applicationManager.setPageController(null);
 
         if (user.getPhoto() != null) {
             imgviewProfilePicture.setImage(user.getPhoto());

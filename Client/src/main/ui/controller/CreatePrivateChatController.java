@@ -19,6 +19,7 @@ public class CreatePrivateChatController extends BaseController {
 
     void loadUsers(ArrayList<User> users) throws IOException {
         applicationManager.setOpenedChat(null);
+        applicationManager.setPageController(null);
 
         for (User user : users) {
             if (user.getId() != applicationManager.getCurrentUser().getId()) {

@@ -9,6 +9,7 @@ import main.data.session.Session;
 import main.rmi.ClientManager;
 import main.ui.controller.BaseController;
 import main.ui.controller.ChatController;
+import main.ui.controller.IChatPageController;
 import main.util.sec.HashCalculator;
 
 import java.net.ConnectException;
@@ -23,6 +24,7 @@ public class ApplicationManager {
 
     private BaseController baseController;
     private ChatController openedChat;
+    private IChatPageController pageController;
     private HashCalculator hashCalculator = new HashCalculator();
     private ClientManager clientManager;
     private Session session;
@@ -85,21 +87,21 @@ public class ApplicationManager {
     public void loadPrivateChats() throws SQLException, ConnectException {
         session.getCurrentUser().setPrivateChats(chatRepository.getPrivateChatsByUserId(session.getCurrentUser().getId()));
         for (Chat chat : getCurrentUser().getPrivateChats()) {
-            chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
+            chat.setUsers(userRepository.getUsersByChatId(chat.getId()));
         }
     }
 
     public void loadGroupChats() throws SQLException, ConnectException {
         session.getCurrentUser().setGroupChats(chatRepository.getGroupChatsByUserId(session.getCurrentUser().getId()));
         for (Chat chat : getCurrentUser().getGroupChats()) {
-            chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
+            chat.setUsers(userRepository.getUsersByChatId(chat.getId()));
         }
     }
 
     public void loadMemos() throws SQLException, ConnectException {
         session.getCurrentUser().setMemos(chatRepository.getMemosByUserId(session.getCurrentUser().getId()));
         for (Chat chat : getCurrentUser().getMemos()) {
-            chat.setUsers((ArrayList<User>) userRepository.getUsersByChatId(chat.getId()));
+            chat.setUsers(userRepository.getUsersByChatId(chat.getId()));
         }
     }
 
@@ -129,5 +131,13 @@ public class ApplicationManager {
 
     public void setOpenedChat(ChatController openedChat) {
         this.openedChat = openedChat;
+    }
+
+    public IChatPageController getPageController() {
+        return pageController;
+    }
+
+    public void setPageController(IChatPageController pageController) {
+        this.pageController = pageController;
     }
 }

@@ -53,6 +53,8 @@ public class ChatController extends BaseController {
 
     void loadChat(final Chat chat) {
         applicationManager.setOpenedChat(this);
+        applicationManager.setPageController(null);
+
         this.chat = chat;
         txtMessageText.textProperty().addListener((observable, oldValue, newValue) -> {
             if (txtMessageText.getText().isEmpty() && selectedFile == null) {

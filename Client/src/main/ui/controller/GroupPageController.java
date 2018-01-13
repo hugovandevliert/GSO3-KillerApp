@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupPageController extends BaseController {
+public class GroupPageController extends BaseController implements IChatPageController {
     @FXML private VBox vboxListedChats;
 
     private Pane parentPane;
@@ -24,6 +24,7 @@ public class GroupPageController extends BaseController {
 
     void loadChats() throws IOException {
         applicationManager.setOpenedChat(null);
+        applicationManager.setPageController(this);
 
         try {
             applicationManager.loadGroupChats();
@@ -60,5 +61,15 @@ public class GroupPageController extends BaseController {
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newPane);
+    }
+
+    @Override
+    public void refreshChats() {
+        vboxListedChats.getChildren().clear();
+        try {
+            loadChats();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -12,7 +12,7 @@ import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PrivatePageController extends BaseController {
+public class PrivatePageController extends BaseController implements IChatPageController {
     @FXML private VBox vboxListedChats;
 
     private Pane parentPane;
@@ -23,6 +23,7 @@ public class PrivatePageController extends BaseController {
 
     void loadChats() throws IOException {
         applicationManager.setOpenedChat(null);
+        applicationManager.setPageController(this);
 
         try {
             applicationManager.loadPrivateChats();
@@ -58,5 +59,15 @@ public class PrivatePageController extends BaseController {
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newPane);
+    }
+
+    @Override
+    public void refreshChats() {
+        vboxListedChats.getChildren().clear();
+        try {
+            loadChats();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -381,6 +381,9 @@ public class BaseController {
         if (applicationManager.getOpenedChat() != null && applicationManager.getOpenedChat().getChatId() == message.getChatId()) {
             applicationManager.getOpenedChat().loadMessage(message);
         } else {
+            if (applicationManager.getPageController() != null) {
+                applicationManager.getPageController().refreshChats();
+            }
             try {
                 final Chat chat = applicationManager.getChatRepository().getChatWithId(message.getChatId());
                 chat.setUsers(applicationManager.getUserRepository().getUsersByChatId(chat.getId()));

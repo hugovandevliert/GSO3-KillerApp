@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoPageController extends BaseController{
+public class MemoPageController extends BaseController implements IChatPageController {
     @FXML private VBox vboxListedChats;
 
     private Pane parentPane;
@@ -24,6 +24,7 @@ public class MemoPageController extends BaseController{
 
     void loadMemos() throws IOException {
         applicationManager.setOpenedChat(null);
+        applicationManager.setPageController(this);
 
         try {
             applicationManager.loadMemos();
@@ -59,5 +60,15 @@ public class MemoPageController extends BaseController{
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newPane);
+    }
+
+    @Override
+    public void refreshChats() {
+        vboxListedChats.getChildren().clear();
+        try {
+            loadMemos();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
