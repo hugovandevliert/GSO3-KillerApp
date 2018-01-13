@@ -24,7 +24,6 @@
                 <Font name="Segoe UI Semibold" size="28.0" />
             </font>
         </Label>
-        <Label fx:id="lblId" visible="false"/>
     </children>
 
 </AnchorPane>

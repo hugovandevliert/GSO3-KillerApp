@@ -22,12 +22,23 @@ public class ListedUserController extends BaseController {
         SELECTUSER
     }
 
+
     @FXML private AnchorPane apaneListedUser;
     @FXML private ImageView imgviewProfilePicture;
     @FXML private Label lblName;
 
     private Pane parentPane;
+
     private User user;
+    private boolean selected = false;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public User getUser() {
+        return user;
+    }
 
     void setParentPane(final Pane parentPane) {
         this.parentPane = parentPane;
@@ -36,6 +47,7 @@ public class ListedUserController extends BaseController {
     void setListedUser(final User user, final onAction onAction) {
         this.user = user;
         lblName.setText(user.getName());
+
         if (user.getPhoto() != null) {
             imgviewProfilePicture.setImage(user.getPhoto());
         }
@@ -95,8 +107,10 @@ public class ListedUserController extends BaseController {
     private void selectUser() {
         if (Objects.equals(apaneListedUser.getStyle(), "-fx-background-color: #E0E0E0; -fx-background-radius: 2.5;")) {
             apaneListedUser.setStyle("-fx-background-color: #3FBC3F; -fx-background-radius: 2.5;");
+            selected = true;
         } else {
             apaneListedUser.setStyle("-fx-background-color: #E0E0E0; -fx-background-radius: 2.5;");
+            selected = false;
         }
     }
 
