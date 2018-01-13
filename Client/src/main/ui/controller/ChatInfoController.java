@@ -21,6 +21,8 @@ public class ChatInfoController extends BaseController {
     }
 
     void loadChatInfo(Chat chat) throws IOException {
+        applicationManager.setOpenedChat(null);
+
         if (chat.getChatType() == Chat.ChatType.PRIVATE) {
             if (chat.getUsers().get(0).getId() == applicationManager.getCurrentUser().getId()) {
                 lblChatName.setText("Members of private chat with: " + chat.getUsers().get(1).getName());

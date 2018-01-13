@@ -373,7 +373,7 @@ public class BaseController {
         } else {
             try {
                 final Chat chat = applicationManager.getChatRepository().getChatWithId(message.getChatId());
-                chat.setUsers((ArrayList<User>) applicationManager.getUserRepository().getUsersByChatId(chat.getId()));
+                chat.setUsers(applicationManager.getUserRepository().getUsersByChatId(chat.getId()));
                 showAlert(chat, message, paneContent);
             } catch (SQLException e) {
                 showAlert("Unable to connect to database.\nError: " + e.getMessage(), paneContent);

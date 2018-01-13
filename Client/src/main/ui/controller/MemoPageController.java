@@ -23,6 +23,8 @@ public class MemoPageController extends BaseController{
     }
 
     void loadMemos() throws IOException {
+        applicationManager.setOpenedChat(null);
+
         try {
             applicationManager.loadMemos();
         } catch (SQLException e) {

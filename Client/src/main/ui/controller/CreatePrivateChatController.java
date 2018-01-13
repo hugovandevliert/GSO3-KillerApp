@@ -18,6 +18,8 @@ public class CreatePrivateChatController extends BaseController {
     }
 
     void loadUsers(ArrayList<User> users) throws IOException {
+        applicationManager.setOpenedChat(null);
+
         for (User user : users) {
             if (user.getId() != applicationManager.getCurrentUser().getId()) {
                 final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedUser.fxml"));

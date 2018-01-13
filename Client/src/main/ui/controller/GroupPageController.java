@@ -23,6 +23,8 @@ public class GroupPageController extends BaseController {
     }
 
     void loadChats() throws IOException {
+        applicationManager.setOpenedChat(null);
+
         try {
             applicationManager.loadGroupChats();
         } catch (SQLException e) {

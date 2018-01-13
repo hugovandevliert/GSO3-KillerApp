@@ -22,6 +22,8 @@ public class PrivatePageController extends BaseController {
     }
 
     void loadChats() throws IOException {
+        applicationManager.setOpenedChat(null);
+
         try {
             applicationManager.loadPrivateChats();
         } catch (SQLException | ConnectException e) {

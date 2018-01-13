@@ -63,7 +63,7 @@ public class Message implements Serializable {
     }
 
     /**
-     * @return file added to this message
+     * @return file added to this message (can be null)
      */
     public File getFile() {
         if (file == null) {
@@ -74,7 +74,7 @@ public class Message implements Serializable {
     }
 
     /**
-     * @return time this message was sent at
+     * @return time this message was sent at in HH:mm format
      */
     public String getTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");

@@ -27,6 +27,8 @@ public class CreateGroupChatController extends BaseController {
     }
 
     void loadUsers(final ArrayList<User> users) throws IOException {
+        applicationManager.setOpenedChat(null);
+
         listedUserControllers = new ArrayList<>();
 
         for (User user : users) {
