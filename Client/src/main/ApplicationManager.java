@@ -11,12 +11,10 @@ import main.ui.controller.BaseController;
 import main.ui.controller.ChatController;
 import main.util.sec.HashCalculator;
 
-import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class ApplicationManager {
     private UserRepository userRepository = new UserRepository();

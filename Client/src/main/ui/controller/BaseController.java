@@ -85,13 +85,12 @@ public class BaseController {
 
                 Platform.runLater(() -> {
                     try {
-                        final AuthClient authClient = new AuthClient(applicationManager.getClientManager().getRegistryAuth(), applicationManager.getClientManager());
+                        final AuthClient authClient = new AuthClient(applicationManager.getClientManager().getRegistryAuth());
                         applicationManager.getClientManager().setAuthClient(authClient);
 
                         final String newMessageProperty = authClient.registerClient(applicationManager.getCurrentUser().getId());
 
-                        final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistryMessage(),
-                                applicationManager.getClientManager(), this, newMessageProperty);
+                        final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistryMessage(), this, newMessageProperty);
                         applicationManager.getClientManager().setMessageClient(messageClient);
                     } catch (RemoteException | NotBoundException e) {
                         showAlert("Unable to connect to our server.\nYou are now in offline mode.", paneContent);

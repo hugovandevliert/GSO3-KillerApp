@@ -3,7 +3,6 @@ package main.data.context;
 import main.data.model.MessageFile;
 import main.util.database.DatabaseHandler;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.ResultSet;

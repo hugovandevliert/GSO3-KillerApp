@@ -1,8 +1,5 @@
 package main.rmi;
 
-import fontyspublisher.IRemotePropertyListener;
-import fontyspublisher.IRemotePublisherForListener;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -14,8 +11,6 @@ public class ClientManager {
     private Registry registryMessage;
     private AuthClient authClient;
     private MessageClient messageClient;
-    private IRemotePublisherForListener messageServerListener;
-    private IRemotePropertyListener messageRemotePropertyListener;
 
 
     public ClientManager() {
@@ -33,23 +28,9 @@ public class ClientManager {
         }
     }
 
-    public void addServerMessageListener(final IRemotePublisherForListener serverMessageListener, final IRemotePropertyListener remotePropertyListener) {
-        this.messageServerListener = serverMessageListener;
-        this.messageRemotePropertyListener = remotePropertyListener;
-    }
-
-    public void unsubscribeRemoteListeners() {
-        /* This is needed to assure we can re-subscribe ourselves without getting connection refused from the server */
-        try {
-            if (messageServerListener != null){
-                messageServerListener.unsubscribeRemoteListener(messageRemotePropertyListener, CHANGED_PROPERTY);
-            }
-
-            this.messageServerListener = null;
-            this.messageRemotePropertyListener = null;
-            this.messageClient = null;
-        } catch (RemoteException e) {
-            e.printStackTrace();
+    public void setAuthClient(AuthClient authClient) {
+        if (authClient != null) {
+            this.authClient = authClient;
         }
     }
 
@@ -63,15 +44,5 @@ public class ClientManager {
 
     public Registry getRegistryAuth() {
         return registryAuth;
-    }
-
-    public AuthClient getAuthClient() {
-        return authClient;
-    }
-
-    public void setAuthClient(AuthClient authClient) {
-        if (authClient != null) {
-            this.authClient = authClient;
-        }
     }
 }

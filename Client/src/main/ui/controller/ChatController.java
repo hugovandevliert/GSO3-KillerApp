@@ -1,7 +1,6 @@
 package main.ui.controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.sun.org.apache.xml.internal.security.algorithms.MessageDigestAlgorithm;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
@@ -19,21 +18,17 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import main.data.model.MessageFile;
-import main.data.model.User;
-import main.rmi.MessageClient;
 import main.data.model.Chat;
 import main.data.model.Message;
+import main.data.model.MessageFile;
+import main.data.model.User;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ConnectException;
-import java.rmi.NotBoundException;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 

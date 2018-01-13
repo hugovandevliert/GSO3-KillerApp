@@ -18,9 +18,10 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
     private transient IMessageServer server;
 
     private transient final BaseController baseController;
+    //TODO: Add notification sound
     //private final MusicPlayer musicPlayer;
 
-    public MessageClient(final Registry registry, final ClientManager clientManager, final BaseController baseController,
+    public MessageClient(final Registry registry, final BaseController baseController,
                          final String newMessageProperty) throws RemoteException, NotBoundException {
         super();
 
@@ -32,7 +33,6 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
 
         IRemotePublisherForListener messageListener = (IRemotePublisherForListener) registry.lookup(SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS);
         messageListener.subscribeRemoteListener(this, newMessageProperty);
-        clientManager.addServerMessageListener(messageListener, this);
 
         server = (IMessageServer) registry.lookup(SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS);
     }

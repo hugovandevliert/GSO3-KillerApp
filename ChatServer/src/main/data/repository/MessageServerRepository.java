@@ -1,6 +1,9 @@
 package main.data.repository;
 
-import main.data.context.*;
+import main.data.context.IMessageContext;
+import main.data.context.IUserContext;
+import main.data.context.MessageMySqlContext;
+import main.data.context.UserMySqlContext;
 import main.data.model.Message;
 
 import java.net.ConnectException;
