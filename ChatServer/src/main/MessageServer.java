@@ -25,16 +25,10 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
 
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
-        publisher = new RemotePublisher();
-//        this.publisher.registerProperty(CHANGED_PROPERTY);
-        this.publisher.registerProperty(CHANGED_PROPERTY + "1"); //TODO: this should be done by the authentication server when it's done
-        this.publisher.registerProperty(CHANGED_PROPERTY + "7"); //TODO: this should be done by the authentication server when it's done
-        this.publisher.registerProperty(CHANGED_PROPERTY + "8"); //TODO: this should be done by the authentication server when it's done
-        System.out.println("Started publisher and registered " + CHANGED_PROPERTY + " property");
-
         Registry registry = LocateRegistry.createRegistry(PORT_NUMBER_MESSAGE);
         System.out.println("Created message registry on port " + PORT_NUMBER_MESSAGE);
 
+        publisher = new RemotePublisher();
         registry.rebind(SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS, publisher);
         System.out.println("Rebinded " + SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS + " to publisher for message pushing to clients");
 
@@ -51,7 +45,7 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
     }
 
     @Override
-    public void sendMessage(Message message) throws RemoteException {
+    public void sendMessage(Message message) {
         try {
             messageServerRepository.addMessage(message);
         } catch (SQLException | ConnectException e) {
@@ -60,12 +54,13 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
 
         try {
             for (int userId : messageServerRepository.getUserIdsFromChatId(message.getChatId())) {
-                if (userId != message.getSenderId()) {
+                if (userId != message.getSenderId() && publisher.getProperties().contains(CHANGED_PROPERTY + userId)) {
                     publisher.inform(CHANGED_PROPERTY + userId, null, message);
                 }
             }
         } catch (SQLException | ConnectException e) {
             e.printStackTrace();
+        } catch (RemoteException ignored) {
         }
     }
 }

@@ -20,7 +20,8 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
     private transient final BaseController baseController;
     //private final MusicPlayer musicPlayer;
 
-    public MessageClient(final Registry registry, final int currentUserId, final ClientManager clientManager, final BaseController baseController) throws RemoteException, NotBoundException {
+    public MessageClient(final Registry registry, final ClientManager clientManager, final BaseController baseController,
+                         final String newMessageProperty) throws RemoteException, NotBoundException {
         super();
 
         this.baseController = baseController;
@@ -30,7 +31,7 @@ public class MessageClient extends UnicastRemoteObject implements IMessageClient
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
         IRemotePublisherForListener messageListener = (IRemotePublisherForListener) registry.lookup(SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS);
-        messageListener.subscribeRemoteListener(this, CHANGED_PROPERTY + currentUserId);
+        messageListener.subscribeRemoteListener(this, newMessageProperty);
         clientManager.addServerMessageListener(messageListener, this);
 
         server = (IMessageServer) registry.lookup(SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS);
