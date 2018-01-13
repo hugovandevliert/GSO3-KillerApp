@@ -12,6 +12,7 @@ public class AccountController extends BaseController {
     @FXML private Label lblName;
     @FXML private Label lblFunction;
 
+    @Override
     public void logout() {
         applicationManager.logout();
     }

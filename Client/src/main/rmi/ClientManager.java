@@ -38,6 +38,10 @@ public class ClientManager {
         return messageClient;
     }
 
+    public AuthClient getAuthClient() {
+        return authClient;
+    }
+
     public Registry getRegistryMessage() {
         return registryMessage;
     }

@@ -43,6 +43,6 @@ public class ChatInfoController extends BaseController {
     }
 
     public void leaveChat() {
-
+        //TODO: Add leave functionality.
     }
 }

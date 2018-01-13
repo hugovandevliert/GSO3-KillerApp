@@ -19,7 +19,7 @@ public class FileMySqlContext implements IFileContext {
             e.printStackTrace();
         }
 
-        if (resultSet.next()) {
+        if (resultSet != null && resultSet.next()) {
             return resultSet.getInt(1);
         } else {
             return null;
@@ -35,7 +35,7 @@ public class FileMySqlContext implements IFileContext {
         if (resultSet.next()) {
             return resultSet.getBytes("file");
         } else {
-            return null;
+            return new byte[]{};
         }
     }
 

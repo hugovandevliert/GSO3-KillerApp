@@ -26,8 +26,6 @@ public class main extends Application {
         primaryStage.show();
 
         enableGUIMoving(root, primaryStage);
-
-        //primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 
     private void enableGUIMoving(final Parent parent, final Stage stage) {

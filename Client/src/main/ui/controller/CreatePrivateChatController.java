@@ -1,5 +1,6 @@
 package main.ui.controller;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CreatePrivateChatController extends BaseController {
-    public VBox vboxListedUsers;
+    @FXML private VBox vboxListedUsers;
     private Pane parentPane;
 
     void setParentPane(Pane parentPane) {

@@ -226,8 +226,6 @@ public class ChatController extends BaseController {
             e.printStackTrace();
         }
 
-        System.out.println(fileExtension);
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save file");
         fileChooser.setInitialFileName(fileName);
@@ -238,8 +236,7 @@ public class ChatController extends BaseController {
         final File savedFile = fileChooser.showSaveDialog(lblChatName.getScene().getWindow());
 
         if (savedFile != null) {
-            try {
-                FileOutputStream stream = new FileOutputStream(savedFile);
+            try (FileOutputStream stream = new FileOutputStream(savedFile)) {
                 stream.write(applicationManager.getMessageRepository().getFile(fileId));
                 stream.close();
             } catch (IOException | SQLException e) {
@@ -250,8 +247,8 @@ public class ChatController extends BaseController {
 
     private String getFileExtension(File file) {
         String fileName = file.getName();
-        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
-            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        if (fileName.lastIndexOf('.') != -1 && fileName.lastIndexOf('.') != 0) {
+            return fileName.substring(fileName.lastIndexOf('.') + 1);
         } else {
             return "";
         }

@@ -6,8 +6,8 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 public class Message implements Serializable {
+    private transient MessageFile file;
     private String text;
-    private MessageFile file;
     private Time time;
     private int senderId;
     private int chatId;

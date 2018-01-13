@@ -12,8 +12,8 @@ import java.rmi.server.UnicastRemoteObject;
 import static main.util.constant.constants.*;
 
 public class AuthServer extends UnicastRemoteObject implements IAuthServer {
-    private Registry authRegistry;
-    private Registry messageRegistry;
+    private transient Registry authRegistry;
+    private transient Registry messageRegistry;
 
     private AuthServer() throws RemoteException {
         super();

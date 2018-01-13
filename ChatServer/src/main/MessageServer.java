@@ -17,8 +17,8 @@ import java.sql.SQLException;
 import static main.util.constant.constants.*;
 
 public class MessageServer extends UnicastRemoteObject implements IMessageServer {
-    private IRemotePublisherForDomain publisher;
-    private MessageServerRepository messageServerRepository = new MessageServerRepository();
+    private transient IRemotePublisherForDomain publisher;
+    private transient MessageServerRepository messageServerRepository = new MessageServerRepository();
 
     private MessageServer() throws IOException {
         super();
@@ -60,7 +60,6 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
             }
         } catch (SQLException | ConnectException e) {
             e.printStackTrace();
-        } catch (RemoteException ignored) {
-        }
+        } catch (RemoteException ignored) {}
     }
 }

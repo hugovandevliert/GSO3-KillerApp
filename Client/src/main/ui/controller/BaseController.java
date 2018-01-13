@@ -88,7 +88,7 @@ public class BaseController {
                         final AuthClient authClient = new AuthClient(applicationManager.getClientManager().getRegistryAuth());
                         applicationManager.getClientManager().setAuthClient(authClient);
 
-                        final String newMessageProperty = authClient.registerClient(applicationManager.getCurrentUser().getId());
+                        final String newMessageProperty = applicationManager.getClientManager().getAuthClient().registerClient(applicationManager.getCurrentUser().getId());
 
                         final MessageClient messageClient = new MessageClient(applicationManager.getClientManager().getRegistryMessage(), this, newMessageProperty);
                         applicationManager.getClientManager().setMessageClient(messageClient);

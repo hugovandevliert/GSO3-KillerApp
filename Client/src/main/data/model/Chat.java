@@ -14,8 +14,8 @@ public class Chat {
     private int id;
     private String name;
     private ChatType chatType;
-    private ArrayList<Message> messages;
-    private ArrayList<User> users;
+    private List<Message> messages;
+    private List<User> users;
     private Message lastSentMessage;
     private int unreadCount;
 
@@ -28,11 +28,11 @@ public class Chat {
         unreadCount = 0;
     }
 
-    public void setMessages(final ArrayList<Message> messages) {
+    public void setMessages(final List<Message> messages) {
         this.messages = messages;
     }
 
-    public void setUsers(final ArrayList<User> users) {
+    public void setUsers(final List<User> users) {
         this.users = users;
     }
 
