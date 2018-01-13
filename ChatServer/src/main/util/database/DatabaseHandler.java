@@ -41,7 +41,6 @@ public class DatabaseHandler {
             } catch (SQLException exception) {
                 connection = null;
                 exception.printStackTrace();
-                throw new ConnectException(connectionError);
             }
         }
         return connection;

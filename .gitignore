@@ -63,3 +63,7 @@ atlassian-ide-plugin.xml
 
 # SolarLint
 .idea/sonarlint/
+
+# SonarQube
+.scannerwork
+sonar-project.properties

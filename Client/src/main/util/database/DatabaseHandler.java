@@ -20,15 +20,11 @@ public class DatabaseHandler {
     private static String connectionError = "Could not connect to database.";
 
     public static Connection getConnection() throws ConnectException {
-        FileInputStream fileInput;
-
         if (server == null || username == null || password == null){
-            try {
-                fileInput = new FileInputStream("Client/src/main/util/database/DatabaseCredentials.properties");
+            try (FileInputStream fileInput = new FileInputStream("Client/src/main/util/database/DatabaseCredentials.properties")) {
 
                 Properties properties = new Properties();
                 properties.load(fileInput);
-                fileInput.close();
 
                 server = properties.getProperty("server");
                 username = properties.getProperty("username");
@@ -44,7 +40,6 @@ public class DatabaseHandler {
             } catch (SQLException exception) {
                 connection = null;
                 exception.printStackTrace();
-                throw new ConnectException(connectionError);
             }
         }
         return connection;
@@ -71,7 +66,7 @@ public class DatabaseHandler {
         PreparedStatement preparedStatement;
 
         final Connection connection = DatabaseHandler.getConnection();
-        if(connection != null) {
+        if (connection != null) {
             preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } else {
             throw new ConnectException(connectionError);
@@ -96,7 +91,7 @@ public class DatabaseHandler {
         return generatedId;
     }
 
-    public static ResultSet setData(final String query, final MessageFile messageFile, final String name, final String extension) throws IOException, SQLException {
+    public static ResultSet setData(final String query, final MessageFile messageFile, final String name, final String extension) throws SQLException, ConnectException {
         ResultSet fileId;
         PreparedStatement preparedStatement;
 
@@ -108,9 +103,12 @@ public class DatabaseHandler {
         }
 
         byte[] fileData = new byte[(int) messageFile.getFile().length()];
-        DataInputStream dis = new DataInputStream(new FileInputStream(messageFile.getFile()));
-        dis.readFully(fileData);  // read from file into byte[] array
-        dis.close();
+
+        try (DataInputStream dis = new DataInputStream(new FileInputStream(messageFile.getFile()))) {
+            dis.readFully(fileData);  // read from file into byte[] array
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         preparedStatement.setBytes(1, fileData);
         preparedStatement.setString(2, name);
