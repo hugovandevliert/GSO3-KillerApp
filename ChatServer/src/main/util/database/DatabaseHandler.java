@@ -17,11 +17,8 @@ public class DatabaseHandler {
     private static String connectionError = "Could not connect to database.";
 
     public static Connection getConnection() throws ConnectException {
-        FileInputStream fileInput;
-
         if (server == null || username == null || password == null){
-            try {
-                fileInput = new FileInputStream("Client/src/main/util/database/DatabaseCredentials.properties");
+            try (FileInputStream fileInput = new FileInputStream("Client/src/main/util/database/DatabaseCredentials.properties")) {
 
                 Properties properties = new Properties();
                 properties.load(fileInput);
@@ -50,7 +47,11 @@ public class DatabaseHandler {
         PreparedStatement preparedStatement;
 
         final Connection connection = getConnection();
-        preparedStatement = connection.prepareStatement(query);
+        if (connection != null) {
+            preparedStatement = connection.prepareStatement(query);
+        } else {
+            throw new ConnectException(connectionError);
+        }
 
         if (values != null && values.length > 0){
             for (int i = 0; i < values.length; i++){
@@ -67,7 +68,7 @@ public class DatabaseHandler {
         PreparedStatement preparedStatement;
 
         final Connection connection = DatabaseHandler.getConnection();
-        if(connection != null) {
+        if (connection != null) {
             preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } else {
             throw new ConnectException(connectionError);

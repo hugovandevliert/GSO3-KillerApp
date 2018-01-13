@@ -49,7 +49,11 @@ public class DatabaseHandler {
         PreparedStatement preparedStatement;
 
         final Connection connection = getConnection();
-        preparedStatement = connection.prepareStatement(query);
+        if (connection != null) {
+            preparedStatement = connection.prepareStatement(query);
+        } else {
+            throw new ConnectException(connectionError);
+        }
 
         if (values != null && values.length > 0){
             for (int i = 0; i < values.length; i++){
