@@ -58,7 +58,7 @@ public class BaseController {
     @FXML private JFXTextField txtPasswordVisibleRegister;
     @FXML private JFXCheckBox cboxPaswordRegister;
     @FXML private JFXTextField txtNameRegister;
-    @FXML private JFXComboBox comboboxFunctionRegister;
+    @FXML private JFXComboBox<String> comboboxFunctionRegister;
     @FXML private Label lblOfflineMode;
 
     private FontAwesomeIconView selectedIcon;
@@ -129,7 +129,7 @@ public class BaseController {
 
     public void register() {
         try {
-            applicationManager.register(txtUsernameRegister.getText(), txtPasswordRegister.getText(), txtNameRegister.getText(), comboboxFunctionRegister.getValue().toString());
+            applicationManager.register(txtUsernameRegister.getText(), txtPasswordRegister.getText(), txtNameRegister.getText(), comboboxFunctionRegister.getValue());
             paneContent.getChildren().clear();
             paneContent.getChildren().add(paneLogin);
             showAlert("Account created!\nPlease log in with your account.", paneContent);
@@ -377,12 +377,18 @@ public class BaseController {
         }
     }
 
-    void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {
+    void showAlert(final String message, final Pane parentPane) {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
-        final Pane paneAlert = fxmlLoader.load();
+        Pane paneAlert = null;
+
+        try {
+            paneAlert = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         final AlertController alertController = fxmlLoader.getController();
-        alertController.setParentPane(parentPane);
-        alertController.setMessage(chat, message);
+        alertController.setText(message);
 
         setAlertAnimation(paneAlert);
         ((AnchorPane) parentPane.getParent()).getChildren().add(paneAlert);
@@ -397,18 +403,12 @@ public class BaseController {
         }, 5000);
     }
 
-    void showAlert(final String message, final Pane parentPane) {
+    private void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
-        Pane paneAlert = null;
-
-        try {
-            paneAlert = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        final Pane paneAlert = fxmlLoader.load();
         final AlertController alertController = fxmlLoader.getController();
-        alertController.setText(message);
+        alertController.setParentPane(parentPane);
+        alertController.setMessage(chat, message);
 
         setAlertAnimation(paneAlert);
         ((AnchorPane) parentPane.getParent()).getChildren().add(paneAlert);

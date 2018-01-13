@@ -63,7 +63,7 @@
                         <Font name="Segoe UI Semilight" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblMemos" layoutX="20.0" layoutY="560.0" text="Send and receive memo's">
+                <Label fx:id="lblMemos" layoutX="20.0" layoutY="560.0" text="Send and receive memos">
                     <font>
                         <Font name="Segoe UI Semilight" size="20.0" />
                     </font>

@@ -227,7 +227,7 @@ public class ChatController extends BaseController {
             fileName = applicationManager.getMessageRepository().getFileName(fileId);
             fileExtension = applicationManager.getMessageRepository().getFileExtension(fileId);
         } catch (SQLException | ConnectException e) {
-            //TODO: proper feedback
+            showAlert("Error retrieving file from database.\nError: " + e.getMessage(), parentPane);
             e.printStackTrace();
         }
 
