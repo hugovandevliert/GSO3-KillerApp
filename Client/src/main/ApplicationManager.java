@@ -28,7 +28,6 @@ public class ApplicationManager {
     private HashCalculator hashCalculator = new HashCalculator();
     private ClientManager clientManager;
     private Session session;
-    private List<User> allUsers;
 
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
@@ -48,7 +47,6 @@ public class ApplicationManager {
             loadGroupChats();
             loadMemos();
 
-            allUsers = userRepository.getAllUsers();
             clientManager = new ClientManager();
             return true;
         } else {
@@ -121,8 +119,8 @@ public class ApplicationManager {
         return this.clientManager;
     }
 
-    public List<User> getAllUsers() {
-        return allUsers;
+    public List<User> getAllUsers() throws SQLException, ConnectException {
+        return userRepository.getAllUsers();
     }
 
     public ChatController getOpenedChat() {

@@ -55,7 +55,12 @@ public class PrivatePageController extends BaseController implements IChatPageCo
         final Pane newPane = fxmlLoader.load();
         final CreatePrivateChatController createPrivateChatController = fxmlLoader.getController();
         createPrivateChatController.setParentPane(parentPane);
-        createPrivateChatController.loadUsers((ArrayList<User>) applicationManager.getAllUsers());
+        try {
+            createPrivateChatController.loadUsers((ArrayList<User>) applicationManager.getAllUsers());
+        } catch (SQLException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
+            e.printStackTrace();
+        }
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newPane);

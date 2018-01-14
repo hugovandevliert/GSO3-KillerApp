@@ -33,15 +33,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ChatController extends BaseController {
-    private Chat chat;
-    private File selectedFile;
-    private Pane parentPane;
-
     @FXML private Label lblChatName;
     @FXML private ScrollPane scrollpaneListedMessages;
     @FXML private TextArea txtMessageText;
     @FXML private JFXButton btnSendMessage;
+    @FXML private JFXButton btnAddFile;
     @FXML private VBox vboxListedMessages;
+
+    private Chat chat;
+    private File selectedFile;
+    private Pane parentPane;
 
     void setParentPane(final Pane parentPane) {
         this.parentPane = parentPane;
@@ -54,6 +55,13 @@ public class ChatController extends BaseController {
     void loadChat(final Chat chat) {
         applicationManager.setOpenedChat(this);
         applicationManager.setPageController(null);
+
+        if (chat.getChatType() == Chat.ChatType.MEMO && !chat.getName().equals("Memo to: " + applicationManager.getCurrentUser().getFunction())) {
+            txtMessageText.setVisible(false);
+            btnSendMessage.setVisible(false);
+            btnAddFile.setVisible(false);
+            scrollpaneListedMessages.setPrefHeight(700);
+        }
 
         this.chat = chat;
         txtMessageText.textProperty().addListener((observable, oldValue, newValue) -> {

@@ -57,7 +57,12 @@ public class GroupPageController extends BaseController implements IChatPageCont
         final Pane newPane = fxmlLoader.load();
         final CreateGroupChatController createGroupChatController = fxmlLoader.getController();
         createGroupChatController.setParentPane(parentPane);
-        createGroupChatController.loadUsers((ArrayList<User>) applicationManager.getAllUsers());
+        try {
+            createGroupChatController.loadUsers((ArrayList<User>) applicationManager.getAllUsers());
+        } catch (SQLException e) {
+            showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
+            e.printStackTrace();
+        }
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newPane);
