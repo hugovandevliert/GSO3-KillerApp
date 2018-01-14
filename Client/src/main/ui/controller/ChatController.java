@@ -56,11 +56,12 @@ public class ChatController extends BaseController {
         applicationManager.setOpenedChat(this);
         applicationManager.setPageController(null);
 
-        if (chat.getChatType() == Chat.ChatType.MEMO && !chat.getName().equals("Memo to: " + applicationManager.getCurrentUser().getFunction())) {
+        if (chat.getChatType() == Chat.ChatType.MEMO && chat.getLastSentMessage() != null && chat.getLastSentMessage().getSenderId() != applicationManager.getCurrentUser().getId()) {
             txtMessageText.setVisible(false);
             btnSendMessage.setVisible(false);
             btnAddFile.setVisible(false);
             scrollpaneListedMessages.setPrefHeight(700);
+            lblChatName.setOnMouseClicked(null);
         }
 
         this.chat = chat;
@@ -90,7 +91,7 @@ public class ChatController extends BaseController {
 
         try {
             applicationManager.getChatRepository().resetUnreadCount(chat.getId(), applicationManager.getCurrentUser().getId());
-            chat.setMessages((ArrayList<Message>) applicationManager.getMessageRepository().getMessagesByChatId(chat.getId()));
+            chat.setMessages(applicationManager.getMessageRepository().getMessagesByChatId(chat.getId()));
             for (Message message : this.chat.getMessages()) {
                 loadMessage(message);
             }

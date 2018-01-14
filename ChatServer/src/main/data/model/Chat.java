@@ -92,9 +92,14 @@ public class Chat {
      * set the users of the chat
      *
      * @param users list of participants in the chat
+     * @throws IllegalArgumentException if this chat type is private and users is > 2
      */
-    public void setUsers(final List<User> users) {
-        this.users = users;
+    public void setUsers(final List<User> users) throws IllegalArgumentException {
+        if (chatType == ChatType.PRIVATE && users.size() > 2) {
+            throw new IllegalArgumentException("users can not be > 2 if chat type is private");
+        } else {
+            this.users = users;
+        }
     }
 
     /**

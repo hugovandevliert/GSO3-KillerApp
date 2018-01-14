@@ -100,7 +100,7 @@ public class ChatMySqlContext implements IChatContext {
         ResultSet resultSet = DatabaseHandler.setData(query.toString(), values.toArray(new String[0]), true);
         if (resultSet.next()) {
             Chat chat = new Chat(resultSet.getInt(1), chatName, chatType);
-            chat.setUsers((ArrayList<User>) chatUsers);
+            chat.setUsers(chatUsers);
             return chat;
         } else {
             return null;

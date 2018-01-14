@@ -1,12 +1,22 @@
 package model;
 
+import main.data.model.Chat;
+import main.data.model.Message;
+import main.data.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 class ChatTest {
+    private Chat chat;
+    private ArrayList<Message> messages;
+    private Message message;
+    private ArrayList<User> users;
 
     @BeforeEach
     void setUp() {
+        chat = new Chat(1, "testChat", Chat.ChatType.GROUP);
     }
 
     @Test

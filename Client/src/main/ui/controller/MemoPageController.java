@@ -33,7 +33,7 @@ public class MemoPageController extends BaseController implements IChatPageContr
             e.printStackTrace();
         }
         final List<Chat> memos = applicationManager.getCurrentUser().getMemos();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
+        FXMLLoader fxmlLoader;
 
         for (Chat memo : memos) {
             try {
@@ -41,6 +41,7 @@ public class MemoPageController extends BaseController implements IChatPageContr
             } catch (SQLException | ConnectException e) {
                 showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
             }
+            fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/listedChat.fxml"));
             final Pane listedChatPane = fxmlLoader.load();
             final ListedChatController listedChatController = fxmlLoader.getController();
 
