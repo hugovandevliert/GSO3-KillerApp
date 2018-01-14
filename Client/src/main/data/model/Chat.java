@@ -69,7 +69,11 @@ public class Chat {
      * @return all messages in this chat
      */
     public List<Message> getMessages() {
-        return Collections.unmodifiableList(messages);
+        if (messages == null) {
+            return null;
+        } else {
+            return Collections.unmodifiableList(messages);
+        }
     }
 
     /**
@@ -85,7 +89,11 @@ public class Chat {
      * @return all users in this chat
      */
     public List<User> getUsers() {
-        return Collections.unmodifiableList(users);
+        if (users == null) {
+            return null;
+        } else {
+            return Collections.unmodifiableList(users);
+        }
     }
 
     /**
@@ -94,7 +102,7 @@ public class Chat {
      * @param users list of participants in the chat
      * @throws IllegalArgumentException if this chat type is private and users is > 2
      */
-    public void setUsers(final List<User> users) throws IllegalArgumentException {
+    public void setUsers(final List<User> users) {
         if (chatType == ChatType.PRIVATE && users.size() > 2) {
             throw new IllegalArgumentException("users can not be > 2 if chat type is private");
         } else {
@@ -103,7 +111,7 @@ public class Chat {
     }
 
     /**
-     * @return the unread count (will return "999+" if over 999)
+     * @return the amount of unread messages (will return "999+" if over 999)
      */
     public String getUnreadCount() {
         if (unreadCount > 999) {

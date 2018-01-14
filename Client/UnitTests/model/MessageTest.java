@@ -59,7 +59,7 @@ class MessageTest {
 
     @Test
     void getFileId() {
-        assertEquals(java.util.Optional.of(2), message.getFileId(), "This should have been 2");
+        assertEquals(java.util.Optional.ofNullable(2), java.util.Optional.ofNullable(message.getFileId()), "This should have been 2");
     }
 
     @Test

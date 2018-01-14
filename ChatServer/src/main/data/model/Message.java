@@ -51,8 +51,11 @@ public class Message implements Serializable {
      * @return text in this message
      */
     public String getText() {
-        if (file != null) return file.getFile().getName();
-        else return text;
+        if (file != null) {
+            return file.getFile().getName();
+        } else {
+            return text;
+        }
     }
 
     /**

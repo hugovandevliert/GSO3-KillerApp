@@ -75,7 +75,11 @@ public class User {
      * @return private chats this user is participating in
      */
     public List<Chat> getPrivateChats() {
-        return Collections.unmodifiableList(privateChats);
+        if (privateChats == null) {
+            return null;
+        } else {
+            return Collections.unmodifiableList(privateChats);
+        }
     }
 
     /**
@@ -91,7 +95,11 @@ public class User {
      * @return group chats this user is participating in
      */
     public List<Chat> getGroupChats() {
-        return Collections.unmodifiableList(groupChats);
+        if (groupChats == null) {
+            return null;
+        } else {
+            return Collections.unmodifiableList(groupChats);
+        }
     }
 
     /**
@@ -107,7 +115,11 @@ public class User {
      * @return memos this user has sent or received
      */
     public List<Chat> getMemos() {
-        return Collections.unmodifiableList(memos);
+        if (memos == null) {
+            return null;
+        } else {
+            return Collections.unmodifiableList(memos);
+        }
     }
 
     /**

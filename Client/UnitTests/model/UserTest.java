@@ -50,6 +50,8 @@ class UserTest {
 
     @Test
     void getPrivateChatsAndSetPrivateChats() {
+        assertEquals(null, user.getPrivateChats(),"This should have been null");
+
         ArrayList<Chat> testUserChats = new ArrayList<>();
         testUserChats.add(testChat1);
         user.setPrivateChats(testUserChats);
@@ -61,6 +63,8 @@ class UserTest {
 
     @Test
     void getGroupChatsAndSetGroupChats() {
+        assertEquals(null, user.getGroupChats(),"This should have been null");
+
         ArrayList<Chat> testUserChats = new ArrayList<>();
         testUserChats.add(testChat1);
         testUserChats.add(testChat2);
@@ -74,6 +78,8 @@ class UserTest {
 
     @Test
     void getMemosAndSetMemos() {
+        assertEquals(null, user.getMemos(),"This should have been null");
+
         ArrayList<Chat> testUserChats = new ArrayList<>();
         testUserChats.add(testChat1);
         testUserChats.add(testChat2);
