@@ -28,7 +28,7 @@ class MessageTest {
     @Test
     void addFileAndGetFile() {
         File testFile = new File("\\UnitTests\\util\\testDocument.txt");
-        MessageFile messageFile = new MessageFile(testFile,"testDocument", "txt");
+        MessageFile messageFile = new MessageFile(testFile, "testDocument", "txt");
         message.addFile(messageFile);
 
         assertEquals(message.getFile(), testFile);

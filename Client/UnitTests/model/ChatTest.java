@@ -35,7 +35,7 @@ class ChatTest {
         users.add(testUser2);
         users.add(testUser3);
 
-        Message testMessage1 = new Message("testMessage1", testUser1.getId(), testUser1.getName(), chat.getId(), new Time(12,34,56), null);
+        Message testMessage1 = new Message("testMessage1", testUser1.getId(), testUser1.getName(), chat.getId(), new Time(12, 34, 56), null);
         Message testMessage2 = new Message("testMessage1", testUser2.getId(), testUser2.getName(), chat.getId(), new Time(23, 45, 56), null);
         lastSentMessage = new Message("lastSentMessage", testUser3.getId(), testUser3.getName(), chat.getId(), new Time(23, 55, 56), null);
 
@@ -124,7 +124,7 @@ class ChatTest {
 
         chat.setUnreadCount(20);
 
-        assertEquals("20", chat.getUnreadCount(),"This should have been 20");
+        assertEquals("20", chat.getUnreadCount(), "This should have been 20");
     }
 
     @Test
