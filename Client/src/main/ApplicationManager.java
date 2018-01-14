@@ -76,7 +76,7 @@ public class ApplicationManager {
             throw new IllegalArgumentException("Password should not only contain numbers");
         } else if (password.length() > 32) {
             throw new IllegalArgumentException("Password should not exceed 32 characters");
-        } else if (function.equals("function")) {
+        } else if (function == null) {
             throw new IllegalArgumentException("Please choose a function");
         }
 

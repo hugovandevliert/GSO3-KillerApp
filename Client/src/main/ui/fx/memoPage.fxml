@@ -24,7 +24,7 @@
                     <Cursor fx:constant="HAND"/>
                 </cursor>
             </JFXButton>
-            <Label fx:id="lblMemos" layoutX="50.0" layoutY="30.0" text="Memo's">
+            <Label fx:id="lblMemos" layoutX="50.0" layoutY="30.0" text="Memos">
                 <font>
                     <Font name="Segoe UI Semibold" size="28.0"/>
                 </font>

@@ -54,9 +54,9 @@ public class MemoPageController extends BaseController implements IChatPageContr
     public void createMemo() throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/createMemo.fxml"));
         final Pane newPane = fxmlLoader.load();
-        final CreateGroupChatController createGroupChatController = fxmlLoader.getController();
-        createGroupChatController.setParentPane(parentPane);
-        createGroupChatController.loadUsers((ArrayList<User>) applicationManager.getAllUsers());
+        final CreateMemoController createMemoController = fxmlLoader.getController();
+        createMemoController.setParentPane(parentPane);
+        createMemoController.loadFunctions();
 
         parentPane.getChildren().clear();
         parentPane.getChildren().add(newPane);

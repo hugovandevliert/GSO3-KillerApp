@@ -418,7 +418,7 @@ public class BaseController {
             public void run() {
                 Platform.runLater(() -> timelineAlertUp.play());
             }
-        }, 5000);
+        }, 4000);
     }
 
     private void showAlert(final Chat chat, final Message message, final Pane parentPane) throws IOException {
@@ -438,6 +438,6 @@ public class BaseController {
             public void run() {
                 Platform.runLater(() -> timelineAlertUp.play());
             }
-        }, 5000);
+        }, 4000);
     }
 }
