@@ -84,6 +84,7 @@ public class BaseController {
             if (applicationManager.login(txtUsername.getText(), txtPassword.getText())) {
                 txtPassword.setText("");
                 txtPasswordVisible.setText("");
+                cboxPasswordChanged();
                 paneContent.getChildren().remove(paneLogin);
                 timelineMenuIn.play();
                 paneContent.getChildren().addAll(lblProfile, lblPrivateChats, lblGroupChats, lblMemos);
@@ -122,6 +123,12 @@ public class BaseController {
     }
 
     public void openRegisterForm() {
+        txtUsername.setText("");
+        txtPassword.setText("");
+        txtPasswordVisible.setText("");
+        cboxPasword.setSelected(false);
+        cboxPasswordChanged();
+
         paneContent.getChildren().clear();
         paneContent.getChildren().add(paneRegister);
 
@@ -135,6 +142,8 @@ public class BaseController {
     public void cancelRegistration() {
         txtPasswordRegister.setText("");
         txtPasswordVisibleRegister.setText("");
+        cboxPaswordRegister.setSelected(false);
+        cboxPasswordChangedRegister();
         comboboxFunctionRegister.getItems().clear();
         paneContent.getChildren().clear();
         paneContent.getChildren().add(paneLogin);
@@ -148,7 +157,9 @@ public class BaseController {
             txtUsernameRegister.setText("");
             txtPasswordRegister.setText("");
             txtPasswordVisibleRegister.setText("");
+            cboxPaswordRegister.setSelected(false);
             comboboxFunctionRegister.getItems().clear();
+            cboxPasswordChangedRegister();
 
             paneContent.getChildren().clear();
             paneContent.getChildren().add(paneLogin);

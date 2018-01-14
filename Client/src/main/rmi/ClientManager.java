@@ -27,9 +27,7 @@ public class ClientManager {
     }
 
     public void setMessageClient(final MessageClient messageClient) {
-        if (messageClient != null) {
-            this.messageClient = messageClient;
-        }
+        this.messageClient = messageClient;
     }
 
     public AuthClient getAuthClient() {
@@ -37,9 +35,7 @@ public class ClientManager {
     }
 
     public void setAuthClient(AuthClient authClient) {
-        if (authClient != null) {
-            this.authClient = authClient;
-        }
+        this.authClient = authClient;
     }
 
     public Registry getRegistryMessage() {
