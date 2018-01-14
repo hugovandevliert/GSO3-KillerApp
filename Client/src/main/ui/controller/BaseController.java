@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -310,9 +311,7 @@ public class BaseController {
         EventHandler<ActionEvent> onFinishedUp = t -> {
                 try {
                     ((AnchorPane) paneAlert.getParent()).getChildren().remove(paneAlert);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }};
+                } catch (Exception ignored) {}};
 
         // Animation for scroll up
         timelineAlertUp.setCycleCount(1);
@@ -403,6 +402,7 @@ public class BaseController {
 
     void showAlert(final String message, final Pane parentPane) {
         new NotificationPlayer(ERROR).playSound();
+
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
         Pane paneAlert = null;
 
@@ -414,6 +414,10 @@ public class BaseController {
 
         final AlertController alertController = fxmlLoader.getController();
         alertController.setText(message);
+
+        if (timelineAlertUp != null) {
+            timelineAlertUp.play();
+        }
 
         setAlertAnimation(paneAlert);
         ((AnchorPane) parentPane.getParent()).getChildren().add(paneAlert);
@@ -434,6 +438,10 @@ public class BaseController {
         final AlertController alertController = fxmlLoader.getController();
         alertController.setParentPane(parentPane);
         alertController.setMessage(chat, message);
+
+        if (timelineAlertUp != null) {
+            timelineAlertUp.play();
+        }
 
         setAlertAnimation(paneAlert);
         ((AnchorPane) parentPane.getParent()).getChildren().add(paneAlert);
