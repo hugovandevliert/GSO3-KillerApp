@@ -4,8 +4,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 
-import static main.util.constant.constants.SERVER_IP;
-import static main.util.constant.constants.SERVER_NAME_THAT_HANDLES_AUTHENTICATION;
+import static main.util.constant.Constants.SERVER_IP;
+import static main.util.constant.Constants.SERVER_NAME_THAT_HANDLES_AUTHENTICATION;
 
 public class AuthClient {
     private IAuthServer server;

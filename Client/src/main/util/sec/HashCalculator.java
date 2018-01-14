@@ -8,17 +8,16 @@ import java.security.SecureRandom;
 public class HashCalculator {
     public String hashString(final String password, final String salt) {
         if (password != null && salt != null) {
-            MessageDigest messageDigest = null;
             try {
-                messageDigest = MessageDigest.getInstance("SHA-256");
+                MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
                 String passwordToHash = "592" + password + salt;
                 messageDigest.update(passwordToHash.getBytes("UTF-8"));
+
+                byte[] digest = messageDigest.digest();
+                return String.format("%064x", new java.math.BigInteger(1, digest));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-
-            byte[] digest = messageDigest.digest();
-            return String.format("%064x", new java.math.BigInteger(1, digest));
         }
         throw new IllegalArgumentException("Password can not be empty");
     }

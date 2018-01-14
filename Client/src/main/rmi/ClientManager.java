@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import static main.util.constant.constants.*;
+import static main.util.constant.Constants.*;
 
 public class ClientManager {
     private Registry registryAuth;

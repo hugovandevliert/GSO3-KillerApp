@@ -3,7 +3,6 @@ package model;
 import main.data.model.Chat;
 import main.data.model.Message;
 import main.data.model.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -115,6 +113,8 @@ class ChatTest {
             caught = t;
         }
         assertNotNull(caught);
+
+        if (caught == null) return; //Needed for SonarQube......
         assertEquals(IllegalArgumentException.class, caught.getClass(), "This should be an IllegalArgumentException");
     }
 

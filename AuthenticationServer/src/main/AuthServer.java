@@ -9,7 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import static main.util.constant.constants.*;
+import static main.util.constant.Constants.*;
 
 public class AuthServer extends UnicastRemoteObject implements IAuthServer {
     private transient Registry authRegistry;
@@ -21,10 +21,10 @@ public class AuthServer extends UnicastRemoteObject implements IAuthServer {
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
         authRegistry = LocateRegistry.createRegistry(PORT_NUMBER_AUTH);
-        System.out.println("Created authentication authRegistry on port " + PORT_NUMBER_AUTH);
+        //System.out.println("Created authentication authRegistry on port " + PORT_NUMBER_AUTH);
 
         authRegistry.rebind(SERVER_NAME_THAT_HANDLES_AUTHENTICATION, this);
-        System.out.println("Rebinded " + SERVER_NAME_THAT_HANDLES_AUTHENTICATION + " to publisher to receive authentication requests from clients");
+        //System.out.println("Rebinded " + SERVER_NAME_THAT_HANDLES_AUTHENTICATION + " to publisher to receive authentication requests from clients");
     }
 
     public static void main(String[] args) {

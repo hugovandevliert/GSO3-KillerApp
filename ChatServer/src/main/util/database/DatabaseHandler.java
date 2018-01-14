@@ -7,8 +7,12 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseHandler {
+    private final static Logger LOGGER = Logger.getLogger(DatabaseHandler.class.getName());
+
     private static String server;
     private static String username;
     private static String password;
@@ -16,7 +20,7 @@ public class DatabaseHandler {
 
     private static String connectionError = "Could not connect to database.";
 
-    public static Connection getConnection() throws ConnectException {
+    public static Connection getConnection() {
         if (server == null || username == null || password == null) {
             try (FileInputStream fileInput = new FileInputStream("Client/src/main/util/database/DatabaseCredentials.properties")) {
 
@@ -28,21 +32,20 @@ public class DatabaseHandler {
                 username = properties.getProperty("username");
                 password = properties.getProperty("password");
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.WARNING, e.toString(), e);
             }
         }
 
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(server, username, password);
-            } catch (SQLException exception) {
+            } catch (SQLException e) {
                 connection = null;
-                exception.printStackTrace();
+                LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         }
         return connection;
     }
-
     public static ResultSet getData(final String query, final String[] values) throws SQLException, ConnectException {
         PreparedStatement preparedStatement;
 
@@ -60,7 +63,11 @@ public class DatabaseHandler {
                 fillPreparedStatementRowWithValue(preparedStatement, values[i], index);
             }
         }
-        return preparedStatement.executeQuery();
+        try {
+            return preparedStatement.executeQuery();
+        } finally {
+            preparedStatement.close();
+        }
     }
 
     public static ResultSet setData(final String query, final String[] values, final boolean isUpdateQuery) throws ConnectException, SQLException {

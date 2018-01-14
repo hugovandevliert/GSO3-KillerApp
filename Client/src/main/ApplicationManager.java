@@ -14,7 +14,6 @@ import main.util.sec.HashCalculator;
 
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationManager {

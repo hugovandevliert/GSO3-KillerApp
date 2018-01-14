@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class ChatController extends BaseController {

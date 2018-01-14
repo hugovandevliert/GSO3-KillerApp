@@ -5,12 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.data.model.Chat;
-import main.data.model.User;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MemoPageController extends BaseController implements IChatPageController {

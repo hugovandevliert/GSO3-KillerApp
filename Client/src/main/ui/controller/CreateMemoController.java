@@ -53,6 +53,7 @@ public class CreateMemoController extends BaseController {
             final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/chat.fxml"));
             Pane newContentPane = null;
             ChatController chatController = null;
+            Integer chatId = null;
 
             try {
                 for (User user : applicationManager.getAllUsers()) {
@@ -64,6 +65,7 @@ public class CreateMemoController extends BaseController {
                 newContentPane = fxmlLoader.load();
 
                 chatController = fxmlLoader.getController();
+                chatId = chatController.getChatId();
                 chatController.loadChat(applicationManager.getChatRepository().createChat("Memo to: " + comboboxFunction.getValue(), Chat.ChatType.MEMO, users));
             } catch (SQLException | ConnectException e) {
                 showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
@@ -72,8 +74,13 @@ public class CreateMemoController extends BaseController {
                 ex.printStackTrace();
             }
 
+            if (chatId == null) {
+                showAlert("An unknown error has occurred", parentPane);
+                return;
+            }
+
             Message message = new Message(txtMemoText.getText(), applicationManager.getCurrentUser().getId(),
-                    applicationManager.getCurrentUser().getName(), chatController.getChatId(), new Time(new Date().getTime()), null);
+                    applicationManager.getCurrentUser().getName(), chatId, new Time(new Date().getTime()), null);
             applicationManager.getClientManager().getMessageClient().sendMessage(message);
             chatController.loadMessage(message);
 

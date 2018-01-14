@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MessageTest {
     private User user;

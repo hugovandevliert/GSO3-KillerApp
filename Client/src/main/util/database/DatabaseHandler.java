@@ -19,7 +19,7 @@ public class DatabaseHandler {
 
     private static String connectionError = "Could not connect to database.";
 
-    public static Connection getConnection() throws ConnectException {
+    public static Connection getConnection() {
         if (server == null || username == null || password == null) {
             try (FileInputStream fileInput = new FileInputStream("Client/src/main/util/database/DatabaseCredentials.properties")) {
 
@@ -37,9 +37,9 @@ public class DatabaseHandler {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(server, username, password);
-            } catch (SQLException exception) {
+            } catch (SQLException e) {
                 connection = null;
-                exception.printStackTrace();
+                e.printStackTrace();
             }
         }
         return connection;
@@ -62,11 +62,14 @@ public class DatabaseHandler {
                 fillPreparedStatementRowWithValue(preparedStatement, values[i], index);
             }
         }
-        return preparedStatement.executeQuery();
+        try {
+            return preparedStatement.executeQuery();
+        } finally {
+            preparedStatement.close();
+        }
     }
 
     public static ResultSet setData(final String query, final String[] values, final boolean isUpdateQuery) throws ConnectException, SQLException {
-        ResultSet generatedId;
         PreparedStatement preparedStatement;
 
         final Connection connection = DatabaseHandler.getConnection();
@@ -90,13 +93,14 @@ public class DatabaseHandler {
             preparedStatement.executeQuery();
         }
 
-        generatedId = preparedStatement.getGeneratedKeys();
-
-        return generatedId;
+        try {
+            return preparedStatement.getGeneratedKeys();
+        } finally {
+            preparedStatement.close();
+        }
     }
 
     public static ResultSet setData(final String query, final MessageFile messageFile, final String name, final String extension) throws SQLException, ConnectException {
-        ResultSet fileId;
         PreparedStatement preparedStatement;
 
         final Connection connection = DatabaseHandler.getConnection();
@@ -120,9 +124,11 @@ public class DatabaseHandler {
 
         preparedStatement.executeUpdate();
 
-        fileId = preparedStatement.getGeneratedKeys();
-
-        return fileId;
+        try {
+            return preparedStatement.getGeneratedKeys();
+        } finally {
+            preparedStatement.close();
+        }
     }
 
     private static void fillPreparedStatementRowWithValue(final PreparedStatement preparedStatement, final String value, final int index) throws SQLException {

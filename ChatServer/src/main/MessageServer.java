@@ -13,10 +13,14 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static main.util.constant.constants.*;
+import static main.util.constant.Constants.*;
 
 public class MessageServer extends UnicastRemoteObject implements IMessageServer {
+    private final static Logger LOGGER = Logger.getLogger(MessageServer.class.getName());
+
     private transient IRemotePublisherForDomain publisher;
     private transient MessageServerRepository messageServerRepository = new MessageServerRepository();
 
@@ -26,21 +30,21 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
         System.setProperty("java.rmi.server.hostname", SERVER_IP);
 
         Registry registry = LocateRegistry.createRegistry(PORT_NUMBER_MESSAGE);
-        System.out.println("Created message registry on port " + PORT_NUMBER_MESSAGE);
+        LOGGER.log(Level.INFO, String.format("Created message registry on port %d", PORT_NUMBER_MESSAGE));
 
         publisher = new RemotePublisher();
         registry.rebind(SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS, publisher);
-        System.out.println("Rebinded " + SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS + " to publisher for message pushing to clients");
+        LOGGER.log(Level.INFO, String.format("Rebinded %s to publisher for message pushing to clients", SERVER_NAME_THAT_PUSHES_MESSAGES_TO_CLIENTS));
 
         registry.rebind(SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS, this);
-        System.out.println("Rebinded " + SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS + " to publisher for message receiving from clients");
+        LOGGER.log(Level.INFO, String.format("Rebinded %s to publisher for message receiving from clients", SERVER_NAME_THAT_RECEIVES_MESSAGES_FROM_CLIENTS));
     }
 
     public static void main(String[] args) {
         try {
             new MessageServer();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
@@ -49,7 +53,7 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
         try {
             messageServerRepository.addMessage(message);
         } catch (SQLException | ConnectException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, e.toString(), e);
         }
 
         try {
@@ -59,8 +63,9 @@ public class MessageServer extends UnicastRemoteObject implements IMessageServer
                 }
             }
         } catch (SQLException | ConnectException e) {
-            e.printStackTrace();
-        } catch (RemoteException ignored) {
+            LOGGER.log(Level.WARNING, e.toString(), e);
+        } catch (RemoteException ex) {
+            LOGGER.log(Level.FINE, ex.toString(), ex);
         }
     }
 }

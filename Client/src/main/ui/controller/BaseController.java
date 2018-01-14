@@ -14,7 +14,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -26,7 +25,6 @@ import javafx.util.Duration;
 import main.ApplicationManager;
 import main.data.model.Chat;
 import main.data.model.Message;
-import main.data.model.User;
 import main.rmi.AuthClient;
 import main.rmi.MessageClient;
 import main.util.sound.NotificationPlayer;
@@ -36,13 +34,12 @@ import java.net.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static main.util.constant.constants.ERROR;
-import static main.util.constant.constants.NEW_MESSAGE;
+import static main.util.constant.Constants.ERROR;
+import static main.util.constant.Constants.NEW_MESSAGE;
 
 public class BaseController {
     final static ApplicationManager applicationManager = new ApplicationManager();

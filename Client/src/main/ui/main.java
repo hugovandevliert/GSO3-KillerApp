@@ -9,7 +9,8 @@ import javafx.stage.StageStyle;
 import main.ui.controller.BaseController;
 
 public class main extends Application {
-    private double xOffset, yOffset;
+    private double xOffset;
+    private double yOffset;
 
     @Override
     public void start(Stage primaryStage) throws Exception {

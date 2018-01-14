@@ -4,7 +4,6 @@ import fontyspublisher.IRemotePublisherForListener;
 import javafx.application.Platform;
 import main.data.model.Message;
 import main.ui.controller.BaseController;
-import main.util.sound.NotificationPlayer;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import static main.util.constant.constants.*;
+import static main.util.constant.Constants.*;
 
 public class MessageClient extends UnicastRemoteObject implements IMessageClient {
     private transient final BaseController baseController;
