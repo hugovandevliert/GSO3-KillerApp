@@ -62,11 +62,8 @@ public class DatabaseHandler {
                 fillPreparedStatementRowWithValue(preparedStatement, values[i], index);
             }
         }
-        try {
-            return preparedStatement.executeQuery();
-        } finally {
-            preparedStatement.close();
-        }
+
+        return preparedStatement.executeQuery();
     }
 
     public static ResultSet setData(final String query, final String[] values, final boolean isUpdateQuery) throws ConnectException, SQLException {
@@ -93,11 +90,7 @@ public class DatabaseHandler {
             preparedStatement.executeQuery();
         }
 
-        try {
-            return preparedStatement.getGeneratedKeys();
-        } finally {
-            preparedStatement.close();
-        }
+        return preparedStatement.getGeneratedKeys();
     }
 
     public static ResultSet setData(final String query, final MessageFile messageFile, final String name, final String extension) throws SQLException, ConnectException {
@@ -124,11 +117,7 @@ public class DatabaseHandler {
 
         preparedStatement.executeUpdate();
 
-        try {
-            return preparedStatement.getGeneratedKeys();
-        } finally {
-            preparedStatement.close();
-        }
+        return preparedStatement.getGeneratedKeys();
     }
 
     private static void fillPreparedStatementRowWithValue(final PreparedStatement preparedStatement, final String value, final int index) throws SQLException {

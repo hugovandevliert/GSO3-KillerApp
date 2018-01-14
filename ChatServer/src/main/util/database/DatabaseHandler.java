@@ -63,11 +63,8 @@ public class DatabaseHandler {
                 fillPreparedStatementRowWithValue(preparedStatement, values[i], index);
             }
         }
-        try {
-            return preparedStatement.executeQuery();
-        } finally {
-            preparedStatement.close();
-        }
+
+        return preparedStatement.executeQuery();
     }
 
     public static ResultSet setData(final String query, final String[] values, final boolean isUpdateQuery) throws ConnectException, SQLException {
