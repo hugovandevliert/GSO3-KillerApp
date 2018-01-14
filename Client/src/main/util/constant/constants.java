@@ -8,4 +8,7 @@ public class constants {
     public static final String SERVER_IP = "localhost";
     public static final int PORT_NUMBER_MESSAGE = 1098;
     public static final int PORT_NUMBER_AUTH = 1099;
+
+    public static final String NEW_MESSAGE = "Client/src/main/util/sound/New_Message_Beep.mp3";
+    public static final String ERROR = "Client/src/main/util/sound/Error_Beep.mp3";
 }

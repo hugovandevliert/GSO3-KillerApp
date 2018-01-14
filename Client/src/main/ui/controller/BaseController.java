@@ -28,6 +28,7 @@ import main.data.model.Message;
 import main.data.model.User;
 import main.rmi.AuthClient;
 import main.rmi.MessageClient;
+import main.util.sound.NotificationPlayer;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -38,6 +39,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static main.util.constant.constants.ERROR;
+import static main.util.constant.constants.NEW_MESSAGE;
 
 public class BaseController {
     final static ApplicationManager applicationManager = new ApplicationManager();
@@ -377,6 +381,8 @@ public class BaseController {
     }
 
     public void displayMessage(final Message message) throws IOException {
+        new NotificationPlayer(NEW_MESSAGE).playSound();
+
         //Don't display message if the chat is already opened.
         if (applicationManager.getOpenedChat() != null && applicationManager.getOpenedChat().getChatId() == message.getChatId()) {
             applicationManager.getOpenedChat().loadMessage(message);
@@ -396,6 +402,7 @@ public class BaseController {
     }
 
     void showAlert(final String message, final Pane parentPane) {
+        new NotificationPlayer(ERROR).playSound();
         final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/ui/fx/alert.fxml"));
         Pane paneAlert = null;
 
