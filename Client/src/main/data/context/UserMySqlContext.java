@@ -51,7 +51,8 @@ public class UserMySqlContext implements IUserContext {
     public List<User> getAllUsers() throws SQLException, ConnectException {
         final String query = "SELECT u.id, u.username, u.name, f.name AS `function` FROM `User` u " +
                 "INNER JOIN userfunction uf ON uf.userid = u.id " +
-                "INNER JOIN `function` f ON uf.functionId = f.id ";
+                "INNER JOIN `function` f ON uf.functionId = f.id " +
+                "ORDER BY u.name";
         final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{});
         List<User> users = new ArrayList<>();
 
@@ -68,7 +69,8 @@ public class UserMySqlContext implements IUserContext {
                 "INNER JOIN userchats uc ON uc.userId = u.id " +
                 "INNER JOIN userfunction uf ON uf.userid = u.id " +
                 "INNER JOIN `function` f ON uf.functionId = f.id " +
-                "WHERE uc.chatId = ?";
+                "WHERE uc.chatId = ? " +
+                "ORDER BY u.name";
         final ResultSet resultSet = DatabaseHandler.getData(query, new String[]{String.valueOf(chatId)});
         List<User> users = new ArrayList<>();
 
