@@ -65,8 +65,8 @@ public class CreateMemoController extends BaseController {
                 newContentPane = fxmlLoader.load();
 
                 chatController = fxmlLoader.getController();
-                chatId = chatController.getChatId();
                 chatController.loadChat(applicationManager.getChatRepository().createChat("Memo to: " + comboboxFunction.getValue(), Chat.ChatType.MEMO, users));
+                chatId = chatController.getChatId();
             } catch (SQLException | ConnectException e) {
                 showAlert("Unable to connect to database.\nError: " + e.getMessage(), parentPane);
                 e.printStackTrace();
